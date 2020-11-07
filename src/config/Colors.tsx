@@ -1,0 +1,17 @@
+export const Colors = {
+  white: '#FFFFFF',
+  black100: '#343434',
+  black200: '#96959B',
+  black300: '#C0C1C6',
+  black400: '#E7E9EB',
+  black500: '#F1F3F5',
+  black600: '#F7F8FA',
+  mainPrimary: '#21A038',
+  mainSecondary: '#FECB00',
+  notificationError: '#FE3D25',
+  notificationSuccess: '#32D74B',
+  colorAccentSecondary: '#FF3366',
+  transparent: 'transparent',
+  skeletonWhite: '#FFFE',
+  skeletonBlack: '#000E',
+};
