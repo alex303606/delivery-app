@@ -7,5 +7,8 @@ export const ruTranslation = {
       search: 'Поиск',
       profile: 'Профиль',
     },
+    notifications: {
+      noConnection: 'Нет соединения с интернетом',
+    },
   },
 };

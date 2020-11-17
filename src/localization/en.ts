@@ -7,5 +7,8 @@ export const enTranslation = {
       search: 'Search',
       profile: 'Profile',
     },
+    notifications: {
+      noConnection: 'Нет соединения с интернетом',
+    },
   },
 };

@@ -9,6 +9,8 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
+import com.facebook.react.bridge.JSIModulePackage; // <- add
+import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- add
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -18,6 +20,11 @@ public class MainApplication extends Application implements ReactApplication {
         @Override
         public boolean getUseDeveloperSupport() {
           return BuildConfig.DEBUG;
+        }
+
+       @Override
+            protected JSIModulePackage getJSIModulePackage() {
+            return new ReanimatedJSIModulePackage();
         }
 
         @Override

@@ -14,4 +14,5 @@ export const Colors = {
   transparent: 'transparent',
   skeletonWhite: '#FFFE',
   skeletonBlack: '#000E',
+  statusBarBackgroundColor: '#ffffff',
 };

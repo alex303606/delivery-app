@@ -28,7 +28,8 @@
     "react-native-screens": "^2.13.0",
     "react-native-vector-icons": "^7.1.0",
     "rn-async-storage-flipper": "^0.0.9",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "react-native-reanimated": "^2.0.0-alpha.8"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

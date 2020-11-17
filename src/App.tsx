@@ -12,11 +12,13 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 import {enableScreens} from 'react-native-screens';
 import {AppearanceProvider, useColorScheme} from 'react-native-appearance';
-import {Text} from 'react-native';
+import {Text, StatusBar} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {createStackNavigator} from '@react-navigation/stack';
 import {RootTabs} from '@navigators';
-import {PresentationDependencies} from '@interfaces';
+import {PresentationDependencies, EScreens} from '@interfaces';
+import {Colors} from '@config';
+import {ConnectionHandler} from '@components';
 
 enableScreens();
 const Stack = createStackNavigator();
@@ -29,30 +31,35 @@ const getMainComponent = (deps: PresentationDependencies) => {
     return (
       <DependenciesContext.Provider
         value={UIDependenciesServiceLocator.init(deps)}>
-        <AppearanceProvider>
-          <NavigationContainer
-            ref={navigationService.navigationRef}
-            onReady={() => {
-              navigationService.isReadyRef.current = true;
-            }}
-            fallback={<Text>Loading...</Text>}
-            theme={
-              systemColorScheme === 'dark'
-                ? navigationThemeDark
-                : navigationTheme
-            }>
-            <ThemeProvider
+        <SafeAreaProvider>
+          <AppearanceProvider>
+            <NavigationContainer
+              ref={navigationService.navigationRef}
+              onReady={() => {
+                navigationService.isReadyRef.current = true;
+              }}
+              fallback={<Text>Loading...</Text>}
               theme={
-                systemColorScheme === 'dark' ? styledThemeDark : styledTheme
+                systemColorScheme === 'dark'
+                  ? navigationThemeDark
+                  : navigationTheme
               }>
-              <SafeAreaProvider>
+              <ThemeProvider
+                theme={
+                  systemColorScheme === 'dark' ? styledThemeDark : styledTheme
+                }>
+                <StatusBar
+                  barStyle="dark-content"
+                  backgroundColor={Colors.statusBarBackgroundColor}
+                />
+                <ConnectionHandler />
                 <Stack.Navigator headerMode="none">
-                  <Stack.Screen name="RootTabs" component={RootTabs} />
+                  <Stack.Screen name={EScreens.ROOT_TABS} component={RootTabs} />
                 </Stack.Navigator>
-              </SafeAreaProvider>
-            </ThemeProvider>
-          </NavigationContainer>
-        </AppearanceProvider>
+              </ThemeProvider>
+            </NavigationContainer>
+          </AppearanceProvider>
+        </SafeAreaProvider>
       </DependenciesContext.Provider>
     );
   };
