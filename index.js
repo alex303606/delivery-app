@@ -3,6 +3,7 @@ import {name} from './app.json';
 import React from 'react';
 import {AppRegistry, View, StyleSheet, ActivityIndicator} from 'react-native';
 import './src/utils/flipper';
+import axios from 'axios';
 
 class RootComponent extends React.Component {
   state = {
@@ -44,5 +45,25 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
 });
+
+axios.defaults.baseURL = 'http://brandgallery.kido.kg/api/';
+
+axios.interceptors.request.use(
+  (conf) => {
+    // Do something before request is sent
+    conf.data = {
+      params: {
+        API_KEY: '3YFtpQzbfg3TAomaXRrawJviX',
+        ...conf.data,
+      },
+    };
+
+    return conf;
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  },
+);
 
 AppRegistry.registerComponent(name, () => RootComponent);

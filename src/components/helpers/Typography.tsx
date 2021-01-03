@@ -10,7 +10,7 @@ export interface ColoredTextProps {
 }
 
 const coloredText = styled(Text)<ColoredTextProps & SpacingsProps>`
-  color: ${({color}) => color || Colors.black100};
+  color: ${({color}) => color || Colors.black};
   text-align: ${({textAlign}) => textAlign || 'left'};
   ${({flexShrink}) =>
     typeof flexShrink === 'number' ? `flex-shrink: ${flexShrink}` : ''}
@@ -59,6 +59,11 @@ const B14 = styled(bold)`
   line-height: 20px;
 `;
 
+const S14 = styled(semiBold)`
+  font-size: 14px;
+  line-height: 20px;
+`;
+
 const R16 = styled(regular)`
   font-size: 16px;
   line-height: 24px;
@@ -101,6 +106,7 @@ export const Typography = {
   B12,
   R14,
   B14,
+  S14,
   R16,
   B16,
   R20,

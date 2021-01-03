@@ -1,20 +1,14 @@
 import React from 'react';
-import { ActivityIndicator, View } from 'react-native';
-import EStyleSheet from 'react-native-extended-stylesheet';
+import {ActivityIndicator} from 'react-native';
+import {Block} from '@components';
+import {Colors} from '@config';
 
-const styles = EStyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#19112C',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-});
-
-const Loader = () => (
-	<View style={styles.container}>
-		<ActivityIndicator size="large" color={'white'}/>
-	</View>
+export const Loader = () => (
+  <Block
+    flex={1}
+    backgroundColor={Colors.background}
+    justifyContent="center"
+    alignItems="center">
+    <ActivityIndicator size="large" color={'white'} />
+  </Block>
 );
-
-export default Loader;

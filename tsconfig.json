@@ -61,6 +61,7 @@
       "@screens": ["src/screens/index.ts"],
       "@components": ["src/components/index.ts"],
       "@navigators": ["src/navigators/index.ts"],
+      "@actions": ["src/store/actions/index.ts"],
       "@utils": ["src/utils/index.ts"],
       "@config": ["src/config/index.ts"],
       "@hooks": ["src/hooks/index.ts"],

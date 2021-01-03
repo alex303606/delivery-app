@@ -1,7 +1,6 @@
 import React from 'react';
 import {useNetInfo} from '@hooks';
 import {NoConnection} from '@components';
-import {EShadow} from '@config';
 
 export const ConnectionHandler = React.memo(() => {
   const {isInternetReachable} = useNetInfo();
@@ -9,7 +8,7 @@ export const ConnectionHandler = React.memo(() => {
   return (
     <NoConnection
       isVisible={isInternetReachable === false}
-      elevation={EShadow.S}
+      elevation={2}
     />
   );
 });

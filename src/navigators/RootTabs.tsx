@@ -11,14 +11,14 @@ type LabelProps = {
   title: string;
 };
 
-const {Caption, CaptionSemibold} = Typography;
+const {R11, B11} = Typography;
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const Label: React.FC<LabelProps> = ({focused, title}) => {
   if (focused) {
-    return <CaptionSemibold color={Colors.black100}>{title}</CaptionSemibold>;
+    return <B11 color={Colors.black}>{title}</B11>;
   }
-  return <Caption color={Colors.black200}>{title}</Caption>;
+  return <R11 color={Colors.grey}>{title}</R11>;
 };
 
 export const RootTabs = () => {
@@ -30,13 +30,13 @@ export const RootTabs = () => {
         style: {
           height: 57,
           borderTopWidth: 1,
-          borderTopColor: Colors.black400,
+          borderTopColor: Colors.black,
         },
         tabStyle: {
           paddingTop: 11,
           paddingBottom: 4,
         },
-        inactiveTintColor: Colors.black200,
+        inactiveTintColor: Colors.grey,
         activeTintColor: Colors.mainPrimary,
       }}>
       <Tab.Screen

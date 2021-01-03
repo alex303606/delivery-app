@@ -12,6 +12,11 @@ export type HomeStackParamList = {
   [EScreens.HOME_SCREEN]: {sid: number};
 };
 
+export type AuthStackParamList = {
+  [EScreens.LOGIN_SCREEN]: undefined;
+  [EScreens.SMS_CODE_SCREEN]: undefined;
+};
+
 //TABS
 export type RootTabParamList = {
   [EScreens.HOME_STACK]: undefined;

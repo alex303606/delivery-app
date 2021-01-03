@@ -9,4 +9,6 @@ export enum EScreens {
   CART_STACK = 'CartStack',
   //SCREENS
   HOME_SCREEN = 'HomeScreen',
+  LOGIN_SCREEN = 'LoginScreen',
+  SMS_CODE_SCREEN = 'SmsCodeScreen',
 }

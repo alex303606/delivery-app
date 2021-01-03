@@ -2,7 +2,7 @@ import React from 'react';
 import {StatusBarNotification} from './StatusBarNotification';
 import styled from 'styled-components';
 import {Typography} from '@components';
-import {ESpacings, Colors} from '@config';
+import {Colors} from '@config';
 import {useTranslation} from 'react-i18next';
 
 interface NoConnectionProps {
@@ -10,10 +10,10 @@ interface NoConnectionProps {
   elevation: number;
 }
 
-const NoConnectionText = styled(Typography.Body)`
+const NoConnectionText = styled(Typography.R16)`
   line-height: 20px;
-  padding-top: ${ESpacings.s8}px;
-  padding-bottom: ${ESpacings.s8}px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   color: ${Colors.white};
 `;
 
