@@ -2,7 +2,7 @@ export const Colors = {
   white: '#FFFFFF',
   black: '#000000',
   grey: '#9B9B9B',
-  ripple: '#C0C1C6',
+  ripple: '#393939',
   mainPrimary: '#DB3022',
   background: '#E5E5E5',
   notificationError: '#FE3D25',
