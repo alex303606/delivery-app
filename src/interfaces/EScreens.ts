@@ -8,6 +8,7 @@ export enum EScreens {
   CART_STACK = 'CartStack',
   //SCREENS
   CATALOG_SCREEN = 'CatalogScreen',
+  CATALOG_ITEM_SCREEN = 'CatalogItemScreen',
   PROFILE_SCREEN = 'ProfileScreen',
   CARD_SCREEN = 'CardScreen',
   FAVORITES_SCREEN = 'FavoritesScreen',

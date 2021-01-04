@@ -10,11 +10,11 @@ export interface ICatalogItem {
   PICTURE: string;
 }
 
-export interface IProfileState {
+export interface ICatalogState {
   catalog: ICatalogItem[];
 }
 
-const initialState: IProfileState = {
+const initialState: ICatalogState = {
   catalog: [],
 };
 

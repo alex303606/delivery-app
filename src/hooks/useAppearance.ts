@@ -1,7 +1,7 @@
 import {Appearance} from 'react-native-appearance';
 import {Colors} from '@config';
 
-export const UseAppearance = () => {
+export const useAppearance = () => {
   const theme = Appearance.getColorScheme();
   const themeIsLight = theme === 'light';
 

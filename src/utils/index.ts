@@ -8,3 +8,4 @@ export * from './Permissions';
 export * from './dependencies';
 export * from './IUIDependenciesServiceLocator';
 export * from './phoneValidator';
+export * from './getImage';

@@ -3,6 +3,7 @@ import {NavigationContainerRef} from '@react-navigation/native';
 import {EScreens} from '@interfaces';
 import {E164Number} from 'libphonenumber-js';
 import {StackScreenProps} from '@react-navigation/stack';
+import {ICatalogItem} from 'src/store/reducers/catalog';
 
 export interface INavigationService {
   navigationRef: RefObject<NavigationContainerRef>;
@@ -17,6 +18,7 @@ export type AuthStackParamList = {
 
 export type CatalogStackParamList = {
   [EScreens.CATALOG_SCREEN]: undefined;
+  [EScreens.CATALOG_ITEM_SCREEN]: {parentItem: ICatalogItem};
 };
 
 export type CardStackParamList = {
@@ -34,6 +36,11 @@ export type FavoritesStackParamList = {
 export type AuthorizationScreenProps = StackScreenProps<
   AuthStackParamList,
   EScreens.SMS_CODE_SCREEN
+>;
+
+export type CatalogScreenProps = StackScreenProps<
+  CatalogStackParamList,
+  EScreens.CATALOG_ITEM_SCREEN
 >;
 
 //TABS

@@ -26,7 +26,7 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, appReducer);
-
+export type RootState = ReturnType<typeof appReducer>;
 export default () => {
   let store = createStore(persistedReducer, enhancers);
   let persistor = persistStore(store);

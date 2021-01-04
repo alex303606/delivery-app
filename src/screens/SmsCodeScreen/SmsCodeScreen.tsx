@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import {bindActionCreators} from 'redux';
-import {connect, ConnectedProps} from 'react-redux';
+import {connect} from 'react-redux';
 import {Block, Typography} from '@components';
 import {Colors, STATUSBAR_HEIGHT} from '@config';
 import {useTranslation} from 'react-i18next';
@@ -19,7 +19,12 @@ import {
 } from '@actions';
 import {AuthorizationScreenProps} from '@interfaces';
 import {ResendCodeButton} from './components/ResendCodeButton';
-import {UseAppearance} from '@hooks';
+import {useAppearance} from '@hooks';
+
+type Props = {
+  confirmationCode: ISendCode;
+  sendPhone: ISendPhoneNumber;
+} & AuthorizationScreenProps;
 
 const CELL_COUNT = 4;
 
@@ -34,13 +39,6 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 const connector = connect(null, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = {
-  confirmationCode: ISendCode;
-  sendPhone: ISendPhoneNumber;
-} & PropsFromRedux &
-  AuthorizationScreenProps;
 
 const SmsCodeScreenComponent: React.FC<Props> = (screenProps) => {
   const {
@@ -96,7 +94,7 @@ const SmsCodeScreenComponent: React.FC<Props> = (screenProps) => {
     />
   );
 
-  const {textColor} = UseAppearance();
+  const {textColor} = useAppearance();
 
   return (
     <Block flex={1} paddingTop={13 + STATUSBAR_HEIGHT} paddingHorizontal={16}>

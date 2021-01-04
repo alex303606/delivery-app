@@ -2,13 +2,18 @@ import React, {useEffect} from 'react';
 import {EScreens} from '@interfaces';
 import {AuthStack, RootTabs} from '@navigators';
 import {createStackNavigator} from '@react-navigation/stack';
-import {connect, ConnectedProps} from 'react-redux';
+import {connect} from 'react-redux';
 import {IProfileState} from 'src/store/reducers/profile';
 import {bindActionCreators} from 'redux';
 import {getSections} from '@actions';
+import {RootState} from 'src/store/configureStore';
 const Stack = createStackNavigator();
 
-const mapState = (state: {profile: IProfileState}) => ({
+type Props = {
+  getSections: () => void;
+} & IProfileState;
+
+const mapState = (state: RootState) => ({
   userIsLoggedIn: state.profile.userIsLoggedIn,
 });
 
@@ -22,12 +27,6 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 const connector = connect(mapState, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = {
-  userIsLoggedIn: boolean;
-  getSections: () => void;
-} & PropsFromRedux;
 
 export const RootStack: React.FC<Props> = (props) => {
   useEffect(() => {

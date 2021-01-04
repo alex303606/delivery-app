@@ -7,12 +7,16 @@ import {SelectCountryModal} from './components/SelectCountryModal';
 import {ICountry} from './interfaces';
 import {Keyboard} from 'react-native';
 import {phoneIsValid, parsePhoneToString} from '@utils';
-import {connect, ConnectedProps} from 'react-redux';
+import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {ISendPhoneNumber, sendPhone} from '@actions';
 import {useNavigation} from '@react-navigation/native';
 import {EScreens} from '@interfaces';
-import {UseAppearance, useLoading} from '@hooks';
+import {useAppearance, useLoading} from '@hooks';
+
+type Props = {
+  sendPhone: ISendPhoneNumber;
+};
 
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
@@ -24,11 +28,6 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 const connector = connect(null, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = {
-  sendPhone: ISendPhoneNumber;
-} & PropsFromRedux;
 
 const LoginScreenComponent: React.FC<Props> = (props) => {
   const {t} = useTranslation();
@@ -89,7 +88,7 @@ const LoginScreenComponent: React.FC<Props> = (props) => {
       hideLoader();
     });
   }, [phone, country, showLoader, props, hideLoader, navigation]);
-  const {textColor} = UseAppearance();
+  const {textColor} = useAppearance();
 
   return (
     <Block paddingHorizontal={16} paddingTop={54 + STATUSBAR_HEIGHT} flex={1}>
@@ -114,16 +113,6 @@ const LoginScreenComponent: React.FC<Props> = (props) => {
         title={t('getCode')}
         onPress={sendPhoneHandler}
       />
-      {/*<Button*/}
-      {/*  marginTop={20}*/}
-      {/*  title={t('getCode')}*/}
-      {/*  onPress={() => {*/}
-      {/*    navigation.navigate(EScreens.SMS_CODE_SCREEN, {*/}
-      {/*      currentTimeInMillis: Date.now(),*/}
-      {/*      phone: parsePhoneToString(phone, country),*/}
-      {/*    });*/}
-      {/*  }}*/}
-      {/*/>*/}
       <Typography.R16
         marginTop={20}
         textAlign="center"

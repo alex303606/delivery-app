@@ -10,7 +10,7 @@ import {
   FavoritesStack,
 } from '@navigators';
 import {useTranslation} from 'react-i18next';
-import {UseAppearance} from '@hooks';
+import {useAppearance} from '@hooks';
 
 type LabelProps = {
   focused: boolean;
@@ -29,7 +29,7 @@ const Label: React.FC<LabelProps> = ({focused, title}) => {
 
 export const RootTabs = () => {
   const {t} = useTranslation();
-  const {themeIsLight} = UseAppearance();
+  const {themeIsLight} = useAppearance();
 
   return (
     <Tab.Navigator
