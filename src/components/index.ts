@@ -7,3 +7,4 @@ export * from './PhoneInput';
 export * from './Modal';
 export * from './Button';
 export * from './Loader';
+export * from './FocusAwareStatusBar';

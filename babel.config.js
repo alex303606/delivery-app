@@ -14,6 +14,7 @@ module.exports = {
           '@config': './src/config/index.ts',
           '@hooks': './src/hooks/index.ts',
           '@actions': './src/store/actions/index.ts',
+          '^@assets/(.+)': './assets/\\1',
         },
       },
     ],

@@ -1,6 +1,7 @@
 import {applyMiddleware, combineReducers} from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import {userReducer} from './reducers/profile';
+import {catalogReducer} from './reducers/catalog';
 import {createStore} from 'redux';
 import {persistStore, persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -15,6 +16,7 @@ const enhancers = applyMiddleware.apply({}, middlewares);
 
 const appReducer = combineReducers({
   profile: userReducer,
+  catalog: catalogReducer,
 });
 
 const persistConfig = {

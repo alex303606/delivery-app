@@ -63,6 +63,7 @@ const getMainComponent = (deps: PresentationDependencies) => {
                         : styledTheme
                     }>
                     <StatusBar
+                      translucent={true}
                       barStyle={
                         systemColorScheme === 'dark'
                           ? 'light-content'

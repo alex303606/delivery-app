@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Block, PhoneInput, Typography, Button} from '@components';
 import {useTranslation} from 'react-i18next';
-import {Colors, COUNTRIES} from '@config';
+import {Colors, COUNTRIES, STATUSBAR_HEIGHT} from '@config';
 import {IHandles} from 'react-native-modalize/lib/options';
 import {SelectCountryModal} from './components/SelectCountryModal';
 import {ICountry} from './interfaces';
@@ -92,10 +92,7 @@ const LoginScreenComponent: React.FC<Props> = (props) => {
   const {textColor} = UseAppearance();
 
   return (
-    <Block
-      paddingHorizontal={16}
-      paddingTop={54}
-      flex={1}>
+    <Block paddingHorizontal={16} paddingTop={54 + STATUSBAR_HEIGHT} flex={1}>
       <Typography.B34 color={textColor} marginBottom={35}>
         {t('login')}
       </Typography.B34>

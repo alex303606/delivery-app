@@ -3,7 +3,12 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {EScreens, RootTabParamList} from '@interfaces';
 import {Typography, Icon, IconNames} from '@components';
 import {Colors} from '@config';
-import {CatalogStack, ProfileStack, CardStack, FavoritesStack} from '@navigators';
+import {
+  CatalogStack,
+  ProfileStack,
+  CardStack,
+  FavoritesStack,
+} from '@navigators';
 import {useTranslation} from 'react-i18next';
 import {UseAppearance} from '@hooks';
 

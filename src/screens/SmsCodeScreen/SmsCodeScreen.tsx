@@ -2,7 +2,7 @@ import React, {useEffect, useState, useCallback} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect, ConnectedProps} from 'react-redux';
 import {Block, Typography} from '@components';
-import {Colors} from '@config';
+import {Colors, STATUSBAR_HEIGHT} from '@config';
 import {useTranslation} from 'react-i18next';
 import {
   CodeField,
@@ -99,10 +99,7 @@ const SmsCodeScreenComponent: React.FC<Props> = (screenProps) => {
   const {textColor} = UseAppearance();
 
   return (
-    <Block
-      flex={1}
-      paddingTop={13}
-      paddingHorizontal={16}>
+    <Block flex={1} paddingTop={13 + STATUSBAR_HEIGHT} paddingHorizontal={16}>
       <Typography.B18 color={textColor} marginVertical={14}>
         {t('phoneNumberVerification')}
       </Typography.B18>
