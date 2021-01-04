@@ -3,7 +3,7 @@ import {Block, PhoneInput, Typography, Button} from '@components';
 import {useTranslation} from 'react-i18next';
 import {Colors, COUNTRIES} from '@config';
 import {IHandles} from 'react-native-modalize/lib/options';
-import {SelectCountryModal} from './SelectCountryModal';
+import {SelectCountryModal} from './components/SelectCountryModal';
 import {ICountry} from './interfaces';
 import {Keyboard} from 'react-native';
 import {phoneIsValid, parsePhoneToString} from '@utils';
@@ -79,6 +79,7 @@ const LoginScreenComponent: React.FC<Props> = (props) => {
     props.sendPhone(number).then((res) => {
       if (res && res.result) {
         navigation.navigate(EScreens.SMS_CODE_SCREEN, {
+          currentTimeInMillis: Date.now(),
           phone: parsePhoneToString(phone, country),
         });
       }
@@ -111,6 +112,16 @@ const LoginScreenComponent: React.FC<Props> = (props) => {
         marginTop={20}
         title={t('getCode')}
         onPress={sendPhoneHandler}
+      />
+      <Button
+        marginTop={20}
+        title={t('getCode')}
+        onPress={() => {
+          navigation.navigate(EScreens.SMS_CODE_SCREEN, {
+            currentTimeInMillis: Date.now(),
+            phone: parsePhoneToString(phone, country),
+          });
+        }}
       />
       <Typography.R16
         marginTop={20}

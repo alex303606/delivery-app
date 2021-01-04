@@ -34,7 +34,7 @@ export const confirmationCode = (
       .post('', params)
       .then((response) => {
         if (response && response.data) {
-          if (response.result) {
+          if (response.data.result) {
             dispatch(loginUserSuccess(response.data.user_id));
           }
           return response.data;

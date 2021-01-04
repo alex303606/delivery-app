@@ -16,7 +16,7 @@ export type HomeStackParamList = {
 
 export type AuthStackParamList = {
   [EScreens.LOGIN_SCREEN]: undefined;
-  [EScreens.SMS_CODE_SCREEN]: {phone: E164Number};
+  [EScreens.SMS_CODE_SCREEN]: {phone: E164Number; currentTimeInMillis: number};
 };
 
 export type AuthorizationScreenProps = StackScreenProps<

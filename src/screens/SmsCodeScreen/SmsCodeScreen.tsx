@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect, ConnectedProps} from 'react-redux';
 import {Block, Typography, Loader} from '@components';
@@ -10,12 +10,18 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
-import {CodeRootComponent} from './CodeRootComponent';
-import {SmsCodeCell} from './SmsCodeCell';
-import {confirmationCode, ISendCode} from '@actions';
+import {CodeRootComponent} from './components/CodeRootComponent';
+import {SmsCodeCell} from './components/SmsCodeCell';
+import {
+  confirmationCode,
+  ISendCode,
+  ISendPhoneNumber,
+  sendPhone,
+} from '@actions';
 import {AuthorizationScreenProps} from '@interfaces';
 import styled from 'styled-components';
 import {View} from 'react-native';
+import {ResendCodeButton} from './components/ResendCodeButton';
 
 const CELL_COUNT = 4;
 
@@ -23,6 +29,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
     {
       confirmationCode,
+      sendPhone,
     },
     dispatch,
   );
@@ -33,28 +40,29 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = {
   confirmationCode: ISendCode;
+  sendPhone: ISendPhoneNumber;
 } & PropsFromRedux &
   AuthorizationScreenProps;
 
 const SmsCodeScreenComponent: React.FC<Props> = (screenProps) => {
+  const {
+    route: {
+      params: {phone, currentTimeInMillis},
+    },
+  } = screenProps;
   const {t} = useTranslation();
   const {loading, showLoader, hideLoader} = useLoading();
   const [value, setValue] = useState('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
+  const [startTime, setStartTime] = useState(currentTimeInMillis);
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
-  const {
-    route: {
-      params: {phone},
-    },
-  } = screenProps;
 
   useEffect(() => {
     if (value.length === CELL_COUNT && phone) {
-      showLoader();
       screenProps.confirmationCode(phone, value).then((res) => {
         if (res && !res.result) {
           setErrorMessage(res.message);
@@ -69,6 +77,17 @@ const SmsCodeScreenComponent: React.FC<Props> = (screenProps) => {
       hideLoader();
     };
   });
+
+  const resendCodeHandler = useCallback(() => {
+    showLoader();
+    screenProps.sendPhone(phone).then((res) => {
+      if (!res.result || res.data.black_list) {
+        setErrorMessage(res.message);
+      }
+      hideLoader();
+      setStartTime(Date.now());
+    });
+  }, [phone, sendPhone]);
 
   const renderCell = ({
     index,
@@ -113,6 +132,12 @@ const SmsCodeScreenComponent: React.FC<Props> = (screenProps) => {
         keyboardType="number-pad"
         textContentType="oneTimeCode"
         renderCell={renderCell}
+      />
+      <ResendCodeButton
+        resendCode={resendCodeHandler}
+        loading={loading}
+        startTimeInMillis={startTime}
+        timeout={30}
       />
       <Typography.R16
         marginTop={20}
