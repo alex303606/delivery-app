@@ -1,14 +1,17 @@
-import {applyMiddleware, combineReducers, compose} from 'redux';
+import {applyMiddleware, combineReducers} from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import {userReducer} from './reducers/profile';
 import {createStore} from 'redux';
 import {persistStore, persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const middlewares = [thunkMiddleware];
 
-const enhancers = composeEnhancers(applyMiddleware.apply({}, middlewares));
+if (__DEV__) {
+  const createDebugger = require('redux-flipper').default;
+  middlewares.push(createDebugger());
+}
+const enhancers = applyMiddleware.apply({}, middlewares);
 
 const appReducer = combineReducers({
   profile: userReducer,
