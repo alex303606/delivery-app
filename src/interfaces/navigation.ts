@@ -10,13 +10,25 @@ export interface INavigationService {
   navigate: (name: EScreens, params: {[key: string]: any}) => void;
 }
 
-export type HomeStackParamList = {
-  [EScreens.HOME_SCREEN]: {sid: number};
-};
-
 export type AuthStackParamList = {
   [EScreens.LOGIN_SCREEN]: undefined;
   [EScreens.SMS_CODE_SCREEN]: {phone: E164Number; currentTimeInMillis: number};
+};
+
+export type CatalogStackParamList = {
+  [EScreens.CATALOG_SCREEN]: undefined;
+};
+
+export type CardStackParamList = {
+  [EScreens.CARD_SCREEN]: undefined;
+};
+
+export type ProfileStackParamList = {
+  [EScreens.PROFILE_SCREEN]: undefined;
+};
+
+export type FavoritesStackParamList = {
+  [EScreens.FAVORITES_SCREEN]: undefined;
 };
 
 export type AuthorizationScreenProps = StackScreenProps<

@@ -96,12 +96,11 @@ const SmsCodeScreenComponent: React.FC<Props> = (screenProps) => {
     />
   );
 
-  const {backgroundColor, textColor} = UseAppearance();
+  const {textColor} = UseAppearance();
 
   return (
     <Block
       flex={1}
-      backgroundColor={backgroundColor}
       paddingTop={13}
       paddingHorizontal={16}>
       <Typography.B18 color={textColor} marginVertical={14}>

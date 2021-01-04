@@ -1,17 +1,17 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {EScreens, CatalogStackParamList} from '@interfaces';
+import {EScreens, ProfileStackParamList} from '@interfaces';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {CatalogScreen} from '@screens';
+import {ProfileScreen} from '@screens';
 
-const Stack = createStackNavigator<CatalogStackParamList>();
+const Stack = createStackNavigator<ProfileStackParamList>();
 
-export const CatalogStack: React.FC<BottomTabScreenProps<any>> = () => {
+export const ProfileStack: React.FC<BottomTabScreenProps<any>> = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={EScreens.CATALOG_SCREEN}
-        component={CatalogScreen}
+        name={EScreens.PROFILE_SCREEN}
+        component={ProfileScreen}
         options={{
           headerShown: false,
         }}

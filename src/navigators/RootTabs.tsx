@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {EScreens, RootTabParamList} from '@interfaces';
 import {Typography, Icon, IconNames} from '@components';
 import {Colors} from '@config';
-import {CatalogStack} from '@navigators';
+import {CatalogStack, ProfileStack, CardStack, FavoritesStack} from '@navigators';
 import {useTranslation} from 'react-i18next';
 import {UseAppearance} from '@hooks';
 
@@ -63,7 +63,7 @@ export const RootTabs = () => {
       />
       <Tab.Screen
         name={EScreens.FAVORITES_STACK}
-        component={CatalogStack}
+        component={FavoritesStack}
         options={{
           tabBarLabel: ({focused}) => (
             <Label focused={focused} title={t('tabs.favorites')} />
@@ -83,7 +83,7 @@ export const RootTabs = () => {
       />
       <Tab.Screen
         name={EScreens.PROFILE_STACK}
-        component={CatalogStack}
+        component={ProfileStack}
         options={{
           tabBarLabel: ({focused}) => (
             <Label focused={focused} title={t('tabs.profile')} />
@@ -101,7 +101,7 @@ export const RootTabs = () => {
       />
       <Tab.Screen
         name={EScreens.CART_STACK}
-        component={CatalogStack}
+        component={CardStack}
         options={{
           tabBarLabel: ({focused}) => (
             <Label focused={focused} title={t('tabs.basket')} />

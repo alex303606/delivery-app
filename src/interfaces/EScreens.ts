@@ -7,7 +7,10 @@ export enum EScreens {
   PROFILE_STACK = 'ProfileStack',
   CART_STACK = 'CartStack',
   //SCREENS
-  HOME_SCREEN = 'HomeScreen',
+  CATALOG_SCREEN = 'CatalogScreen',
+  PROFILE_SCREEN = 'ProfileScreen',
+  CARD_SCREEN = 'CardScreen',
+  FAVORITES_SCREEN = 'FavoritesScreen',
   LOGIN_SCREEN = 'LoginScreen',
   SMS_CODE_SCREEN = 'SmsCodeScreen',
 }

@@ -89,11 +89,10 @@ const LoginScreenComponent: React.FC<Props> = (props) => {
       hideLoader();
     });
   }, [phone, country, showLoader, props, hideLoader, navigation]);
-  const {backgroundColor, textColor} = UseAppearance();
+  const {textColor} = UseAppearance();
 
   return (
     <Block
-      backgroundColor={backgroundColor}
       paddingHorizontal={16}
       paddingTop={54}
       flex={1}>
