@@ -12,7 +12,7 @@ import {bindActionCreators} from 'redux';
 import {ISendPhoneNumber, sendPhone} from '@actions';
 import {useNavigation} from '@react-navigation/native';
 import {EScreens} from '@interfaces';
-import {useLoading} from '@hooks';
+import {UseAppearance, useLoading} from '@hooks';
 
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
@@ -89,15 +89,20 @@ const LoginScreenComponent: React.FC<Props> = (props) => {
       hideLoader();
     });
   }, [phone, country, showLoader, props, hideLoader, navigation]);
+  const {backgroundColor, textColor} = UseAppearance();
 
   return (
     <Block
-      backgroundColor={Colors.background}
+      backgroundColor={backgroundColor}
       paddingHorizontal={16}
       paddingTop={54}
       flex={1}>
-      <Typography.B34 marginBottom={35}>{t('login')}</Typography.B34>
-      <Typography.S14 marginBottom={14}>{t('enterPhone')}</Typography.S14>
+      <Typography.B34 color={textColor} marginBottom={35}>
+        {t('login')}
+      </Typography.B34>
+      <Typography.S14 color={textColor} marginBottom={14}>
+        {t('enterPhone')}
+      </Typography.S14>
       <PhoneInput
         flag={country.flag}
         dialCode={country.dialCode}
@@ -113,6 +118,16 @@ const LoginScreenComponent: React.FC<Props> = (props) => {
         title={t('getCode')}
         onPress={sendPhoneHandler}
       />
+      {/*<Button*/}
+      {/*  marginTop={20}*/}
+      {/*  title={t('getCode')}*/}
+      {/*  onPress={() => {*/}
+      {/*    navigation.navigate(EScreens.SMS_CODE_SCREEN, {*/}
+      {/*      currentTimeInMillis: Date.now(),*/}
+      {/*      phone: parsePhoneToString(phone, country),*/}
+      {/*    });*/}
+      {/*  }}*/}
+      {/*/>*/}
       <Typography.R16
         marginTop={20}
         textAlign="center"

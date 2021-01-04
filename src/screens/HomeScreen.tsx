@@ -6,6 +6,8 @@ import {bindActionCreators} from 'redux';
 import {logOut} from '@actions';
 import {connect, ConnectedProps} from 'react-redux';
 import {Block, Button} from '@components';
+import {Colors} from '@config';
+import {UseAppearance} from '@hooks';
 
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
@@ -23,19 +25,24 @@ type Props = {
   logOut: () => void;
 } & PropsFromRedux;
 
-const HomeScreenComponent: React.FC<Props> = ({logOut}) => {
+const HomeScreenComponent: React.FC<Props> = (props) => {
   const {navigate} = useNavigation();
   const {i18n} = useTranslation();
+  const {backgroundColor, textColor} = UseAppearance();
 
   return (
-    <Block flex={1} justifyContent="space-around" padding={16}>
+    <Block
+      backgroundColor={backgroundColor}
+      flex={1}
+      justifyContent="space-around"
+      padding={16}>
       <Button title="Go to en" onPress={() => i18n.changeLanguage('en')} />
       <Button title="Go to ru" onPress={() => i18n.changeLanguage('ru')} />
       <Button
         title="Navigate to SEARCH"
-        onPress={() => navigate(EScreens.SEARCH_STACK)}
+        onPress={() => navigate(EScreens.CATALOG_STACK)}
       />
-      <Button title="Log Out" onPress={() => logOut()} />
+      <Button title="Log Out" onPress={() => props.logOut()} />
     </Block>
   );
 };

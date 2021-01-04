@@ -10,3 +10,6 @@ const screenHeightFallback = DEVICE_HAS_NOTCH
 
 export const WINDOW_HEIGHT =
   initialWindowMetrics?.frame.height || screenHeightFallback;
+
+export const WINDOW_WIDTH =
+  initialWindowMetrics?.frame.width || Dimensions.get('window').width;

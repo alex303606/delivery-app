@@ -6,7 +6,7 @@ import {HomeScreen} from '@screens';
 
 const Stack = createStackNavigator<HomeStackParamList>();
 
-export const HomeStack: React.FC<BottomTabScreenProps<any>> = () => {
+export const CatalogStack: React.FC<BottomTabScreenProps<any>> = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen

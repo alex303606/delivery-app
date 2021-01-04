@@ -26,9 +26,8 @@ export type AuthorizationScreenProps = StackScreenProps<
 
 //TABS
 export type RootTabParamList = {
-  [EScreens.HOME_STACK]: undefined;
-  [EScreens.MENU_STACK]: undefined;
+  [EScreens.CATALOG_STACK]: undefined;
+  [EScreens.FAVORITES_STACK]: undefined;
   [EScreens.PROFILE_STACK]: undefined;
-  [EScreens.SEARCH_STACK]: undefined;
   [EScreens.CART_STACK]: undefined;
 };

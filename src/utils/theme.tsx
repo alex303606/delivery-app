@@ -1,5 +1,6 @@
 import {DefaultTheme as StyledDefaultTheme} from 'styled-components';
 import {DefaultTheme, DarkTheme} from '@react-navigation/native';
+import {Colors} from '@config';
 
 // https://styled-components.com/docs/advanced#theming
 
@@ -21,6 +22,9 @@ export const navigationTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
+    border: Colors.grey,
+    card: Colors.background,
+    background: Colors.background,
   },
 };
 
@@ -28,5 +32,8 @@ export const navigationThemeDark = {
   ...DarkTheme,
   colors: {
     ...DarkTheme.colors,
+    background: Colors.black,
+    card: Colors.black,
+    border: Colors.grey,
   },
 };

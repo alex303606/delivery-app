@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Animated, LayoutChangeEvent} from 'react-native';
-import {Colors} from '@config';
+import {Colors, WINDOW_WIDTH} from '@config';
 import {Cursor} from 'react-native-confirmation-code-field';
 
-const CELL_SIZE = 70;
+const CELL_SIZE = WINDOW_WIDTH / 5.8;
 const ACTIVE_CELL_BG_COLOR = '#f7fafe';
 const {Value, Text: AnimatedText} = Animated;
 const CELL_COUNT = 4;

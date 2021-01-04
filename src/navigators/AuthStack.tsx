@@ -3,11 +3,13 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {EScreens, AuthStackParamList} from '@interfaces';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {LoginScreen, SmsCodeScreen} from '@screens';
-import {Colors} from '@config';
+import {UseAppearance} from '@hooks';
 
 const Stack = createStackNavigator<AuthStackParamList>();
 
 export const AuthStack: React.FC<BottomTabScreenProps<any>> = () => {
+  const {backgroundColor} = UseAppearance();
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -24,7 +26,7 @@ export const AuthStack: React.FC<BottomTabScreenProps<any>> = () => {
           headerShown: true,
           title: '',
           headerStyle: {
-            backgroundColor: Colors.background,
+            backgroundColor: backgroundColor,
             elevation: 0,
             shadowColor: 'transparent',
             borderBottomWidth: 0,

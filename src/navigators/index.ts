@@ -1,4 +1,4 @@
 export * from './RootTabs';
-export * from './HomeStack';
+export * from './CatalogStack';
 export * from './AuthStack';
 export * from './Root';

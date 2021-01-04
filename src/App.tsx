@@ -63,8 +63,8 @@ const getMainComponent = (deps: PresentationDependencies) => {
                         : styledTheme
                     }>
                     <StatusBar
-                      barStyle="dark-content"
-                      backgroundColor={Colors.statusBarBackgroundColor}
+                      barStyle={systemColorScheme === 'dark' ? "light-content" : "dark-content"}
+                      backgroundColor={systemColorScheme === 'dark' ? Colors.black : Colors.statusBarBackgroundColor}
                     />
                     <ConnectionHandler />
                     <Root />

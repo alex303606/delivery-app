@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const CodeRootComponent: React.FC<Props> = ({children}) => (
-  <Block marginTop={30} paddingHorizontal={20} alignItems="center">
+  <Block marginTop={30} alignItems="center">
     <Row justifyContent="center">{children}</Row>
   </Block>
 );

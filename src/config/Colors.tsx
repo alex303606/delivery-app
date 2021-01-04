@@ -1,6 +1,6 @@
 export const Colors = {
   white: '#FFFFFF',
-  black: '#222222',
+  black: '#000000',
   grey: '#9B9B9B',
   ripple: '#C0C1C6',
   mainPrimary: '#DB3022',

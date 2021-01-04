@@ -19,6 +19,7 @@ import {
 } from '@actions';
 import {AuthorizationScreenProps} from '@interfaces';
 import {ResendCodeButton} from './components/ResendCodeButton';
+import {UseAppearance} from '@hooks';
 
 const CELL_COUNT = 4;
 
@@ -95,13 +96,15 @@ const SmsCodeScreenComponent: React.FC<Props> = (screenProps) => {
     />
   );
 
+  const {backgroundColor, textColor} = UseAppearance();
+
   return (
     <Block
       flex={1}
-      backgroundColor={Colors.background}
+      backgroundColor={backgroundColor}
       paddingTop={13}
       paddingHorizontal={16}>
-      <Typography.B18 marginVertical={14}>
+      <Typography.B18 color={textColor} marginVertical={14}>
         {t('phoneNumberVerification')}
       </Typography.B18>
       <Typography.R16 color={Colors.grey}>{t('enterSmsCode')}</Typography.R16>

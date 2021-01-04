@@ -2,10 +2,9 @@ export enum EScreens {
   //TAB
   ROOT_TABS = 'RootTabs',
   //STACKS
-  HOME_STACK = 'HomeStack',
-  MENU_STACK = 'MenuStack',
+  CATALOG_STACK = 'CatalogStack',
+  FAVORITES_STACK = 'FavoritesStack',
   PROFILE_STACK = 'ProfileStack',
-  SEARCH_STACK = 'SearchStack',
   CART_STACK = 'CartStack',
   //SCREENS
   HOME_SCREEN = 'HomeScreen',
