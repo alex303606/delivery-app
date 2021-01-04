@@ -113,16 +113,6 @@ const LoginScreenComponent: React.FC<Props> = (props) => {
         title={t('getCode')}
         onPress={sendPhoneHandler}
       />
-      <Button
-        marginTop={20}
-        title={t('getCode')}
-        onPress={() => {
-          navigation.navigate(EScreens.SMS_CODE_SCREEN, {
-            currentTimeInMillis: Date.now(),
-            phone: parsePhoneToString(phone, country),
-          });
-        }}
-      />
       <Typography.R16
         marginTop={20}
         textAlign="center"

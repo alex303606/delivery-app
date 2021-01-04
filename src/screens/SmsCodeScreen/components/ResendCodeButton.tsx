@@ -7,11 +7,10 @@ interface IProps {
   startTimeInMillis: number;
   timeout: number;
   resendCode: () => void;
-  loading: boolean;
 }
 
 export const ResendCodeButton: React.FC<IProps> = React.memo(
-  ({startTimeInMillis, timeout, resendCode, loading}) => {
+  ({startTimeInMillis, timeout, resendCode}) => {
     const {t} = useTranslation();
     const count = useTimoutTimer(startTimeInMillis, timeout);
     const buttonDisabled = count !== 0;
@@ -25,7 +24,6 @@ export const ResendCodeButton: React.FC<IProps> = React.memo(
         onPress={resendCode}
         title={title}
         disabled={buttonDisabled}
-        loading={loading}
       />
     );
   },

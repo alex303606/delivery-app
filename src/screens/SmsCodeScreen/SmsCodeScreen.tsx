@@ -1,10 +1,9 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect, ConnectedProps} from 'react-redux';
-import {Block, Typography, Loader} from '@components';
+import {Block, Typography} from '@components';
 import {Colors} from '@config';
 import {useTranslation} from 'react-i18next';
-import {useLoading} from '@hooks';
 import {
   CodeField,
   useBlurOnFulfill,
@@ -19,8 +18,6 @@ import {
   sendPhone,
 } from '@actions';
 import {AuthorizationScreenProps} from '@interfaces';
-import styled from 'styled-components';
-import {View} from 'react-native';
 import {ResendCodeButton} from './components/ResendCodeButton';
 
 const CELL_COUNT = 4;
@@ -51,7 +48,6 @@ const SmsCodeScreenComponent: React.FC<Props> = (screenProps) => {
     },
   } = screenProps;
   const {t} = useTranslation();
-  const {loading, showLoader, hideLoader} = useLoading();
   const [value, setValue] = useState('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
@@ -67,27 +63,19 @@ const SmsCodeScreenComponent: React.FC<Props> = (screenProps) => {
         if (res && !res.result) {
           setErrorMessage(res.message);
         }
-        hideLoader();
       });
     }
-  }, [hideLoader, phone, screenProps, showLoader, value]);
-
-  useEffect(() => {
-    return function cleanup() {
-      hideLoader();
-    };
-  });
+  }, [phone, screenProps, value]);
 
   const resendCodeHandler = useCallback(() => {
-    showLoader();
+    setValue('');
     screenProps.sendPhone(phone).then((res) => {
       if (!res.result || res.data.black_list) {
         setErrorMessage(res.message);
       }
-      hideLoader();
       setStartTime(Date.now());
     });
-  }, [phone, sendPhone]);
+  }, [phone, screenProps]);
 
   const renderCell = ({
     index,
@@ -113,11 +101,6 @@ const SmsCodeScreenComponent: React.FC<Props> = (screenProps) => {
       backgroundColor={Colors.background}
       paddingTop={13}
       paddingHorizontal={16}>
-      {loading && (
-        <Wrapper>
-          <Loader color={Colors.mainPrimary} background={Colors.transparent} />
-        </Wrapper>
-      )}
       <Typography.B18 marginVertical={14}>
         {t('phoneNumberVerification')}
       </Typography.B18>
@@ -135,7 +118,6 @@ const SmsCodeScreenComponent: React.FC<Props> = (screenProps) => {
       />
       <ResendCodeButton
         resendCode={resendCodeHandler}
-        loading={loading}
         startTimeInMillis={startTime}
         timeout={30}
       />
@@ -152,13 +134,3 @@ const SmsCodeScreenComponent: React.FC<Props> = (screenProps) => {
 
 // @ts-ignore
 export const SmsCodeScreen = connector(SmsCodeScreenComponent);
-
-const Wrapper = styled(View)`
-  position: absolute;
-  flex: 1;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 10;
-`;

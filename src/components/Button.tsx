@@ -19,8 +19,8 @@ export const Button: React.FC<Props> = ({
   ...props
 }) => {
   const onPressHandler = useCallback(() => {
-    return disabled ? undefined : onPress();
-  }, [disabled, onPress]);
+    return disabled || loading ? undefined : onPress();
+  }, [disabled, loading, onPress]);
 
   return (
     <Block overflow borderRadius={25} {...props}>
