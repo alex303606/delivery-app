@@ -1,6 +1,8 @@
 import {MutableRefObject, RefObject} from 'react';
 import {NavigationContainerRef} from '@react-navigation/native';
 import {EScreens} from '@interfaces';
+import {E164Number} from 'libphonenumber-js';
+import {StackScreenProps} from '@react-navigation/stack';
 
 export interface INavigationService {
   navigationRef: RefObject<NavigationContainerRef>;
@@ -14,8 +16,13 @@ export type HomeStackParamList = {
 
 export type AuthStackParamList = {
   [EScreens.LOGIN_SCREEN]: undefined;
-  [EScreens.SMS_CODE_SCREEN]: undefined;
+  [EScreens.SMS_CODE_SCREEN]: {phone: E164Number};
 };
+
+export type AuthorizationScreenProps = StackScreenProps<
+  AuthStackParamList,
+  EScreens.SMS_CODE_SCREEN
+>;
 
 //TABS
 export type RootTabParamList = {

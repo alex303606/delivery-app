@@ -65,7 +65,7 @@ export const SelectCountryModal = React.forwardRef<SelectCountryModalProps>(
 const StyledPressable = styled(Pressable).attrs(() => ({
   android_ripple: {
     borderless: false,
-    color: Colors.grey,
+    color: Colors.ripple,
   },
 }))`
   margin: 8px 0;

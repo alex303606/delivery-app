@@ -14,8 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 import {EScreens} from '@interfaces';
 import {useLoading} from '@hooks';
 
-// @ts-ignore
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
     {
       sendPhone,
@@ -65,6 +64,12 @@ const LoginScreenComponent: React.FC<Props> = (props) => {
     [modalRef],
   );
 
+  useEffect(() => {
+    return function cleanup() {
+      hideLoader();
+    };
+  });
+
   const sendPhoneHandler = useCallback(() => {
     const number = parsePhoneToString(phone, country);
     if (!number) {
@@ -72,8 +77,10 @@ const LoginScreenComponent: React.FC<Props> = (props) => {
     }
     showLoader();
     props.sendPhone(number).then((res) => {
-      if (res.result) {
-        navigation.navigate(EScreens.SMS_CODE_SCREEN);
+      if (res && res.result) {
+        navigation.navigate(EScreens.SMS_CODE_SCREEN, {
+          phone: parsePhoneToString(phone, country),
+        });
       }
       if (!res.result || res.data.black_list) {
         setErrorMessage(res.message);

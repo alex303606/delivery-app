@@ -67,11 +67,11 @@ const DialCode = styled(Text)`
   font-size: 20px;
   line-height: 50px;
 `;
-77;
+
 const StyledPressable = styled(Pressable).attrs(() => ({
   android_ripple: {
     borderless: false,
-    color: Colors.grey,
+    color: Colors.ripple,
   },
 }))`
   flex-direction: row;

@@ -14,9 +14,8 @@ import {enableScreens} from 'react-native-screens';
 import {AppearanceProvider, useColorScheme} from 'react-native-appearance';
 import {Text, StatusBar} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {createStackNavigator} from '@react-navigation/stack';
-import {AuthStack, RootTabs} from '@navigators';
-import {PresentationDependencies, EScreens} from '@interfaces';
+import {Root} from '@navigators';
+import {PresentationDependencies} from '@interfaces';
 import {Colors} from '@config';
 import {ConnectionHandler, Loader} from '@components';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -24,11 +23,13 @@ import {Provider} from 'react-redux';
 import configureStore from './store/configureStore';
 
 enableScreens();
-const Stack = createStackNavigator();
 
 const {persistor, store} = configureStore();
+// @ts-ignore
 if (Text && !Text.defaultProps) {
+  // @ts-ignore
   Text.defaultProps = {};
+  // @ts-ignore
   Text.defaultProps.allowFontScaling = false;
 }
 
@@ -66,12 +67,7 @@ const getMainComponent = (deps: PresentationDependencies) => {
                       backgroundColor={Colors.statusBarBackgroundColor}
                     />
                     <ConnectionHandler />
-                    <Stack.Navigator headerMode="none">
-                      <Stack.Screen
-                        name={EScreens.ROOT_TABS}
-                        component={AuthStack}
-                      />
-                    </Stack.Navigator>
+                    <Root />
                   </ThemeProvider>
                 </NavigationContainer>
               </AppearanceProvider>

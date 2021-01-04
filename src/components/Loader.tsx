@@ -3,12 +3,20 @@ import {ActivityIndicator} from 'react-native';
 import {Block} from '@components';
 import {Colors} from '@config';
 
-export const Loader = () => (
+type Props = {
+  background?: string;
+  color?: string;
+};
+
+export const Loader: React.FC<Props> = ({
+  background = Colors.background,
+  color = Colors.white,
+}) => (
   <Block
     flex={1}
-    backgroundColor={Colors.background}
+    backgroundColor={background}
     justifyContent="center"
     alignItems="center">
-    <ActivityIndicator size="large" color={'white'} />
+    <ActivityIndicator size="large" color={color} />
   </Block>
 );

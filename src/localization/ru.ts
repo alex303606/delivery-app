@@ -1,6 +1,3 @@
-import {Typography} from "@components";
-import React from "react";
-
 export const ruTranslation = {
   translation: {
     tabs: {
@@ -18,5 +15,8 @@ export const ruTranslation = {
     getCode: 'Получить код',
     scrollToTop: 'В начало списка',
     selectCountry: 'Выберите страну',
+    phoneNumberVerification: `Подтверждение номера \nтелефона`,
+    enterSmsCode: 'Введите код полученный по СМС',
+    confirm: 'Подтвердить',
   },
 };

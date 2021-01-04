@@ -9,6 +9,19 @@ export interface ISendPhoneNumberResponse {
   };
 }
 
+export interface ISendCodeResponse {
+  result: boolean;
+  message: string;
+  data: {
+    user_id: string;
+  };
+}
+
 export type ISendPhoneNumber = (
   phone: E164Number,
 ) => Promise<ISendPhoneNumberResponse>;
+
+export type ISendCode = (
+  phone: E164Number,
+  code: string,
+) => Promise<ISendCodeResponse>;

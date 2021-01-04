@@ -18,7 +18,7 @@ const Label: React.FC<LabelProps> = ({focused, title}) => {
   if (focused) {
     return <B11 color={Colors.black}>{title}</B11>;
   }
-  return <R11 color={Colors.grey}>{title}</R11>;
+  return <R11 color={Colors.ripple}>{title}</R11>;
 };
 
 export const RootTabs = () => {
@@ -36,7 +36,7 @@ export const RootTabs = () => {
           paddingTop: 11,
           paddingBottom: 4,
         },
-        inactiveTintColor: Colors.grey,
+        inactiveTintColor: Colors.ripple,
         activeTintColor: Colors.mainPrimary,
       }}>
       <Tab.Screen

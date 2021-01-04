@@ -38,7 +38,7 @@ export const Button: React.FC<Props> = ({
 const StyledPressable = styled(Pressable).attrs(() => ({
   android_ripple: {
     borderless: false,
-    color: Colors.grey,
+    color: Colors.ripple,
   },
 }))<{disabled?: boolean}>`
   flex-direction: row;
