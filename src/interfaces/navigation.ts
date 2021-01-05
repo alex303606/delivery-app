@@ -27,6 +27,9 @@ export type CardStackParamList = {
 
 export type ProfileStackParamList = {
   [EScreens.PROFILE_SCREEN]: undefined;
+  [EScreens.ORDERS_SCREEN]: undefined;
+  [EScreens.SETTINGS_SCREEN]: undefined;
+  [EScreens.PERSONAL_DATA_SCREEN]: undefined;
 };
 
 export type FavoritesStackParamList = {

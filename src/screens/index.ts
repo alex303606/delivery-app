@@ -5,3 +5,6 @@ export * from './ProfileScreen';
 export * from './CardScreen';
 export * from './FavoritesScreen';
 export * from './CatalogItemScreen';
+export * from './OrdersScreen';
+export * from './SettingsScreen';
+export * from './PersonalDataScreen';

@@ -124,7 +124,11 @@ const CatalogItemScreenComponent: React.FC<Props> = (props) => {
           renderItem={renderItemHandler}
           onScroll={onScroll}
           refreshControl={
-            <RefreshControl refreshing={loading} onRefresh={reload} />
+            <RefreshControl
+              progressViewOffset={COLLAPSIBLE_HEADER_HEIGHT}
+              refreshing={loading}
+              onRefresh={reload}
+            />
           }
         />
       </Block>

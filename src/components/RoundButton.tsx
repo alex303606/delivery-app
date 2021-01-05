@@ -7,23 +7,32 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 type Props = {
   onPress: () => void;
-  iconColor: string;
+  iconColor?: string;
+  iconName?: string;
+  diameter?: number;
+  iconSize?: number;
 };
 
-export const RoundButton: React.FC<Props> = ({onPress, iconColor}) => {
+export const RoundButton: React.FC<Props> = ({
+  onPress,
+  iconColor = Colors.grey,
+  iconName = 'arrow-back-outline',
+  diameter = 40,
+  iconSize = 26,
+}) => {
   return (
-    <Wrapper>
-      <BackButton onPress={onPress}>
-        <Icon size={26} color={iconColor} name={'arrow-back-outline'} />
+    <Wrapper diameter={diameter}>
+      <BackButton diameter={diameter} onPress={onPress}>
+        <Icon size={iconSize} color={iconColor} name={iconName} />
       </BackButton>
     </Wrapper>
   );
 };
 
-const Wrapper = styled(Block)`
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
+const Wrapper = styled(Block)<{diameter: number}>`
+  height: ${({diameter}) => diameter}px;
+  width: ${({diameter}) => diameter}px;
+  border-radius: ${({diameter}) => diameter / 2}px;
   overflow: hidden;
 `;
 
@@ -32,9 +41,9 @@ const BackButton = styled(Pressable).attrs(() => ({
     borderless: false,
     color: Colors.ripple,
   },
-}))`
-  height: 40px;
-  width: 40px;
+}))<{diameter: number}>`
+  height: ${({diameter}) => diameter}px;
+  width: ${({diameter}) => diameter}px;
   align-items: center;
   justify-content: center;
 `;

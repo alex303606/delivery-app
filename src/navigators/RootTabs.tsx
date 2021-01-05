@@ -47,6 +47,7 @@ export const RootTabs = () => {
         },
         inactiveTintColor: Colors.grey,
         activeTintColor: Colors.mainPrimary,
+        keyboardHidesTabBar: true,
       }}>
       <Tab.Screen
         name={EScreens.CATALOG_STACK}

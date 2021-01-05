@@ -1,4 +1,4 @@
-import {GET_SECTIONS} from '../actions/actionTypes';
+import {GET_SECTIONS, SIGN_OUT} from '../actions/actionTypes';
 
 export interface ICatalogItem {
   BIG_PICTURE: boolean;
@@ -22,6 +22,8 @@ export const catalogReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case GET_SECTIONS:
       return {...state, catalog: action.catalog};
+    case SIGN_OUT:
+      return initialState;
     default:
       return state;
   }
