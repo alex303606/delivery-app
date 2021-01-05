@@ -1,0 +1,30 @@
+diff --git a/node_modules/react-native-anchor-point/index.ts b/node_modules/react-native-anchor-point/index.ts
+index f2d2d24..46997dd 100644
+--- a/node_modules/react-native-anchor-point/index.ts
++++ b/node_modules/react-native-anchor-point/index.ts
+@@ -24,17 +24,21 @@ export interface Size {
+     height: number;
+ }
+ 
+-const isValidPoint = (point: Point): boolean => {
+-    return isValidPointValue(point.x) && isValidPointValue(point.y);
+-};
+-
+ const isValidPointValue = (value: number): boolean => {
++    'worklet';
+     return value >= 0 && value <= 1.0;
+ };
+ 
++
++const isValidPoint = (point: Point): boolean => {
++    'worklet';
++    return isValidPointValue(point.x) && isValidPointValue(point.y);
++};
++
+ const defaultAnchorPoint = { x: 0.5, y: 0.5 };
+ 
+ export const withAnchorPoint = (transform: TransformsStyle, anchorPoint: Point, size: Size) => {
++    'worklet';
+     if (!isValidPoint(anchorPoint)) {
+         return transform;
+     }
