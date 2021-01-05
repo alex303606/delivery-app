@@ -7,13 +7,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 type Props = {
   onPress: () => void;
+  iconColor: string;
 };
 
-export const RoundButton: React.FC<Props> = ({onPress}) => {
+export const RoundButton: React.FC<Props> = ({onPress, iconColor}) => {
   return (
     <Wrapper>
       <BackButton onPress={onPress}>
-        <Icon size={26} color={Colors.black} name={'arrow-back-outline'} />
+        <Icon size={26} color={iconColor} name={'arrow-back-outline'} />
       </BackButton>
     </Wrapper>
   );

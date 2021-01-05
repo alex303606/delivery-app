@@ -2,31 +2,40 @@ import React, {useCallback, useMemo} from 'react';
 import {ICatalogItem, ICatalogState} from 'src/store/reducers/catalog';
 import {RootState} from 'src/store/configureStore';
 import {connect} from 'react-redux';
-import {Block, FocusAwareStatusBar, Typography} from '@components';
-import {Colors} from '@config';
+import {Block, FocusAwareStatusBar} from '@components';
+import {COLLAPSIBLE_HEADER_HEIGHT, Colors} from '@config';
 import {CatalogScreenProps} from '@interfaces';
-import {useAppearance, useLoading} from '@hooks';
+import {
+  useAppearance,
+  useLoading,
+  useSetScreenOptions,
+  useScrollHandler,
+} from '@hooks';
 import {FlatList, RefreshControl} from 'react-native';
 import {HorizontalCatalogItem} from './HorizontalCatalogItem';
 import {bindActionCreators} from 'redux';
 import {getSections} from '@actions';
 import {SmallCatalogItem} from './SmallCatalogItem';
-import styled from 'styled-components';
+import Animated from 'react-native-reanimated';
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-const transformCatalogArray = (catalog: ICatalogItem[], parentItem) => {
+const transformCatalogArray = (
+  catalog: ICatalogItem[],
+  parentItem: ICatalogItem,
+) => {
   return catalog.reduce((acc, item, index) => {
     if (item.PARENT_ID === parentItem.ID) {
       if (++index % 3 === 0) {
         // @ts-ignore
         acc.push(item);
       } else {
-        const index = acc.findIndex((x: any) => x.length === 1);
-        if (index < 0) {
+        const i = acc.findIndex((x: any) => x.length === 1);
+        if (i < 0) {
           // @ts-ignore
           acc.push([item]);
         } else {
           // @ts-ignore
-          acc[index].push(item);
+          acc[i].push(item);
         }
       }
     }
@@ -35,7 +44,7 @@ const transformCatalogArray = (catalog: ICatalogItem[], parentItem) => {
   }, [] as any);
 };
 
-const keyExtractor = (item: any) => item.length ? item[0].ID : item.ID;
+const keyExtractor = (item: any) => (item.length ? item[0].ID : item.ID);
 
 const mapState = (state: RootState) => ({
   catalog: state.catalog.catalog,
@@ -61,6 +70,13 @@ const CatalogItemScreenComponent: React.FC<Props> = (props) => {
       params: {parentItem},
     },
   } = props;
+  const {scrollY, onScroll} = useScrollHandler();
+  useSetScreenOptions(
+    {
+      animatedValue: scrollY,
+    },
+    [scrollY],
+  );
 
   const {themeIsLight} = useAppearance();
   const {loading, hideLoader, showLoader} = useLoading();
@@ -84,28 +100,29 @@ const CatalogItemScreenComponent: React.FC<Props> = (props) => {
     return <HorizontalCatalogItem item={item} />;
   }, []);
 
+  const contentContainerStyle = useMemo(() => {
+    return {
+      flexGrow: 1,
+      paddingVertical: 5,
+      paddingTop: COLLAPSIBLE_HEADER_HEIGHT,
+    };
+  }, []);
+
   return (
     <Block flex={1}>
       <FocusAwareStatusBar
         animated={true}
         backgroundColor={themeIsLight ? Colors.white : Colors.black}
       />
-      <Block
-        elevation={12}
-        paddingHorizontal={16}
-        paddingTop={12}
-        paddingBottom={29}
-        backgroundColor={themeIsLight ? Colors.white : Colors.black}>
-        <Typography.B34 color={themeIsLight ? Colors.black : Colors.white}>
-          {parentItem.NAME}
-        </Typography.B34>
-      </Block>
       <Block flex={1} paddingHorizontal={5}>
-        <List
+        <AnimatedFlatList
+          contentContainerStyle={contentContainerStyle}
+          progressViewOffset={COLLAPSIBLE_HEADER_HEIGHT}
           showsVerticalScrollIndicator={false}
           keyExtractor={keyExtractor}
           data={data}
           renderItem={renderItemHandler}
+          onScroll={onScroll}
           refreshControl={
             <RefreshControl refreshing={loading} onRefresh={reload} />
           }
@@ -117,10 +134,3 @@ const CatalogItemScreenComponent: React.FC<Props> = (props) => {
 
 // @ts-ignore
 export const CatalogItemScreen = connector(CatalogItemScreenComponent);
-
-const List = styled(FlatList).attrs(() => ({
-  contentContainerStyle: {
-    flexGrow: 1,
-    paddingVertical: 5,
-  },
-}))``;

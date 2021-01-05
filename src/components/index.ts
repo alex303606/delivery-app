@@ -8,3 +8,6 @@ export * from './Modal';
 export * from './Button';
 export * from './Loader';
 export * from './FocusAwareStatusBar';
+export * from './CollapsibleHeader';
+export * from './MainCollapsibleHeader';
+export * from './RoundButton';

@@ -36,12 +36,12 @@ const getTransform = (scale: number, width: number) => {
   };
   return withAnchorPoint(
     transform,
-    {x: 1, y: 0.3},
+    {x: 1, y: 0.22},
     {width, height: Y_OFFSET + 1},
   );
 };
 
-export const CollapsibleHeader: React.FC<Props> = ({scene, navigation}) => {
+export const MainCollapsibleHeader: React.FC<Props> = ({scene, navigation}) => {
   const titleWidth = useSharedValue(0);
   const {themeIsLight} = useAppearance();
   const handleTitleLayout = useCallback(
@@ -110,7 +110,7 @@ export const CollapsibleHeader: React.FC<Props> = ({scene, navigation}) => {
           translateY: interpolate(
             animatedValue?.value ?? 0,
             [0, Y_OFFSET],
-            [0, 85],
+            [0, 61],
             Extrapolate.CLAMP,
           ),
         },
