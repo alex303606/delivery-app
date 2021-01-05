@@ -28,6 +28,10 @@ export const HorizontalCatalogItem: React.FC<Props> = ({item}) => {
       elevation={4}
       borderRadius={10}
       overflow={true}>
+      <StyledPressable onPress={pressHandler}>
+        <StyledImage resizeMode="contain" source={getImage(item.PICTURE)} />
+        <Title color={Colors.black}>{item.NAME}</Title>
+      </StyledPressable>
       {countNew > 0 && (
         <CntNew
           justifyContent="center"
@@ -37,10 +41,6 @@ export const HorizontalCatalogItem: React.FC<Props> = ({item}) => {
           <Typography.B16 color={Colors.white}>{item.CNT_NEW}</Typography.B16>
         </CntNew>
       )}
-      <StyledPressable onPress={pressHandler}>
-        <StyledImage resizeMode="contain" source={getImage(item.PICTURE)} />
-        <Title color={Colors.black}>{item.NAME}</Title>
-      </StyledPressable>
     </Block>
   );
 };

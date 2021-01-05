@@ -29,6 +29,12 @@ export const SmallCatalogItem: React.FC<Props> = ({item}) => {
           elevation={4}
           borderRadius={10}
           overflow={true}>
+          <StyledPressable onPress={pressHandler}>
+            <StyledImage resizeMode="contain" source={getImage(card.PICTURE)} />
+            <Typography.B14 textAlign="center" color={Colors.black}>
+              {card.NAME}
+            </Typography.B14>
+          </StyledPressable>
           {countNew > 0 && (
             <CntNew
               justifyContent="center"
@@ -40,12 +46,6 @@ export const SmallCatalogItem: React.FC<Props> = ({item}) => {
               </Typography.B16>
             </CntNew>
           )}
-          <StyledPressable onPress={pressHandler}>
-            <StyledImage resizeMode="contain" source={getImage(card.PICTURE)} />
-            <Typography.B14 textAlign="center" color={Colors.black}>
-              {card.NAME}
-            </Typography.B14>
-          </StyledPressable>
         </Wrapper>
       );
     },
