@@ -1,7 +1,7 @@
 import React, {useCallback, useMemo} from 'react';
 import {connect} from 'react-redux';
 import {Block, FocusAwareStatusBar} from '@components';
-import {Colors, MAIN_COLLAPSIBLE_HEADER_HEIGHT} from '@config';
+import {Colors, COLLAPSIBLE_HEADER_HEIGHT} from '@config';
 import {FlatList, RefreshControl} from 'react-native';
 import {ICatalogItem, ICatalogState} from 'src/store/reducers/catalog';
 import {RootState} from 'src/store/configureStore';
@@ -65,7 +65,7 @@ const CatalogScreenComponent: React.FC<Props> = (props) => {
     return {
       flexGrow: 1,
       paddingVertical: 5,
-      paddingTop: MAIN_COLLAPSIBLE_HEADER_HEIGHT,
+      paddingTop: COLLAPSIBLE_HEADER_HEIGHT,
     };
   }, []);
 
@@ -79,7 +79,7 @@ const CatalogScreenComponent: React.FC<Props> = (props) => {
       <Block flex={1} paddingHorizontal={5}>
         <AnimatedFlatList
           contentContainerStyle={contentContainerStyle}
-          progressViewOffset={MAIN_COLLAPSIBLE_HEADER_HEIGHT}
+          progressViewOffset={COLLAPSIBLE_HEADER_HEIGHT}
           onScroll={onScroll}
           showsVerticalScrollIndicator={false}
           keyExtractor={keyExtractor}
