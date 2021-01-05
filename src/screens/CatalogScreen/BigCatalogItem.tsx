@@ -54,5 +54,5 @@ const StyledPressable = styled(Pressable).attrs(() => ({
 
 const StyledImage = styled(ImageBackground)`
   width: 100%;
-  height: 300px;
+  height: 200px;
 `;
