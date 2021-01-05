@@ -3,7 +3,7 @@ import {Row, Block, Typography} from '@components';
 import {ICatalogItem} from 'src/store/reducers/catalog';
 import {Colors} from '@config';
 import styled from 'styled-components';
-import {Image, Pressable} from 'react-native';
+import {Image, ImageBackground, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {getImage} from '@utils';
 
@@ -16,34 +16,44 @@ export const SmallCatalogItem: React.FC<Props> = ({item}) => {
   const pressHandler = useCallback(() => {
     return null;
   }, [item, navigation]);
+
   const renderItem = useCallback(
     (card: ICatalogItem) => {
+      const {PICTURE, NAME, CNT_NEW, BIG_PICTURE, ID} = card;
+
       const countNew =
-        card.CNT_NEW && parseInt(card.CNT_NEW, 10)
-          ? parseInt(card.CNT_NEW, 10)
-          : 0;
+        CNT_NEW && parseInt(CNT_NEW, 10) ? parseInt(CNT_NEW, 10) : 0;
 
       return (
         <Wrapper
+          key={ID}
           backgroundColor={Colors.white}
           elevation={4}
           borderRadius={10}
           overflow={true}>
-          <StyledPressable onPress={pressHandler}>
-            <StyledImage resizeMode="contain" source={getImage(card.PICTURE)} />
-            <Typography.B14 textAlign="center" color={Colors.black}>
-              {card.NAME}
-            </Typography.B14>
-          </StyledPressable>
+          {BIG_PICTURE ? (
+            <StyledImageBackground
+              resizeMode="cover"
+              source={getImage(PICTURE)}>
+              <StyledPressable big={true} onPress={pressHandler}>
+                <TextContainer>
+                  <Typography.B14 color={Colors.black}>{NAME}</Typography.B14>
+                </TextContainer>
+              </StyledPressable>
+            </StyledImageBackground>
+          ) : (
+            <StyledPressable onPress={pressHandler}>
+              <StyledImage resizeMode="cover" source={getImage(PICTURE)} />
+              <Typography.B14 color={Colors.black}>{NAME}</Typography.B14>
+            </StyledPressable>
+          )}
           {countNew > 0 && (
             <CntNew
               justifyContent="center"
               alignItems="center"
               borderRadius={18}
               backgroundColor={Colors.mainPrimary}>
-              <Typography.B16 color={Colors.white}>
-                {card.CNT_NEW}
-              </Typography.B16>
+              <Typography.B16 color={Colors.white}>{CNT_NEW}</Typography.B16>
             </CntNew>
           )}
         </Wrapper>
@@ -64,17 +74,16 @@ const StyledPressable = styled(Pressable).attrs(() => ({
     borderless: false,
     color: Colors.ripple,
   },
-}))`
+}))<{big?: boolean}>`
   height: 180px;
   align-items: center;
-  justify-content: space-between;
-  padding: 15px;
+  justify-content: ${({big}) => (big ? 'flex-end' : 'space-between;')}
+  padding: ${({big}) => (big ? 0 : 15)}px;
 `;
 
 const StyledImage = styled(Image)`
   width: 100px;
   height: 100px;
-  margin-bottom: 10px;
 `;
 
 const CntNew = styled(Block)`
@@ -87,4 +96,17 @@ const CntNew = styled(Block)`
 
 const Wrapper = styled(Block)`
   width: 48.6%;
+`;
+
+const TextContainer = styled(Block)`
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+`;
+
+const StyledImageBackground = styled(ImageBackground)`
+  width: 100%;
+  height: 180px;
 `;

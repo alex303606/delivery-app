@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {ICatalogItem, ICatalogState} from 'src/store/reducers/catalog';
 import {RootState} from 'src/store/configureStore';
 import {connect} from 'react-redux';
@@ -13,7 +13,29 @@ import {getSections} from '@actions';
 import {SmallCatalogItem} from './SmallCatalogItem';
 import styled from 'styled-components';
 
-const keyExtractor = (item: ICatalogItem) => item.ID;
+const transformCatalogArray = (catalog: ICatalogItem[], parentItem) => {
+  return catalog.reduce((acc, item, index) => {
+    if (item.PARENT_ID === parentItem.ID) {
+      if (++index % 3 === 0) {
+        // @ts-ignore
+        acc.push(item);
+      } else {
+        const index = acc.findIndex((x: any) => x.length === 1);
+        if (index < 0) {
+          // @ts-ignore
+          acc.push([item]);
+        } else {
+          // @ts-ignore
+          acc[index].push(item);
+        }
+      }
+    }
+
+    return acc;
+  }, [] as any);
+};
+
+const keyExtractor = (item: any) => item.length ? item[0].ID : item.ID;
 
 const mapState = (state: RootState) => ({
   catalog: state.catalog.catalog,
@@ -43,25 +65,10 @@ const CatalogItemScreenComponent: React.FC<Props> = (props) => {
   const {themeIsLight} = useAppearance();
   const {loading, hideLoader, showLoader} = useLoading();
 
-  const data = props.catalog.reduce((acc, item) => {
-    if (item.PARENT_ID === parentItem.ID) {
-      if (item.BIG_PICTURE) {
-        // @ts-ignore
-        acc.push(item);
-      } else {
-        const index = acc.findIndex((x: any) => x.length === 1);
-        if (index < 0) {
-          // @ts-ignore
-          acc.push([item]);
-        } else {
-          // @ts-ignore
-          acc[index].push(item);
-        }
-      }
-    }
-
-    return acc;
-  }, [] as ICatalogItem[] | ICatalogItem[][]);
+  const data = useMemo(() => transformCatalogArray(props.catalog, parentItem), [
+    props.catalog,
+    parentItem,
+  ]);
 
   const reload = useCallback(() => {
     showLoader();

@@ -30,7 +30,9 @@ export const HorizontalCatalogItem: React.FC<Props> = ({item}) => {
       overflow={true}>
       <StyledPressable onPress={pressHandler}>
         <StyledImage resizeMode="contain" source={getImage(item.PICTURE)} />
-        <Title color={Colors.black}>{item.NAME}</Title>
+        <Block flex={1} alignItems="flex-end" justifyContent="flex-end">
+          <Typography.B14 color={Colors.black}>{item.NAME}</Typography.B14>
+        </Block>
       </StyledPressable>
       {countNew > 0 && (
         <CntNew
@@ -53,20 +55,11 @@ const StyledPressable = styled(Pressable).attrs(() => ({
 }))`
   height: 180px;
   padding: 20px;
+  flex-direction: row;
 `;
 
 const StyledImage = styled(Image)`
   flex: 1;
-  align-items: flex-end;
-  justify-content: flex-end;
-`;
-
-const Title = styled(Typography.B14)`
-  position: absolute;
-  right: 10px;
-  bottom: 12px;
-  background-color: rgba(255, 255, 255, 0.5);
-  padding: 3px 10px;
 `;
 
 const CntNew = styled(Block)`
