@@ -1,17 +1,17 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {connect} from 'react-redux';
-import {Block, FocusAwareStatusBar, Typography} from '@components';
-import {Colors} from '@config';
-import styled from 'styled-components';
-import {FlatList, ImageBackground, RefreshControl} from 'react-native';
+import {Block, FocusAwareStatusBar} from '@components';
+import {Colors, MAIN_COLLAPSIBLE_HEADER_HEIGHT} from '@config';
+import {FlatList, RefreshControl} from 'react-native';
 import {ICatalogItem, ICatalogState} from 'src/store/reducers/catalog';
 import {RootState} from 'src/store/configureStore';
 import {BigCatalogItem} from './BigCatalogItem';
 import {bindActionCreators} from 'redux';
 import {getSections} from '@actions';
-import {useLoading} from '@hooks';
+import {useLoading, useScrollHandler, useSetScreenOptions} from '@hooks';
+import Animated from 'react-native-reanimated';
 
-const banner = require('@assets/images/banner.png');
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 const keyExtractor = (item: ICatalogItem) => item.ID;
 
 const mapState = (state: RootState) => ({
@@ -38,6 +38,15 @@ const CatalogScreenComponent: React.FC<Props> = (props) => {
     (x: ICatalogItem) => x.DEPTH_LEVEL === '1',
   );
   const {loading, hideLoader, showLoader} = useLoading();
+
+  const {scrollY, onScroll} = useScrollHandler();
+  useSetScreenOptions(
+    {
+      animatedValue: scrollY,
+    },
+    [scrollY],
+  );
+
   const renderItemHandler = useCallback(
     ({item, index}: {item: ICatalogItem; index: number}) => {
       return <BigCatalogItem index={index} item={item} />;
@@ -52,6 +61,14 @@ const CatalogScreenComponent: React.FC<Props> = (props) => {
     });
   }, [hideLoader, props, showLoader]);
 
+  const contentContainerStyle = useMemo(() => {
+    return {
+      flexGrow: 1,
+      paddingVertical: 5,
+      paddingTop: MAIN_COLLAPSIBLE_HEADER_HEIGHT,
+    };
+  }, []);
+
   return (
     <Block flex={1}>
       <FocusAwareStatusBar
@@ -59,12 +76,11 @@ const CatalogScreenComponent: React.FC<Props> = (props) => {
         backgroundColor={Colors.transparent}
         barStyle="light-content"
       />
-      <StyledImage source={banner}>
-        <Typography.B24 color={Colors.white}>BRAND </Typography.B24>
-        <Typography.B24 color={Colors.white}>GALLERY</Typography.B24>
-      </StyledImage>
       <Block flex={1} paddingHorizontal={5}>
-        <List
+        <AnimatedFlatList
+          contentContainerStyle={contentContainerStyle}
+          progressViewOffset={MAIN_COLLAPSIBLE_HEADER_HEIGHT}
+          onScroll={onScroll}
           showsVerticalScrollIndicator={false}
           keyExtractor={keyExtractor}
           data={mainCatalog}
@@ -80,19 +96,3 @@ const CatalogScreenComponent: React.FC<Props> = (props) => {
 
 // @ts-ignore
 export const CatalogScreen = connector(CatalogScreenComponent);
-
-const StyledImage = styled(ImageBackground)`
-  width: 100%;
-  height: 170px;
-  padding: 20px;
-  align-items: flex-start;
-  justify-content: flex-end;
-  elevation: 12;
-`;
-
-const List = styled(FlatList).attrs(() => ({
-  contentContainerStyle: {
-    flexGrow: 1,
-    paddingVertical: 5,
-  },
-}))``;

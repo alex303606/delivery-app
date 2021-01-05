@@ -18,6 +18,7 @@ import {RoundButton, Row, Typography} from '@components';
 import {useAppearance} from '@hooks';
 
 const AnimatedSafeAreaView = Animated.createAnimatedComponent(SafeAreaView);
+const Y_OFFSET = COLLAPSIBLE_HEADER_HEIGHT - HEADER_HEIGHT;
 
 interface Props extends StackHeaderProps {
   searchIcon?: boolean;
@@ -26,8 +27,6 @@ interface Props extends StackHeaderProps {
 export interface CollapsibleHeaderOptions extends StackNavigationOptions {
   animatedValue?: Animated.SharedValue<number>;
 }
-
-const Y_OFFSET = COLLAPSIBLE_HEADER_HEIGHT - HEADER_HEIGHT;
 
 const getTransform = (scale: number, width: number) => {
   'worklet';
@@ -52,8 +51,8 @@ export const CollapsibleHeader: React.FC<Props> = ({scene, navigation}) => {
   );
 
   const options = scene?.descriptor.options as CollapsibleHeaderOptions;
-
   const animatedValue = options?.animatedValue;
+
   const containerStyle = useAnimatedStyle(
     () => ({
       transform: [
@@ -69,6 +68,7 @@ export const CollapsibleHeader: React.FC<Props> = ({scene, navigation}) => {
     }),
     [animatedValue],
   );
+
   const contentStyle = useAnimatedStyle(
     () => ({
       paddingBottom: interpolate(

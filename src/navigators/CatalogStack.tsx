@@ -3,7 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {EScreens, CatalogStackParamList} from '@interfaces';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {CatalogScreen, CatalogItemScreen} from '@screens';
-import {CollapsibleHeader} from '@components';
+import {CollapsibleHeader, MainCollapsibleHeader} from '@components';
 import {useAppearance} from '@hooks';
 import {Colors} from '@config';
 
@@ -18,7 +18,8 @@ export const CatalogStack: React.FC<BottomTabScreenProps<any>> = () => {
         name={EScreens.CATALOG_SCREEN}
         component={CatalogScreen}
         options={{
-          headerShown: false,
+          header: (props) => <MainCollapsibleHeader {...props} />,
+          headerTransparent: true,
         }}
       />
       <Stack.Screen

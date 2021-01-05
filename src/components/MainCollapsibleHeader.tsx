@@ -1,11 +1,11 @@
 import React, {useCallback} from 'react';
-import {LayoutChangeEvent, StyleSheet, TransformsStyle} from 'react-native';
-import {withAnchorPoint} from 'react-native-anchor-point';
 import {
-  StackHeaderProps,
-  StackNavigationOptions,
-} from '@react-navigation/stack';
-import {SafeAreaView} from 'react-native-safe-area-context';
+  ImageBackground,
+  LayoutChangeEvent,
+  TransformsStyle,
+} from 'react-native';
+import {withAnchorPoint} from 'react-native-anchor-point';
+import {StackHeaderProps} from '@react-navigation/stack';
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -14,20 +14,16 @@ import Animated, {
 } from 'react-native-reanimated';
 import {COLLAPSIBLE_HEADER_HEIGHT, Colors, HEADER_HEIGHT} from '@config';
 import styled from 'styled-components';
-import {RoundButton, Row, Typography} from '@components';
-import {useAppearance} from '@hooks';
-
-const AnimatedSafeAreaView = Animated.createAnimatedComponent(SafeAreaView);
+import {Typography, CollapsibleHeaderOptions} from '@components';
+const banner = require('@assets/images/banner.png');
+const Y_OFFSET = COLLAPSIBLE_HEADER_HEIGHT - HEADER_HEIGHT;
+const AnimatedImageBackground = Animated.createAnimatedComponent(
+  ImageBackground,
+);
 
 interface Props extends StackHeaderProps {
   searchIcon?: boolean;
 }
-
-export interface CollapsibleHeaderOptions extends StackNavigationOptions {
-  animatedValue?: Animated.SharedValue<number>;
-}
-
-const Y_OFFSET = COLLAPSIBLE_HEADER_HEIGHT - HEADER_HEIGHT;
 
 const getTransform = (scale: number, width: number) => {
   'worklet';
@@ -36,14 +32,13 @@ const getTransform = (scale: number, width: number) => {
   };
   return withAnchorPoint(
     transform,
-    {x: 1, y: 0.22},
+    {x: 0, y: 0},
     {width, height: Y_OFFSET + 1},
   );
 };
 
 export const MainCollapsibleHeader: React.FC<Props> = ({scene, navigation}) => {
   const titleWidth = useSharedValue(0);
-  const {themeIsLight} = useAppearance();
   const handleTitleLayout = useCallback(
     (e: LayoutChangeEvent) => {
       titleWidth.value = e.nativeEvent.layout.width;
@@ -52,7 +47,6 @@ export const MainCollapsibleHeader: React.FC<Props> = ({scene, navigation}) => {
   );
 
   const options = scene?.descriptor.options as CollapsibleHeaderOptions;
-
   const animatedValue = options?.animatedValue;
   const containerStyle = useAnimatedStyle(
     () => ({
@@ -69,12 +63,13 @@ export const MainCollapsibleHeader: React.FC<Props> = ({scene, navigation}) => {
     }),
     [animatedValue],
   );
+
   const contentStyle = useAnimatedStyle(
     () => ({
       paddingBottom: interpolate(
         animatedValue?.value ?? 0,
         [0, Y_OFFSET],
-        [29, 5],
+        [30, 0],
         Extrapolate.CLAMP,
       ),
       transform: [
@@ -101,56 +96,26 @@ export const MainCollapsibleHeader: React.FC<Props> = ({scene, navigation}) => {
     return getTransform(scale, titleWidth.value);
   }, [animatedValue]);
 
-  const buttonStyle = useAnimatedStyle(
-    () => ({
-      marginLeft: 6,
-      zIndex: 999,
-      transform: [
-        {
-          translateY: interpolate(
-            animatedValue?.value ?? 0,
-            [0, Y_OFFSET],
-            [0, 61],
-            Extrapolate.CLAMP,
-          ),
-        },
-      ],
-    }),
-    [animatedValue],
-  );
-
   return (
-    <Container style={StyleSheet.compose(options.headerStyle, containerStyle)}>
+    <Container style={containerStyle} source={banner}>
       <ContentContainer style={contentStyle}>
-        <Animated.View style={buttonStyle}>
-          <RoundButton
-            iconColor={themeIsLight ? Colors.black : Colors.white}
-            onPress={() => navigation.goBack()}
-          />
+        <Animated.View onLayout={handleTitleLayout} style={titleStyle}>
+          <Typography.B28 color={Colors.white}>BRAND GALLERY</Typography.B28>
         </Animated.View>
-        <Row paddingHorizontal={16} justifyContent="flex-end">
-          <Animated.View onLayout={handleTitleLayout} style={titleStyle}>
-            <Typography.B34 color={themeIsLight ? Colors.black : Colors.white}>
-              {options.title}
-            </Typography.B34>
-          </Animated.View>
-        </Row>
       </ContentContainer>
     </Container>
   );
 };
 
-const Container = styled(AnimatedSafeAreaView)`
+const Container = styled(AnimatedImageBackground)`
   height: ${COLLAPSIBLE_HEADER_HEIGHT}px;
-  flex-direction: row;
   width: 100%;
-  justify-content: space-between;
   elevation: 12;
-  background-color: ${Colors.white};
 `;
 
 const ContentContainer = styled(Animated.View)`
   flex: 1;
-  justify-content: space-between;
-  padding: 9px 0 0 0px;
+  padding: 0 21px;
+  align-items: flex-start;
+  justify-content: flex-end;
 `;

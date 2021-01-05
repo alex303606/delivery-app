@@ -8,6 +8,7 @@ export const DEVICE_HAS_NOTCH = STATUSBAR_HEIGHT > 24;
  */
 export const WINDOW_TOP_INSET = initialWindowMetrics?.insets.top ?? 0;
 export const COLLAPSIBLE_HEADER_HEIGHT = 125 + WINDOW_TOP_INSET + 24;
+export const MAIN_COLLAPSIBLE_HEADER_HEIGHT = 125 + WINDOW_TOP_INSET;
 export const HEADER_HEIGHT = 56 + WINDOW_TOP_INSET;
 const screenHeightFallback = DEVICE_HAS_NOTCH
   ? Dimensions.get('window').height
