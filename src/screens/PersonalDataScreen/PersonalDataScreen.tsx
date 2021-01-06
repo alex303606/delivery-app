@@ -5,15 +5,22 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {RootState} from 'src/store/configureStore';
-import {editUser, getUser, IGetUser, IEditUser} from '@actions';
+import {
+  editUser,
+  getUser,
+  setUserIsNotNew,
+  IEditUser,
+  IGetUser,
+} from '@actions';
 import {useNavigation} from '@react-navigation/native';
 import {RefreshControl} from 'react-native';
 import {PersonalDataForm} from './PersonalDataForm';
-import {PersonalDataScreenProps} from '@interfaces';
+import {EScreens, PersonalDataScreenProps} from '@interfaces';
 
 type Props = {
   getUser: IGetUser;
   editUser: IEditUser;
+  setUserIsNotNew: () => void;
 } & RootState &
   PersonalDataScreenProps;
 
@@ -22,6 +29,7 @@ const mapDispatchToProps = (dispatch: any) => {
     {
       editUser,
       getUser,
+      setUserIsNotNew,
     },
     dispatch,
   );
@@ -43,6 +51,11 @@ const PersonalDataScreenComponent: React.FC<Props> = (props) => {
     push_sale,
     sms,
   } = props.profile;
+  const {
+    route: {
+      params: {newUser},
+    },
+  } = props;
   const {textColor} = useAppearance();
   const navigation = useNavigation();
   const {t} = useTranslation();
@@ -79,7 +92,10 @@ const PersonalDataScreenComponent: React.FC<Props> = (props) => {
           return props.getUser().then((data) => {
             setErrorMessage(data.message);
             if (data.result) {
-              navigation.goBack();
+              props.setUserIsNotNew();
+              navigation.navigate(
+                newUser ? EScreens.ROOT_TABS : EScreens.PROFILE_SCREEN,
+              );
             }
           });
         }
@@ -108,17 +124,13 @@ const PersonalDataScreenComponent: React.FC<Props> = (props) => {
     });
   }, [hideLoader, props, showLoader]);
 
-  const {
-    route: {
-      params: {newUser},
-    },
-  } = props;
-
   return (
     <Block flex={1} paddingBottom={16} paddingTop={newUser ? 100 : 16}>
       <Block paddingHorizontal={16}>
         {newUser && (
-          <Typography.B34 marginBottom={20} color={textColor}>{t('welcome')}</Typography.B34>
+          <Typography.B34 marginBottom={20} color={textColor}>
+            {t('welcome')}
+          </Typography.B34>
         )}
         <Typography.B24 marginBottom={20} color={textColor}>
           {t('personalData')}

@@ -27,6 +27,7 @@ type Props = {
 
 const mapState = (state: RootState) => ({
   userIsLoggedIn: state.profile.userIsLoggedIn,
+  newUser: state.profile.newUser,
 });
 
 const mapDispatchToProps = (dispatch: any) => {
@@ -61,7 +62,12 @@ export const RootStack: React.FC<Props> = (props) => {
     return <Loader background={Colors.black} color={Colors.white} />;
   }
   return (
-    <Stack.Navigator mode="modal" headerMode="none">
+    <Stack.Navigator
+      mode="modal"
+      headerMode="none"
+      initialRouteName={
+        props.newUser ? EScreens.FIRST_DATA_SCREEN : EScreens.ROOT_TABS
+      }>
       <Stack.Screen
         name={EScreens.ROOT_TABS}
         component={props.userIsLoggedIn ? RootTabs : AuthStack}

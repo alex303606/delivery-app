@@ -1,7 +1,12 @@
 import axios from 'axios';
 import {E164Number} from 'libphonenumber-js';
 import {ISendCode, ISendPhoneNumber, IGetUserResponse} from './interfaces';
-import {SIGN_IN_SUCCESS, SIGN_OUT, GET_USER_SUCCESS, SET_USER_IS_NEW} from './actionTypes';
+import {
+  SIGN_IN_SUCCESS,
+  SIGN_OUT,
+  GET_USER_SUCCESS,
+  SET_USER_IS_NEW,
+} from './actionTypes';
 import {IProfileState} from 'src/store/reducers/profile';
 
 export const sendPhone = (phone: E164Number): ISendPhoneNumber => {
@@ -19,6 +24,12 @@ export const sendPhone = (phone: E164Number): ISendPhoneNumber => {
         }
       })
       .catch((error) => console.log(error));
+  };
+};
+
+export const setUserIsNotNew = () => {
+  return (dispatch: any) => {
+    dispatch(setIsNewUserOrNot(false));
   };
 };
 
