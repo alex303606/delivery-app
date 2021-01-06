@@ -31,5 +31,8 @@ export const ruTranslation = {
     phoneNumber: 'Номер телефона (не редактируется)',
     save: 'Сохранить',
     welcome: 'Добро пожаловать',
+    push_new_arrival: 'Новые поступления',
+    push_sale: 'Специальные предложения',
+    sms: 'SMS уведомления',
   },
 };

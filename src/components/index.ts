@@ -14,3 +14,4 @@ export * from './RoundButton';
 export * from './RowButton';
 export * from './InputField';
 export * from './ScrollContainer';
+export * from './SwitchComponent';
