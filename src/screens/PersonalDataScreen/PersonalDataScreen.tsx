@@ -54,9 +54,9 @@ const PersonalDataScreenComponent: React.FC<Props> = (props) => {
   const error = town.length < 3 || name.length < 3 || lastName.length < 3;
 
   useEffect(() => {
-    setName(firstname);
-    setLastName(lastname);
-    setTown(city);
+    setName(firstname || '');
+    setLastName(lastname || '');
+    setTown(city || '');
   }, [city, firstname, lastname]);
 
   const save = useCallback(() => {
