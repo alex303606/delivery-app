@@ -119,7 +119,7 @@ const PersonalDataScreenComponent: React.FC<Props> = (props) => {
       {newUser && (
         <Typography.B34 color={textColor}>{t('welcome')}</Typography.B34>
       )}
-      <Typography.B24 marginBottom={25} color={textColor}>{t('personalData')}</Typography.B24>
+      <Typography.B24 marginBottom={10} color={textColor}>{t('personalData')}</Typography.B24>
       <ScrollContainer
         refreshControl={
           <RefreshControl refreshing={loading} onRefresh={reload} />
