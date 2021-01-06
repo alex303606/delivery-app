@@ -14,7 +14,7 @@ export const ruTranslation = {
     getCode: 'Получить код по смс',
     scrollToTop: 'В начало списка',
     selectCountry: 'Выберите страну',
-    phoneNumberVerification: `Подтверждение номера \nтелефона`,
+    phoneNumberVerification: 'Подтверждение номера \nтелефона',
     enterSmsCode: 'Введите код полученный по СМС',
     confirm: 'Подтвердить',
     waitingToSendSms: 'Можно запросить новый код через {{count}} сек',
@@ -30,5 +30,6 @@ export const ruTranslation = {
     city: 'Город',
     phoneNumber: 'Номер телефона (не редактируется)',
     save: 'Сохранить',
+    welcome: 'Добро пожаловать',
   },
 };

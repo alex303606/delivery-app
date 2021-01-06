@@ -52,6 +52,7 @@ export const ProfileStack: React.FC<BottomTabScreenProps<any>> = () => {
       <Stack.Screen
         name={EScreens.PERSONAL_DATA_SCREEN}
         component={PersonalDataScreen}
+        initialParams={{newUser: false}}
         options={{
           title: '',
           headerStyle: {

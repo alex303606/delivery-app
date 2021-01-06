@@ -29,7 +29,7 @@ export type ProfileStackParamList = {
   [EScreens.PROFILE_SCREEN]: undefined;
   [EScreens.ORDERS_SCREEN]: undefined;
   [EScreens.SETTINGS_SCREEN]: undefined;
-  [EScreens.PERSONAL_DATA_SCREEN]: undefined;
+  [EScreens.PERSONAL_DATA_SCREEN]: {newUser: boolean};
 };
 
 export type FavoritesStackParamList = {
@@ -46,10 +46,20 @@ export type CatalogScreenProps = StackScreenProps<
   EScreens.CATALOG_ITEM_SCREEN
 >;
 
+export type PersonalDataScreenProps = StackScreenProps<
+  ProfileStackParamList,
+  EScreens.PERSONAL_DATA_SCREEN
+>;
+
 //TABS
 export type RootTabParamList = {
   [EScreens.CATALOG_STACK]: undefined;
   [EScreens.FAVORITES_STACK]: undefined;
   [EScreens.PROFILE_STACK]: undefined;
   [EScreens.CART_STACK]: undefined;
+};
+
+export type RootStackParamList = {
+  [EScreens.ROOT_TABS]: undefined;
+  [EScreens.FIRST_DATA_SCREEN]: {newUser: boolean};
 };

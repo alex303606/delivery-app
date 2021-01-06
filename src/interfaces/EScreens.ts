@@ -17,4 +17,5 @@ export enum EScreens {
   ORDERS_SCREEN = 'OrdersScreen',
   SETTINGS_SCREEN = 'SettingsScreen',
   PERSONAL_DATA_SCREEN = 'PersonalDataScreen',
+  FIRST_DATA_SCREEN = 'FirstDataScreen',
 }

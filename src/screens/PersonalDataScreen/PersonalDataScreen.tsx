@@ -7,14 +7,15 @@ import {useTranslation} from 'react-i18next';
 import {RootState} from 'src/store/configureStore';
 import {editUser, getUser, IGetUser, IEditUser} from '@actions';
 import {useNavigation} from '@react-navigation/native';
-import {EScreens} from '@interfaces';
 import {RefreshControl} from 'react-native';
 import {PersonalDataForm} from './PersonalDataForm';
+import {PersonalDataScreenProps} from '@interfaces';
 
 type Props = {
   getUser: IGetUser;
   editUser: IEditUser;
-} & RootState;
+} & RootState &
+  PersonalDataScreenProps;
 
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
@@ -78,7 +79,7 @@ const PersonalDataScreenComponent: React.FC<Props> = (props) => {
           return props.getUser().then((data) => {
             setErrorMessage(data.message);
             if (data.result) {
-              navigation.navigate(EScreens.PROFILE_SCREEN);
+              navigation.goBack();
             }
           });
         }
@@ -107,13 +108,22 @@ const PersonalDataScreenComponent: React.FC<Props> = (props) => {
     });
   }, [hideLoader, props, showLoader]);
 
+  const {
+    route: {
+      params: {newUser},
+    },
+  } = props;
+
   return (
-    <ScrollContainer
-      refreshControl={
-        <RefreshControl refreshing={loading} onRefresh={reload} />
-      }>
-      <Block flex={1} padding={16}>
-        <Typography.B34 color={textColor}>{t('personalData')}</Typography.B34>
+    <Block flex={1} padding={16} paddingTop={newUser ? 100 : 0}>
+      {newUser && (
+        <Typography.B34 color={textColor}>{t('welcome')}</Typography.B34>
+      )}
+      <Typography.B24 color={textColor}>{t('personalData')}</Typography.B24>
+      <ScrollContainer
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={reload} />
+        }>
         <PersonalDataForm
           name={name}
           lastName={lastName}
@@ -131,8 +141,8 @@ const PersonalDataScreenComponent: React.FC<Props> = (props) => {
           title={t('save')}
           onPress={save}
         />
-      </Block>
-    </ScrollContainer>
+      </ScrollContainer>
+    </Block>
   );
 };
 

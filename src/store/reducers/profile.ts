@@ -1,5 +1,6 @@
 import {
   GET_USER_SUCCESS,
+  SET_USER_IS_NEW,
   SIGN_IN_SUCCESS,
   SIGN_OUT,
 } from '../actions/actionTypes';
@@ -16,6 +17,7 @@ export interface IProfileState {
   push_new_arrival: boolean;
   push_sale: boolean;
   sms: boolean;
+  newUser: boolean;
 }
 
 const initialState: IProfileState = {
@@ -30,6 +32,7 @@ const initialState: IProfileState = {
   push_new_arrival: true,
   push_sale: true,
   sms: true,
+  newUser: true,
 };
 
 export const userReducer = (state = initialState, action: any) => {
@@ -38,6 +41,8 @@ export const userReducer = (state = initialState, action: any) => {
       return {...state, user_id: action.user_id, userIsLoggedIn: true};
     case GET_USER_SUCCESS:
       return {...state, ...action.data};
+    case SET_USER_IS_NEW:
+      return {...state, newUser: action.newUser};
     case SIGN_OUT:
       return initialState;
     default:

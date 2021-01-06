@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback, useEffect, useMemo} from 'react';
 import {connect} from 'react-redux';
 import {Block, FocusAwareStatusBar} from '@components';
 import {Colors, COLLAPSIBLE_HEADER_HEIGHT} from '@config';
@@ -10,12 +10,16 @@ import {bindActionCreators} from 'redux';
 import {getSections} from '@actions';
 import {useLoading, useScrollHandler, useSetScreenOptions} from '@hooks';
 import Animated from 'react-native-reanimated';
+import {IProfileState} from 'src/store/reducers/profile';
+import {useNavigation} from '@react-navigation/native';
+import {EScreens} from '@interfaces';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 const keyExtractor = (item: ICatalogItem) => item.ID;
 
 const mapState = (state: RootState) => ({
   catalog: state.catalog.catalog,
+  newUser: state.profile.newUser,
 });
 
 const mapDispatchToProps = (dispatch: any) => {
@@ -29,7 +33,8 @@ const mapDispatchToProps = (dispatch: any) => {
 
 type Props = {
   getSections: () => Promise<any>;
-} & ICatalogState;
+} & ICatalogState &
+  IProfileState;
 
 const connector = connect(mapState, mapDispatchToProps);
 
@@ -38,6 +43,13 @@ const CatalogScreenComponent: React.FC<Props> = (props) => {
     (x: ICatalogItem) => x.DEPTH_LEVEL === '1',
   );
   const {loading, hideLoader, showLoader} = useLoading();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (props.newUser) {
+      navigation.navigate(EScreens.FIRST_DATA_SCREEN);
+    }
+  }, [navigation, props.newUser]);
 
   const {scrollY, onScroll} = useScrollHandler();
   useSetScreenOptions(
