@@ -115,11 +115,15 @@ const PersonalDataScreenComponent: React.FC<Props> = (props) => {
   } = props;
 
   return (
-    <Block flex={1} padding={16} paddingTop={newUser ? 100 : 0}>
-      {newUser && (
-        <Typography.B34 color={textColor}>{t('welcome')}</Typography.B34>
-      )}
-      <Typography.B24 marginBottom={10} color={textColor}>{t('personalData')}</Typography.B24>
+    <Block flex={1} paddingBottom={16} paddingTop={newUser ? 100 : 16}>
+      <Block paddingHorizontal={16}>
+        {newUser && (
+          <Typography.B34 marginBottom={20} color={textColor}>{t('welcome')}</Typography.B34>
+        )}
+        <Typography.B24 marginBottom={20} color={textColor}>
+          {t('personalData')}
+        </Typography.B24>
+      </Block>
       <ScrollContainer
         refreshControl={
           <RefreshControl refreshing={loading} onRefresh={reload} />
@@ -134,13 +138,14 @@ const PersonalDataScreenComponent: React.FC<Props> = (props) => {
           setName={setName}
           setTown={setTown}
         />
-        <Button
-          loading={loading}
-          disabled={error}
-          marginTop={30}
-          title={t('save')}
-          onPress={save}
-        />
+        <Block paddingHorizontal={16}>
+          <Button
+            loading={loading}
+            disabled={error}
+            title={t('save')}
+            onPress={save}
+          />
+        </Block>
       </ScrollContainer>
     </Block>
   );

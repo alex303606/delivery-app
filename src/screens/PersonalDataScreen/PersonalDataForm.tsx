@@ -28,7 +28,7 @@ export const PersonalDataForm: React.FC<Props> = ({
   const {t} = useTranslation();
 
   return (
-    <Block flex={1} marginTop={24}>
+    <Block marginHorizontal={16} flex={1}>
       <InputField
         autoCapitalize="words"
         autoCompleteType="name"

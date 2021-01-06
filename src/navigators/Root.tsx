@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {EScreens, RootStackParamList} from '@interfaces';
 import {AuthStack, RootTabs} from '@navigators';
-import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import {connect} from 'react-redux';
 import {IProfileState} from 'src/store/reducers/profile';
 import {bindActionCreators} from 'redux';
@@ -77,7 +77,6 @@ export const RootStack: React.FC<Props> = (props) => {
             elevation: 0,
             borderBottomWidth: 0,
           },
-          ...TransitionPresets.ModalSlideFromBottomIOS,
         }}
       />
     </Stack.Navigator>
