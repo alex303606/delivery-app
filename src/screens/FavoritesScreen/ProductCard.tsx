@@ -64,7 +64,7 @@ export const ProductCard: React.FC<Props> = ({item, onPress, onDelete}) => {
 
 const ProductsCardContainer = styled(View)`
   flex: 1;
-  max-width: 50%;
+  max-width: 46%;
   margin: 8px;
   background-color: ${Colors.transparent};
 `;

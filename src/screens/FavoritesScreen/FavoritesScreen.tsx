@@ -1,20 +1,21 @@
 import React, {useCallback} from 'react';
 import {Block, Typography} from '@components';
-import {useAppearance} from '@hooks';
-import {STATUSBAR_HEIGHT} from '@config';
+import {useAppearance, useLoading} from '@hooks';
+import {COLLAPSIBLE_HEADER_HEIGHT, STATUSBAR_HEIGHT} from '@config';
 import {useTranslation} from 'react-i18next';
 import {RootState} from 'src/store/configureStore';
 import {connect} from 'react-redux';
-import {FlatList} from 'react-native';
+import {FlatList, RefreshControl} from 'react-native';
 import {IProduct} from 'src/store/reducers/favoritest';
 import {ProductCard} from './ProductCard';
 import {bindActionCreators} from 'redux';
-import {deleteFavorite} from '@actions';
+import {deleteFavorite, getFavorites} from '@actions';
 import {useNavigation} from '@react-navigation/native';
 import {EScreens} from '@interfaces';
 
 type Props = {
   deleteFavorite: (id: string) => void;
+  getFavorites: () => Promise<any>;
 } & RootState;
 
 const mapState = (state: RootState) => ({
@@ -25,6 +26,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
     {
       deleteFavorite,
+      getFavorites,
     },
     dispatch,
   );
@@ -37,6 +39,15 @@ export const FavoritesScreenComponent: React.FC<Props> = (props) => {
   const {textColor} = useAppearance();
   const {t} = useTranslation();
   const navigation = useNavigation();
+  const {loading, showLoader, hideLoader} = useLoading();
+
+  const reload = useCallback(() => {
+    showLoader();
+    props.getFavorites().then(() => {
+      hideLoader();
+    });
+  }, [hideLoader, props, showLoader]);
+
   const onPressHandle = useCallback(
     (item: IProduct) => {
       navigation.navigate(EScreens.FAVORITE_SCREEN, {item});
@@ -69,12 +80,15 @@ export const FavoritesScreenComponent: React.FC<Props> = (props) => {
         renderItem={renderItem}
         numColumns={2}
         columnWrapperStyle={{
-          justifyContent: 'flex-start',
+          justifyContent: 'space-between',
           alignItems: 'center',
         }}
         contentContainerStyle={{
           flexGrow: 1,
         }}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={reload} />
+        }
       />
     </Block>
   );
