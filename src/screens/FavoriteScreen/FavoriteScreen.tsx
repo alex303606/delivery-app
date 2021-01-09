@@ -2,7 +2,7 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Block, Button, Typography} from '@components';
 import styled from 'styled-components';
-import {Image, ImageBackground, ScrollView} from 'react-native';
+import {Image, ScrollView} from 'react-native';
 import {FavoriteScreenProps} from '@interfaces';
 import {getImage} from '@utils';
 import {Colors, WINDOW_WIDTH} from '@config';
