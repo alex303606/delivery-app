@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {Block, Typography} from '@components';
 import {useAppearance, useLoading} from '@hooks';
-import {COLLAPSIBLE_HEADER_HEIGHT, STATUSBAR_HEIGHT} from '@config';
+import {STATUSBAR_HEIGHT} from '@config';
 import {useTranslation} from 'react-i18next';
 import {RootState} from 'src/store/configureStore';
 import {connect} from 'react-redux';
@@ -94,4 +94,5 @@ export const FavoritesScreenComponent: React.FC<Props> = (props) => {
   );
 };
 
+// @ts-ignore
 export const FavoritesScreen = connector(FavoritesScreenComponent);
