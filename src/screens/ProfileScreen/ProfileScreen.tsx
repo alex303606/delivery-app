@@ -8,6 +8,7 @@ import {
   Icon,
   RowButton,
   RoundButton,
+  ScrollContainer,
 } from '@components';
 import {useAppearance} from '@hooks';
 import {Colors, STATUSBAR_HEIGHT} from '@config';
@@ -69,29 +70,31 @@ export const ProfileScreenComponent: React.FC<Props> = (props) => {
             diameter={50}
           />
         </Row>
-        <RowButton
-          onPress={() => navigation.navigate(EScreens.ORDERS_SCREEN)}
-          title={t('orders')}
-          description={t('completedOrders', {count: 15})}
-        />
-        <RowButton
-          onPress={() => navigation.navigate(EScreens.SETTINGS_SCREEN)}
-          title={t('settings')}
-          description={t('notificationsText')}
-        />
-        {documents.map(
-          (document: {name: string; text: string}, index: number) => {
-            return (
-              <RowButton
-                key={document.name}
-                onPress={() =>
-                  navigation.navigate(EScreens.APP_DATA_SCREEN, {index})
-                }
-                title={document.name}
-              />
-            );
-          },
-        )}
+        <ScrollContainer>
+          <RowButton
+            onPress={() => navigation.navigate(EScreens.ORDERS_SCREEN)}
+            title={t('orders')}
+            description={t('completedOrders', {count: 15})}
+          />
+          <RowButton
+            onPress={() => navigation.navigate(EScreens.SETTINGS_SCREEN)}
+            title={t('settings')}
+            description={t('notificationsText')}
+          />
+          {documents.map(
+            (document: {name: string; text: string}, index: number) => {
+              return (
+                <RowButton
+                  key={document.name}
+                  onPress={() =>
+                    navigation.navigate(EScreens.APP_DATA_SCREEN, {index})
+                  }
+                  title={document.name}
+                />
+              );
+            },
+          )}
+        </ScrollContainer>
       </Block>
       <Button
         marginTop={30}

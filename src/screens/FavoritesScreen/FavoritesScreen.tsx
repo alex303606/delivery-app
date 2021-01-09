@@ -1,8 +1,7 @@
-import React, {useCallback} from 'react';
-import {Block, Typography} from '@components';
-import {useAppearance, useLoading} from '@hooks';
-import {STATUSBAR_HEIGHT} from '@config';
-import {useTranslation} from 'react-i18next';
+import React, {useCallback, useMemo} from 'react';
+import {Block} from '@components';
+import {useLoading, useScrollHandler, useSetScreenOptions} from '@hooks';
+import {COLLAPSIBLE_HEADER_HEIGHT} from '@config';
 import {RootState} from 'src/store/configureStore';
 import {connect} from 'react-redux';
 import {FlatList, RefreshControl} from 'react-native';
@@ -12,6 +11,7 @@ import {bindActionCreators} from 'redux';
 import {deleteFavorite, getFavorites} from '@actions';
 import {useNavigation} from '@react-navigation/native';
 import {EScreens} from '@interfaces';
+import Animated from 'react-native-reanimated';
 
 type Props = {
   deleteFavorite: (id: string) => void;
@@ -34,10 +34,9 @@ const mapDispatchToProps = (dispatch: any) => {
 
 const connector = connect(mapState, mapDispatchToProps);
 const keyExtractor = (item: IProduct) => item.ID;
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 export const FavoritesScreenComponent: React.FC<Props> = (props) => {
-  const {textColor} = useAppearance();
-  const {t} = useTranslation();
   const navigation = useNavigation();
   const {loading, showLoader, hideLoader} = useLoading();
 
@@ -68,12 +67,26 @@ export const FavoritesScreenComponent: React.FC<Props> = (props) => {
     [onPressHandle, props],
   );
 
+  const {scrollY, onScroll} = useScrollHandler();
+  useSetScreenOptions(
+    {
+      animatedValue: scrollY,
+    },
+    [scrollY],
+  );
+
+  const contentContainerStyle = useMemo(() => {
+    return {
+      flexGrow: 1,
+      paddingTop: COLLAPSIBLE_HEADER_HEIGHT,
+    };
+  }, []);
+
   return (
-    <Block flex={1} paddingTop={STATUSBAR_HEIGHT + 40} padding={8}>
-      <Typography.B34 marginBottom={24} paddingHorizontal={8} color={textColor}>
-        {t('tabs.favorites')}
-      </Typography.B34>
-      <FlatList
+    <Block flex={1} padding={8}>
+      <AnimatedFlatList
+        progressViewOffset={COLLAPSIBLE_HEADER_HEIGHT}
+        onScroll={onScroll}
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
         data={props.favorites}
@@ -83,11 +96,13 @@ export const FavoritesScreenComponent: React.FC<Props> = (props) => {
           justifyContent: 'space-between',
           alignItems: 'center',
         }}
-        contentContainerStyle={{
-          flexGrow: 1,
-        }}
+        contentContainerStyle={contentContainerStyle}
         refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={reload} />
+          <RefreshControl
+            progressViewOffset={COLLAPSIBLE_HEADER_HEIGHT}
+            refreshing={loading}
+            onRefresh={reload}
+          />
         }
       />
     </Block>

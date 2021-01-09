@@ -21,7 +21,7 @@ const AnimatedSafeAreaView = Animated.createAnimatedComponent(SafeAreaView);
 const Y_OFFSET = COLLAPSIBLE_HEADER_HEIGHT - HEADER_HEIGHT;
 
 interface Props extends StackHeaderProps {
-  searchIcon?: boolean;
+  showBackButton?: boolean;
 }
 
 export interface CollapsibleHeaderOptions extends StackNavigationOptions {
@@ -40,7 +40,11 @@ const getTransform = (scale: number, width: number) => {
   );
 };
 
-export const CollapsibleHeader: React.FC<Props> = ({scene, navigation}) => {
+export const CollapsibleHeader: React.FC<Props> = ({
+  scene,
+  navigation,
+  showBackButton = true,
+}) => {
   const titleWidth = useSharedValue(0);
   const {themeIsLight} = useAppearance();
   const handleTitleLayout = useCallback(
@@ -123,10 +127,12 @@ export const CollapsibleHeader: React.FC<Props> = ({scene, navigation}) => {
     <Container style={StyleSheet.compose(options.headerStyle, containerStyle)}>
       <ContentContainer style={contentStyle}>
         <Animated.View style={buttonStyle}>
-          <RoundButton
-            iconColor={themeIsLight ? Colors.black : Colors.white}
-            onPress={() => navigation.goBack()}
-          />
+          {showBackButton && (
+            <RoundButton
+              iconColor={themeIsLight ? Colors.black : Colors.white}
+              onPress={() => navigation.goBack()}
+            />
+          )}
         </Animated.View>
         <Row paddingHorizontal={16} justifyContent="flex-end">
           <Animated.View onLayout={handleTitleLayout} style={titleStyle}>
