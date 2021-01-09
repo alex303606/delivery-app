@@ -48,6 +48,7 @@ export const SelectCountryModal = React.forwardRef<SelectCountryModalProps>(
       <Modal renderHeader={renderModalHeader} ref={ref} contentRef={contentRef}>
         <Block flex={1} paddingHorizontal={16} marginBottom={16}>
           <FlatList
+            showsVerticalScrollIndicator={false}
             scrollEnabled={false}
             keyExtractor={keyExtractor}
             data={COUNTRIES}

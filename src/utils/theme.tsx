@@ -25,6 +25,7 @@ export const navigationTheme = {
     border: Colors.grey,
     card: Colors.background,
     background: Colors.background,
+    text: Colors.black,
   },
 };
 
@@ -35,5 +36,6 @@ export const navigationThemeDark = {
     background: Colors.black,
     card: Colors.black,
     border: Colors.grey,
+    text: Colors.white,
   },
 };

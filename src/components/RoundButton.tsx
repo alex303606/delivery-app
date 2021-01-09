@@ -9,6 +9,7 @@ type Props = {
   onPress: () => void;
   iconColor?: string;
   iconName?: string;
+  backgroundColor?: string;
   diameter?: number;
   iconSize?: number;
 };
@@ -19,9 +20,10 @@ export const RoundButton: React.FC<Props> = ({
   iconName = 'arrow-back-outline',
   diameter = 40,
   iconSize = 26,
+  backgroundColor = Colors.transparent,
 }) => {
   return (
-    <Wrapper diameter={diameter}>
+    <Wrapper backgroundColor={backgroundColor} diameter={diameter}>
       <BackButton diameter={diameter} onPress={onPress}>
         <Icon size={iconSize} color={iconColor} name={iconName} />
       </BackButton>

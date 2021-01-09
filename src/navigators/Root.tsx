@@ -12,6 +12,7 @@ import {
   IGetCatalog,
   IGetUser,
   updateUserDate,
+  getFavorites,
 } from '@actions';
 import {RootState} from 'src/store/configureStore';
 import {useAppearance, useLoading} from '@hooks';
@@ -25,6 +26,7 @@ type Props = {
   getUser: IGetUser;
   updateUserDate: () => Promise<any>;
   getAppData: () => Promise<any>;
+  getFavorites: () => Promise<any>;
 } & IProfileState;
 
 const mapState = (state: RootState) => ({
@@ -39,6 +41,7 @@ const mapDispatchToProps = (dispatch: any) => {
       getUser,
       updateUserDate,
       getAppData,
+      getFavorites,
     },
     dispatch,
   );
@@ -57,6 +60,7 @@ export const RootStack: React.FC<Props> = (props) => {
         props.getUser(),
         props.updateUserDate(),
         props.getAppData(),
+        props.getFavorites(),
       ]).then(() => {
         hideLoader();
       });

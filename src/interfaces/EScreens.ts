@@ -12,6 +12,7 @@ export enum EScreens {
   PROFILE_SCREEN = 'ProfileScreen',
   CARD_SCREEN = 'CardScreen',
   FAVORITES_SCREEN = 'FavoritesScreen',
+  FAVORITE_SCREEN = 'FavoriteScreen',
   LOGIN_SCREEN = 'LoginScreen',
   SMS_CODE_SCREEN = 'SmsCodeScreen',
   ORDERS_SCREEN = 'OrdersScreen',

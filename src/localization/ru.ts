@@ -34,5 +34,6 @@ export const ruTranslation = {
     push_new_arrival: 'Новые поступления',
     push_sale: 'Специальные предложения',
     sms: 'SMS уведомления',
+    addToCard: 'Добавить в корзину',
   },
 };

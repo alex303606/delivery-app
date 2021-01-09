@@ -9,14 +9,10 @@ import {
   PersonalDataScreen,
   AppDataScreen,
 } from '@screens';
-import {useAppearance} from '@hooks';
-import {Colors} from '@config';
 
 const Stack = createStackNavigator<ProfileStackParamList>();
 
 export const ProfileStack: React.FC<BottomTabScreenProps<any>> = () => {
-  const {themeIsLight} = useAppearance();
-
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -32,7 +28,6 @@ export const ProfileStack: React.FC<BottomTabScreenProps<any>> = () => {
         options={{
           title: '',
           headerStyle: {
-            backgroundColor: themeIsLight ? Colors.background : Colors.black,
             elevation: 0,
             borderBottomWidth: 0,
           },
@@ -44,7 +39,6 @@ export const ProfileStack: React.FC<BottomTabScreenProps<any>> = () => {
         options={{
           title: '',
           headerStyle: {
-            backgroundColor: themeIsLight ? Colors.background : Colors.black,
             elevation: 0,
             borderBottomWidth: 0,
           },
@@ -56,7 +50,6 @@ export const ProfileStack: React.FC<BottomTabScreenProps<any>> = () => {
         options={{
           title: '',
           headerStyle: {
-            backgroundColor: themeIsLight ? Colors.background : Colors.black,
             elevation: 0,
             borderBottomWidth: 0,
           },
@@ -69,7 +62,6 @@ export const ProfileStack: React.FC<BottomTabScreenProps<any>> = () => {
         options={{
           title: '',
           headerStyle: {
-            backgroundColor: themeIsLight ? Colors.background : Colors.black,
             elevation: 0,
             borderBottomWidth: 0,
           },

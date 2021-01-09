@@ -4,6 +4,7 @@ import {EScreens} from '@interfaces';
 import {E164Number} from 'libphonenumber-js';
 import {StackScreenProps} from '@react-navigation/stack';
 import {ICatalogItem} from 'src/store/reducers/catalog';
+import {IProduct} from 'src/store/reducers/favoritest';
 
 export interface INavigationService {
   navigationRef: RefObject<NavigationContainerRef>;
@@ -35,6 +36,7 @@ export type ProfileStackParamList = {
 
 export type FavoritesStackParamList = {
   [EScreens.FAVORITES_SCREEN]: undefined;
+  [EScreens.FAVORITE_SCREEN]: {item: IProduct};
 };
 
 export type AuthorizationScreenProps = StackScreenProps<
@@ -45,6 +47,11 @@ export type AuthorizationScreenProps = StackScreenProps<
 export type CatalogScreenProps = StackScreenProps<
   CatalogStackParamList,
   EScreens.CATALOG_ITEM_SCREEN
+>;
+
+export type FavoriteScreenProps = StackScreenProps<
+  FavoritesStackParamList,
+  EScreens.FAVORITE_SCREEN
 >;
 
 export type PersonalDataScreenProps = StackScreenProps<
