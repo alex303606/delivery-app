@@ -27,7 +27,7 @@ export const AppDataScreenComponent: React.FC<Props> = (props) => {
         {doc.name}
       </Typography.B34>
       <ScrollContainer>
-        <Typography.R14>{doc.text}</Typography.R14>
+        <Typography.R14 color={textColor}>{doc.text}</Typography.R14>
       </ScrollContainer>
     </Block>
   );
