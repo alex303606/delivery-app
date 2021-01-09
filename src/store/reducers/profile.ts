@@ -1,4 +1,5 @@
 import {
+  GET_APP_DATA_SUCCESS,
   GET_USER_SUCCESS,
   SET_USER_IS_NEW,
   SIGN_IN_SUCCESS,
@@ -18,6 +19,7 @@ export interface IProfileState {
   push_sale: boolean;
   sms: boolean;
   newUser: boolean;
+  documents: {name: string; text: string}[];
 }
 
 const initialState: IProfileState = {
@@ -33,6 +35,7 @@ const initialState: IProfileState = {
   push_sale: true,
   sms: true,
   newUser: true,
+  documents: [],
 };
 
 export const userReducer = (state = initialState, action: any) => {
@@ -43,6 +46,8 @@ export const userReducer = (state = initialState, action: any) => {
       return {...state, ...action.data};
     case SET_USER_IS_NEW:
       return {...state, newUser: action.newUser};
+    case GET_APP_DATA_SUCCESS:
+      return {...state, documents: action.documents};
     case SIGN_OUT:
       return initialState;
     default:

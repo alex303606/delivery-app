@@ -8,7 +8,7 @@ import {useAppearance} from '@hooks';
 
 type Props = {
   title: string;
-  description: string;
+  description?: string;
   onPress: () => void;
 };
 
@@ -20,7 +20,7 @@ export const RowButton: React.FC<Props> = ({title, description, onPress}) => {
       <StyledPressable onPress={onPress}>
         <Block flex={1}>
           <Typography.B16 color={textColor}>{title}</Typography.B16>
-          <Typography.R14 color={Colors.grey}>{description}</Typography.R14>
+          {description && <Typography.R14 color={Colors.grey}>{description}</Typography.R14>}
         </Block>
         <IonicIcon
           size={26}

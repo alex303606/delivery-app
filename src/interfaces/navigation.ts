@@ -30,6 +30,7 @@ export type ProfileStackParamList = {
   [EScreens.ORDERS_SCREEN]: undefined;
   [EScreens.SETTINGS_SCREEN]: undefined;
   [EScreens.PERSONAL_DATA_SCREEN]: {newUser: boolean};
+  [EScreens.APP_DATA_SCREEN]: {index: number};
 };
 
 export type FavoritesStackParamList = {
@@ -49,6 +50,11 @@ export type CatalogScreenProps = StackScreenProps<
 export type PersonalDataScreenProps = StackScreenProps<
   ProfileStackParamList,
   EScreens.PERSONAL_DATA_SCREEN
+>;
+
+export type AppDataScreenProps = StackScreenProps<
+  ProfileStackParamList,
+  EScreens.APP_DATA_SCREEN
 >;
 
 //TABS

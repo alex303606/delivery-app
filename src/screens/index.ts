@@ -8,3 +8,4 @@ export * from './CatalogItemScreen';
 export * from './OrdersScreen';
 export * from './SettingsScreen';
 export * from './PersonalDataScreen';
+export * from './AppDataScreen';

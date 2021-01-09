@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {IProfileState} from 'src/store/reducers/profile';
 import {bindActionCreators} from 'redux';
 import {
+  getAppData,
   getSections,
   getUser,
   IGetCatalog,
@@ -23,6 +24,7 @@ type Props = {
   getSections: IGetCatalog;
   getUser: IGetUser;
   updateUserDate: () => Promise<any>;
+  getAppData: () => Promise<any>;
 } & IProfileState;
 
 const mapState = (state: RootState) => ({
@@ -36,6 +38,7 @@ const mapDispatchToProps = (dispatch: any) => {
       getSections,
       getUser,
       updateUserDate,
+      getAppData,
     },
     dispatch,
   );
@@ -53,6 +56,7 @@ export const RootStack: React.FC<Props> = (props) => {
         props.getSections(),
         props.getUser(),
         props.updateUserDate(),
+        props.getAppData(),
       ]).then(() => {
         hideLoader();
       });

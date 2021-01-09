@@ -104,31 +104,33 @@ const SettingsScreenComponent: React.FC<Props> = (props) => {
         {t('settings')}
       </Typography.B34>
       <ScrollContainer>
-        <Typography.B18 marginBottom={20} color={textColor}>
-          {t('notificationsText')}
-        </Typography.B18>
-        <SwitchComponent
-          value={pushNewArrival}
-          onValueChange={setPushNewArrival}
-          text={t('push_new_arrival')}
-        />
-        <SwitchComponent
-          value={pushSale}
-          onValueChange={setPushSale}
-          text={t('push_sale')}
-        />
-        <SwitchComponent
-          value={smsNotification}
-          onValueChange={setSms}
-          text={t('sms')}
-        />
-        <Typography.R16
-          marginVertical={20}
-          textAlign="center"
-          color={Colors.notificationError}
-          marginBottom={14}>
-          {errorMessage}
-        </Typography.R16>
+        <Block flex={1}>
+          <Typography.B18 marginBottom={20} color={textColor}>
+            {t('notificationsText')}
+          </Typography.B18>
+          <SwitchComponent
+            value={pushNewArrival}
+            onValueChange={setPushNewArrival}
+            text={t('push_new_arrival')}
+          />
+          <SwitchComponent
+            value={pushSale}
+            onValueChange={setPushSale}
+            text={t('push_sale')}
+          />
+          <SwitchComponent
+            value={smsNotification}
+            onValueChange={setSms}
+            text={t('sms')}
+          />
+          <Typography.R16
+            marginVertical={20}
+            textAlign="center"
+            color={Colors.notificationError}
+            marginBottom={14}>
+            {errorMessage}
+          </Typography.R16>
+        </Block>
         <Button loading={loading} title={t('save')} onPress={save} />
       </ScrollContainer>
     </Block>

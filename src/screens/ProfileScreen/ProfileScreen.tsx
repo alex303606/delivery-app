@@ -42,7 +42,7 @@ export const ProfileScreenComponent: React.FC<Props> = (props) => {
   const {textColor} = useAppearance();
   const {t} = useTranslation();
   const navigation = useNavigation();
-  const {firstname, lastname, phone} = props.profile;
+  const {firstname, lastname, phone, documents} = props.profile;
 
   return (
     <Block flex={1} paddingTop={STATUSBAR_HEIGHT + 40} padding={16}>
@@ -79,6 +79,19 @@ export const ProfileScreenComponent: React.FC<Props> = (props) => {
           title={t('settings')}
           description={t('notificationsText')}
         />
+        {documents.map(
+          (document: {name: string; text: string}, index: number) => {
+            return (
+              <RowButton
+                key={document.name}
+                onPress={() =>
+                  navigation.navigate(EScreens.APP_DATA_SCREEN, {index})
+                }
+                title={document.name}
+              />
+            );
+          },
+        )}
       </Block>
       <Button
         marginTop={30}

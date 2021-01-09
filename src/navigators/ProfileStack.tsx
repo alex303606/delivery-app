@@ -7,6 +7,7 @@ import {
   ProfileScreen,
   SettingsScreen,
   PersonalDataScreen,
+  AppDataScreen,
 } from '@screens';
 import {useAppearance} from '@hooks';
 import {Colors} from '@config';
@@ -40,6 +41,18 @@ export const ProfileStack: React.FC<BottomTabScreenProps<any>> = () => {
       <Stack.Screen
         name={EScreens.SETTINGS_SCREEN}
         component={SettingsScreen}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: themeIsLight ? Colors.background : Colors.black,
+            elevation: 0,
+            borderBottomWidth: 0,
+          },
+        }}
+      />
+      <Stack.Screen
+        name={EScreens.APP_DATA_SCREEN}
+        component={AppDataScreen}
         options={{
           title: '',
           headerStyle: {
