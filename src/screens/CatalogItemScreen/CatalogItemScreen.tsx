@@ -114,7 +114,7 @@ const CatalogItemScreenComponent: React.FC<Props> = (props) => {
         animated={true}
         backgroundColor={themeIsLight ? Colors.white : Colors.black}
       />
-      <Block flex={1} paddingHorizontal={5}>
+      <Block flex={1} padding={8}>
         <AnimatedFlatList
           contentContainerStyle={contentContainerStyle}
           progressViewOffset={COLLAPSIBLE_HEADER_HEIGHT}
