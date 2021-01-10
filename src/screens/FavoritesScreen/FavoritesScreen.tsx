@@ -1,7 +1,12 @@
 import React, {useCallback, useMemo} from 'react';
-import {Block} from '@components';
-import {useLoading, useScrollHandler, useSetScreenOptions} from '@hooks';
-import {COLLAPSIBLE_HEADER_HEIGHT} from '@config';
+import {Block, FocusAwareStatusBar} from '@components';
+import {
+  useAppearance,
+  useLoading,
+  useScrollHandler,
+  useSetScreenOptions,
+} from '@hooks';
+import {COLLAPSIBLE_HEADER_HEIGHT, Colors} from '@config';
 import {RootState} from 'src/store/configureStore';
 import {connect} from 'react-redux';
 import {FlatList, RefreshControl} from 'react-native';
@@ -39,6 +44,7 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 const FavoritesScreenComponent: React.FC<Props> = (props) => {
   const navigation = useNavigation();
   const {loading, showLoader, hideLoader} = useLoading();
+  const {themeIsLight} = useAppearance();
 
   const reload = useCallback(() => {
     showLoader();
@@ -85,6 +91,10 @@ const FavoritesScreenComponent: React.FC<Props> = (props) => {
 
   return (
     <Block flex={1}>
+      <FocusAwareStatusBar
+        animated={true}
+        backgroundColor={themeIsLight ? Colors.white : Colors.black}
+      />
       <AnimatedFlatList
         progressViewOffset={COLLAPSIBLE_HEADER_HEIGHT}
         onScroll={onScroll}

@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {FlatList} from 'react-native';
 import {IProduct} from 'src/store/reducers/favoritest';
-import {ProductFullScreenCard} from './ProductFullScreenCard';
+import {ProductFullScreenCard} from '@components';
 
 type Props = {
   products: IProduct[];
@@ -21,14 +21,8 @@ export const ProductsList: React.FC<Props> = ({
   layoutHeight,
 }) => {
   const renderItem = useCallback(
-    ({item, index}: {item: IProduct; index: number}) => {
-      return (
-        <ProductFullScreenCard
-          layoutHeight={layoutHeight}
-          item={item}
-          index={index}
-        />
-      );
+    ({item}: {item: IProduct}) => {
+      return <ProductFullScreenCard layoutHeight={layoutHeight} item={item} />;
     },
     [layoutHeight],
   );
