@@ -23,7 +23,7 @@ export const BigCatalogItem: React.FC<Props> = ({item, index}) => {
   return (
     <Block
       backgroundColor={Colors.white}
-      margin={5}
+      marginBottom={8}
       elevation={4}
       borderRadius={10}
       overflow={true}>

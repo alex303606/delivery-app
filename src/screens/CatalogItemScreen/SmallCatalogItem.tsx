@@ -63,7 +63,7 @@ export const SmallCatalogItem: React.FC<Props> = ({item}) => {
   );
 
   return (
-    <Row margin={5} justifyContent="space-between">
+    <Row marginBottom={8} justifyContent="space-between">
       {item.map(renderItem)}
     </Row>
   );

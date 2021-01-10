@@ -103,8 +103,8 @@ const CatalogItemScreenComponent: React.FC<Props> = (props) => {
   const contentContainerStyle = useMemo(() => {
     return {
       flexGrow: 1,
-      paddingVertical: 5,
-      paddingTop: COLLAPSIBLE_HEADER_HEIGHT,
+      paddingTop: COLLAPSIBLE_HEADER_HEIGHT + 8,
+      paddingHorizontal: 8,
     };
   }, []);
 
@@ -114,7 +114,7 @@ const CatalogItemScreenComponent: React.FC<Props> = (props) => {
         animated={true}
         backgroundColor={themeIsLight ? Colors.white : Colors.black}
       />
-      <Block flex={1} padding={8}>
+      <Block flex={1}>
         <AnimatedFlatList
           contentContainerStyle={contentContainerStyle}
           progressViewOffset={COLLAPSIBLE_HEADER_HEIGHT}

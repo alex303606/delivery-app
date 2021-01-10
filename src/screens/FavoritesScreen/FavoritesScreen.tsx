@@ -78,13 +78,13 @@ export const FavoritesScreenComponent: React.FC<Props> = (props) => {
   const contentContainerStyle = useMemo(() => {
     return {
       flexGrow: 1,
-      paddingVertical: 5,
-      paddingTop: COLLAPSIBLE_HEADER_HEIGHT,
+      paddingTop: COLLAPSIBLE_HEADER_HEIGHT + 8,
+      paddingHorizontal: 8,
     };
   }, []);
 
   return (
-    <Block flex={1} padding={5}>
+    <Block flex={1}>
       <AnimatedFlatList
         progressViewOffset={COLLAPSIBLE_HEADER_HEIGHT}
         onScroll={onScroll}

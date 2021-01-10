@@ -23,8 +23,8 @@ export const HorizontalCatalogItem: React.FC<Props> = ({item}) => {
 
   return (
     <Block
+      marginBottom={8}
       backgroundColor={Colors.white}
-      margin={5}
       elevation={4}
       borderRadius={10}
       overflow={true}>
