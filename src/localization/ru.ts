@@ -38,5 +38,8 @@ export const ruTranslation = {
     new: 'Новинка',
     sale: 'Супер цена',
     soon: 'Скоро мы добавим сюда товары!',
+    favoritesIsEmpty: 'Список избранных товаров пуст!',
+    cardIsEmpty: 'Ваша корзина пуста!',
+    goToMenu: 'Перейти в каталог',
   },
 };

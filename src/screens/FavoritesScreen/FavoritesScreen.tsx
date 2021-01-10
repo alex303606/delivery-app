@@ -1,5 +1,5 @@
 import React, {useCallback, useMemo} from 'react';
-import {Block, FocusAwareStatusBar} from '@components';
+import {Block, FocusAwareStatusBar, ListEmptyComponent} from '@components';
 import {
   useAppearance,
   useLoading,
@@ -17,6 +17,7 @@ import {deleteFavorite, getFavorites} from '@actions';
 import {useNavigation} from '@react-navigation/native';
 import {EScreens} from '@interfaces';
 import Animated from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 
 type Props = {
   deleteFavorite: (id: string) => void;
@@ -45,7 +46,7 @@ const FavoritesScreenComponent: React.FC<Props> = (props) => {
   const navigation = useNavigation();
   const {loading, showLoader, hideLoader} = useLoading();
   const {themeIsLight} = useAppearance();
-
+  const {t} = useTranslation();
   const reload = useCallback(() => {
     showLoader();
     props.getFavorites().then(() => {
@@ -96,6 +97,13 @@ const FavoritesScreenComponent: React.FC<Props> = (props) => {
         backgroundColor={themeIsLight ? Colors.white : Colors.black}
       />
       <AnimatedFlatList
+        ListEmptyComponent={
+          <ListEmptyComponent
+            title={t('favoritesIsEmpty')}
+            buttonTitle={t('goToMenu')}
+            onPress={() => navigation.navigate(EScreens.CATALOG_STACK)}
+          />
+        }
         progressViewOffset={COLLAPSIBLE_HEADER_HEIGHT}
         onScroll={onScroll}
         showsVerticalScrollIndicator={false}
