@@ -3,6 +3,7 @@ import {initialWindowMetrics} from 'react-native-safe-area-context';
 
 export const STATUSBAR_HEIGHT = StatusBar.currentHeight ?? 0;
 export const DEVICE_HAS_NOTCH = STATUSBAR_HEIGHT > 24;
+export const TAB_BAR_HEIGHT = 60;
 /**
  * It is more than zero when status bar is translucent
  */
@@ -25,3 +26,6 @@ export const TOP_INSET = DEVICE_HAS_NOTCH
 
 export const WINDOW_WIDTH =
   initialWindowMetrics?.frame.width || Dimensions.get('window').width;
+
+export const SCREEN_HEIGHT =
+  WINDOW_HEIGHT - TAB_BAR_HEIGHT - STATUSBAR_HEIGHT - HEADER_HEIGHT;

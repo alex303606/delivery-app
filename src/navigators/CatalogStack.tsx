@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {EScreens, CatalogStackParamList} from '@interfaces';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {CatalogScreen, CatalogItemScreen} from '@screens';
+import {CatalogScreen, CatalogItemScreen, ProductsScreen} from '@screens';
 import {CollapsibleHeader, MainCollapsibleHeader} from '@components';
 import {useAppearance} from '@hooks';
 import {Colors} from '@config';
@@ -35,6 +35,23 @@ export const CatalogStack: React.FC<BottomTabScreenProps<any>> = () => {
             headerTransparent: true,
             headerStyle: {
               backgroundColor: themeIsLight ? Colors.white : Colors.black,
+            },
+          };
+        }}
+      />
+      <Stack.Screen
+        name={EScreens.PRODUCTS_SCREEN}
+        component={ProductsScreen}
+        options={({route}) => {
+          const {
+            params: {item},
+          } = route;
+          return {
+            title: item.NAME || '',
+            headerTitleAlign: 'center',
+            headerStyle: {
+              elevation: 0,
+              borderBottomWidth: 0,
             },
           };
         }}

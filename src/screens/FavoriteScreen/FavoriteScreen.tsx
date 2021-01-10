@@ -1,6 +1,6 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Block, Button, Typography} from '@components';
+import {Block, Button, Row, Typography} from '@components';
 import styled from 'styled-components';
 import {Image, ScrollView} from 'react-native';
 import {FavoriteScreenProps} from '@interfaces';
@@ -37,18 +37,39 @@ export const FavoriteScreen: React.FC<Props> = (props) => {
         <Block padding={16} flex={1} alignItems="flex-start" paddingTop={50}>
           {item.IS_NEW && (
             <Bubble backgroundColor={Colors.mainPrimary}>
-              <Typography.B11 color={Colors.white}>Новинка</Typography.B11>
+              <Typography.B11 color={Colors.white}>{t('new')}</Typography.B11>
             </Bubble>
           )}
           {item.IS_SALE && (
             <Bubble backgroundColor="#F2994A">
-              <Typography.B11 color={Colors.white}>Супер цена</Typography.B11>
+              <Typography.B11 color={Colors.white}>{t('sale')}</Typography.B11>
             </Bubble>
           )}
         </Block>
       </WrapperTop>
-      <WrapperBottom padding={16}>
-        <Button marginTop={30} title={t('addToCard')} onPress={() => {}} />
+      <WrapperBottom paddingVertical={16}>
+        {!!item.PRICE && (
+          <Row justifyContent="flex-start" marginBottom={20}>
+            <Row padding={5} alignItems="center" backgroundColor={Colors.white}>
+              <Typography.B24>{item.PRICE}</Typography.B24>
+            </Row>
+          </Row>
+        )}
+        {!!item.TEXT && (
+          <Row justifyContent="flex-start" marginBottom={30}>
+            <Row padding={5} alignItems="center" backgroundColor={Colors.white}>
+              <Typography.B14 color={Colors.mainPrimary}>
+                {item.TEXT}
+              </Typography.B14>
+            </Row>
+          </Row>
+        )}
+        <Button
+          marginHorizontal={16}
+          marginTop={30}
+          title={t('addToCard')}
+          onPress={() => {}}
+        />
       </WrapperBottom>
     </Block>
   );

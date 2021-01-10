@@ -20,6 +20,7 @@ export type AuthStackParamList = {
 export type CatalogStackParamList = {
   [EScreens.CATALOG_SCREEN]: undefined;
   [EScreens.CATALOG_ITEM_SCREEN]: {parentItem: ICatalogItem};
+  [EScreens.PRODUCTS_SCREEN]: {item: ICatalogItem};
 };
 
 export type CardStackParamList = {
@@ -47,6 +48,11 @@ export type AuthorizationScreenProps = StackScreenProps<
 export type CatalogScreenProps = StackScreenProps<
   CatalogStackParamList,
   EScreens.CATALOG_ITEM_SCREEN
+>;
+
+export type ProductsScreenProps = StackScreenProps<
+  CatalogStackParamList,
+  EScreens.PRODUCTS_SCREEN
 >;
 
 export type FavoriteScreenProps = StackScreenProps<

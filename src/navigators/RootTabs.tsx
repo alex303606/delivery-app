@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {EScreens, RootTabParamList} from '@interfaces';
 import {Typography, Icon, IconNames} from '@components';
-import {Colors} from '@config';
+import {Colors, TAB_BAR_HEIGHT} from '@config';
 import {
   CatalogStack,
   ProfileStack,
@@ -35,7 +35,7 @@ export const RootTabs = () => {
     <Tab.Navigator
       tabBarOptions={{
         style: {
-          height: 60,
+          height: TAB_BAR_HEIGHT,
           borderTopLeftRadius: themeIsLight ? 12 : 0,
           borderTopRightRadius: themeIsLight ? 12 : 0,
           elevation: 8,

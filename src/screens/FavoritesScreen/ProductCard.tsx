@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import {View, Pressable, ImageBackground} from 'react-native';
 import {Colors} from '@config';
 import {getImage} from '@utils';
+import {useTranslation} from 'react-i18next';
 
 type Props = {
   item: IProduct;
@@ -13,6 +14,7 @@ type Props = {
 };
 
 export const ProductCard: React.FC<Props> = ({item, onPress, onDelete}) => {
+  const {t} = useTranslation();
   return (
     <ProductsCardContainer>
       <Block marginBottom={3} borderRadius={8} overflow={true}>
@@ -23,14 +25,14 @@ export const ProductCard: React.FC<Props> = ({item, onPress, onDelete}) => {
                 {item.IS_NEW && (
                   <Bubble backgroundColor={Colors.mainPrimary}>
                     <Typography.B11 color={Colors.white}>
-                      Новинка
+                      {t('new')}
                     </Typography.B11>
                   </Bubble>
                 )}
                 {item.IS_SALE && (
                   <Bubble backgroundColor="#F2994A">
                     <Typography.B11 color={Colors.white}>
-                      Супер цена
+                      {t('sale')}
                     </Typography.B11>
                   </Bubble>
                 )}

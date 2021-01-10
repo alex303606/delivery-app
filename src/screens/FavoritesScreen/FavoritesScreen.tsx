@@ -36,7 +36,7 @@ const connector = connect(mapState, mapDispatchToProps);
 const keyExtractor = (item: IProduct) => item.ID;
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-export const FavoritesScreenComponent: React.FC<Props> = (props) => {
+const FavoritesScreenComponent: React.FC<Props> = (props) => {
   const navigation = useNavigation();
   const {loading, showLoader, hideLoader} = useLoading();
 

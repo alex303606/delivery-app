@@ -27,9 +27,13 @@ const getSectionsSuccess = (catalog: ICatalogItem[]) => {
 export const getProducts = ({
   sectionId = [],
   id = [],
+  pageSize = 10,
+  pageNum = 1,
 }: {
   sectionId?: string[];
   id?: string[];
+  pageSize?: number;
+  pageNum?: number;
 }) => {
   const params = {
     TYPE: 'get_products',
@@ -37,6 +41,8 @@ export const getProducts = ({
     ID: id,
     IS_MANAGER: false,
     SHOW_ALL: false,
+    PAGE_SIZE: pageSize,
+    PAGE_NUM: pageNum,
   };
   return () => {
     return axios

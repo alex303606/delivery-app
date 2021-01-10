@@ -10,3 +10,4 @@ export * from './SettingsScreen';
 export * from './PersonalDataScreen';
 export * from './AppDataScreen';
 export * from './FavoriteScreen';
+export * from './ProductsScreen';

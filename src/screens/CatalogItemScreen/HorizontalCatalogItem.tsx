@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import {Image, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {getImage} from '@utils';
+import {EScreens} from '@interfaces';
 
 type Props = {
   item: ICatalogItem;
@@ -15,7 +16,7 @@ export const HorizontalCatalogItem: React.FC<Props> = ({item}) => {
   const navigation = useNavigation();
 
   const pressHandler = useCallback(() => {
-    return null;
+    return navigation.navigate(EScreens.PRODUCTS_SCREEN, {item});
   }, [item, navigation]);
 
   const countNew =

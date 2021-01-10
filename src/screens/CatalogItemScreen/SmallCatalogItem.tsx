@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import {Image, ImageBackground, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {getImage} from '@utils';
+import {EScreens} from '@interfaces';
 
 type Props = {
   item: ICatalogItem[];
@@ -13,9 +14,12 @@ type Props = {
 
 export const SmallCatalogItem: React.FC<Props> = ({item}) => {
   const navigation = useNavigation();
-  const pressHandler = useCallback(() => {
-    return null;
-  }, [item, navigation]);
+  const pressHandler = useCallback(
+    (card) => {
+      return navigation.navigate(EScreens.PRODUCTS_SCREEN, {item: card});
+    },
+    [navigation],
+  );
 
   const renderItem = useCallback(
     (card: ICatalogItem) => {
@@ -35,14 +39,14 @@ export const SmallCatalogItem: React.FC<Props> = ({item}) => {
             <StyledImageBackground
               resizeMode="cover"
               source={getImage(PICTURE)}>
-              <StyledPressable big={true} onPress={pressHandler}>
+              <StyledPressable big={true} onPress={() => pressHandler(card)}>
                 <TextContainer>
                   <Typography.B14 color={Colors.black}>{NAME}</Typography.B14>
                 </TextContainer>
               </StyledPressable>
             </StyledImageBackground>
           ) : (
-            <StyledPressable onPress={pressHandler}>
+            <StyledPressable onPress={() => pressHandler(card)}>
               <StyledImage resizeMode="cover" source={getImage(PICTURE)} />
               <Typography.B14 color={Colors.black}>{NAME}</Typography.B14>
             </StyledPressable>
