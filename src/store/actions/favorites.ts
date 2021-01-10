@@ -16,7 +16,7 @@ export const getFavorites = () => {
         if (response && response.data) {
           if (response.data.result && response.data.data) {
             if (response.data.data.length) {
-              dispatch(getProducts({id: response.data.data})).then(
+              dispatch(getProducts({id: response.data.data, pageSize: 0})).then(
                 (data: IProduct[]) => {
                   dispatch(getFavoritesSuccess(data));
                 },
