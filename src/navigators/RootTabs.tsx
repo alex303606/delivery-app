@@ -146,7 +146,6 @@ const RootTabsComponent: React.FC<IFavoritesState> = (props) => {
   );
 };
 
-// @ts-ignore
 export const RootTabs = connector(RootTabsComponent);
 
 const Count = styled(Block)`
