@@ -1,7 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {EScreens, RootTabParamList} from '@interfaces';
-import {Typography, Icon, IconNames} from '@components';
+import {Typography, Icon, IconNames, Block} from '@components';
 import {Colors, TAB_BAR_HEIGHT} from '@config';
 import {
   CatalogStack,
@@ -11,11 +11,21 @@ import {
 } from '@navigators';
 import {useTranslation} from 'react-i18next';
 import {useAppearance} from '@hooks';
+import styled from 'styled-components';
+import {RootState} from 'src/store/configureStore';
+import {connect} from 'react-redux';
+import {IFavoritesState} from 'src/store/reducers/favoritest';
 
 type LabelProps = {
   focused: boolean;
   title: string;
 };
+
+const mapState = (state: RootState) => ({
+  favorites: state.favorites.favorites,
+});
+
+const connector = connect(mapState, null);
 
 const {R11, B11} = Typography;
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -27,7 +37,7 @@ const Label: React.FC<LabelProps> = ({focused, title}) => {
   return <R11 color={Colors.grey}>{title}</R11>;
 };
 
-export const RootTabs = () => {
+const RootTabsComponent: React.FC<IFavoritesState> = (props) => {
   const {t} = useTranslation();
   const {themeIsLight} = useAppearance();
 
@@ -113,14 +123,40 @@ export const RootTabs = () => {
             <Label focused={focused} title={t('tabs.basket')} />
           ),
           tabBarIcon: ({color, focused}) => (
-            <Icon
-              size={24}
-              color={color}
-              name={focused ? IconNames.basketActive : IconNames.basketInactive}
-            />
+            <Block>
+              <Icon
+                size={24}
+                color={color}
+                name={
+                  focused ? IconNames.basketActive : IconNames.basketInactive
+                }
+              />
+              {!!props.favorites.length && (
+                <Count backgroundColor={color}>
+                  <Typography.B11 numberOfLines={1} color={Colors.white}>
+                    {props.favorites.length}
+                  </Typography.B11>
+                </Count>
+              )}
+            </Block>
           ),
         }}
       />
     </Tab.Navigator>
   );
 };
+
+// @ts-ignore
+export const RootTabs = connector(RootTabsComponent);
+
+const Count = styled(Block)`
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -5px;
+  right: -12px;
+  overflow: hidden;
+`;
