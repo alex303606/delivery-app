@@ -1,12 +1,12 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {Block} from '@components';
+import {Block, Loader} from '@components';
 import {ProductsScreenProps} from '@interfaces';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {getProducts} from '@actions';
 import {IProduct} from 'src/store/reducers/favoritest';
 import {LayoutChangeEvent} from 'react-native';
-import {useLoading} from '@hooks';
+import {useAppearance, useLoading} from '@hooks';
 import {ProductsList} from './ProductsList';
 import {SCREEN_HEIGHT} from '@config';
 
@@ -37,8 +37,10 @@ export const ProductsScreenComponent: React.FC<Props> = (props) => {
       params: {item},
     },
   } = props;
+  const {backgroundColor, textColor} = useAppearance();
   const {loading, showLoader, hideLoader} = useLoading();
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [initialLoading, setInitialLoading] = useState<boolean>(true);
   const layoutHeight = useRef<number>(SCREEN_HEIGHT);
   const pageNum = useRef<number>(2);
   const canFetchMore = useRef<boolean>(true);
@@ -56,8 +58,11 @@ export const ProductsScreenComponent: React.FC<Props> = (props) => {
       canFetchMore.current = true;
       pageNum.current = 2;
       hideLoader();
+      if (initialLoading) {
+        setInitialLoading(false);
+      }
     });
-  }, [hideLoader, item.ID, props, showLoader]);
+  }, [hideLoader, item.ID, props, showLoader, initialLoading]);
 
   const handleEndReached = () => {
     if (!canFetchMore || loading) {
@@ -76,6 +81,10 @@ export const ProductsScreenComponent: React.FC<Props> = (props) => {
   };
 
   useEffect(onRefresh, [item.ID]);
+
+  if (initialLoading) {
+    return <Loader background={backgroundColor} color={textColor} />;
+  }
 
   return (
     <Block flex={1} onLayout={handleLayout}>

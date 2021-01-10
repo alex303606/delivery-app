@@ -37,5 +37,6 @@ export const ruTranslation = {
     addToCard: 'Добавить в корзину',
     new: 'Новинка',
     sale: 'Супер цена',
+    soon: 'Скоро мы добавим сюда товары!',
   },
 };

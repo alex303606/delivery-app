@@ -1,7 +1,8 @@
 import React, {useCallback} from 'react';
 import {FlatList} from 'react-native';
 import {IProduct} from 'src/store/reducers/favoritest';
-import {ProductFullScreenCard} from '@components';
+import {ProductFullScreenCard, ListEmptyComponent} from '@components';
+import {useTranslation} from 'react-i18next';
 
 type Props = {
   products: IProduct[];
@@ -20,6 +21,7 @@ export const ProductsList: React.FC<Props> = ({
   onEndReached,
   layoutHeight,
 }) => {
+  const {t} = useTranslation();
   const renderItem = useCallback(
     ({item}: {item: IProduct}) => {
       return <ProductFullScreenCard layoutHeight={layoutHeight} item={item} />;
@@ -35,6 +37,7 @@ export const ProductsList: React.FC<Props> = ({
 
   return (
     <FlatList
+      ListEmptyComponent={<ListEmptyComponent title={t('soon')} />}
       initialNumToRender={1}
       getItemLayout={getItemLayout}
       keyExtractor={keyExtractor}
