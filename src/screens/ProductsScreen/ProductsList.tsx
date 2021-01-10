@@ -5,11 +5,14 @@ import {ProductFullScreenCard, ListEmptyComponent} from '@components';
 import {useTranslation} from 'react-i18next';
 
 type Props = {
+  addToFavorite: (id: string) => void;
+  deleteFavorite: (id: string) => void;
   products: IProduct[];
   loading: boolean;
   onEndReached: () => void;
   onRefresh: () => void;
   layoutHeight: number;
+  favorites: IProduct[];
 };
 
 const keyExtractor = (item: IProduct) => item.ID;
@@ -20,13 +23,25 @@ export const ProductsList: React.FC<Props> = ({
   onRefresh,
   onEndReached,
   layoutHeight,
+  addToFavorite,
+  deleteFavorite,
+  favorites,
 }) => {
   const {t} = useTranslation();
   const renderItem = useCallback(
     ({item}: {item: IProduct}) => {
-      return <ProductFullScreenCard layoutHeight={layoutHeight} item={item} />;
+      const isLiked = !!favorites.find((x) => x.ID === item.ID);
+      return (
+        <ProductFullScreenCard
+          isLiked={isLiked}
+          addToFavorite={addToFavorite}
+          deleteFavorite={deleteFavorite}
+          layoutHeight={layoutHeight}
+          item={item}
+        />
+      );
     },
-    [layoutHeight],
+    [favorites, addToFavorite, deleteFavorite, layoutHeight],
   );
 
   const getItemLayout = (_: any, index: number) => ({

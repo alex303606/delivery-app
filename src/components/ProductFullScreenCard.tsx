@@ -1,22 +1,37 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {IProduct} from 'src/store/reducers/favoritest';
 import {Image, ScrollView} from 'react-native';
 import {Colors, WINDOW_WIDTH} from '@config';
 import {getImage} from '@utils';
-import {Block, Button, Row, Typography} from '@components';
+import {Block, Button, RoundButton, Row, Typography} from '@components';
 import styled from 'styled-components';
 import {useTranslation} from 'react-i18next';
 
 type Props = {
   item: IProduct;
   layoutHeight?: number;
+  addToFavorite?: (id: string) => void;
+  deleteFavorite?: (id: string) => void;
+  isLiked?: boolean;
 };
 
 export const ProductFullScreenCard: React.FC<Props> = ({
   item,
   layoutHeight,
+  addToFavorite,
+  deleteFavorite,
+  isLiked,
 }) => {
   const {t} = useTranslation();
+  const onPressHandler = useCallback(() => {
+    if (!addToFavorite || !deleteFavorite) {
+      return;
+    }
+    if (isLiked) {
+      return deleteFavorite(item.ID);
+    }
+    return addToFavorite(item.ID);
+  }, [addToFavorite, deleteFavorite, isLiked, item.ID]);
 
   return (
     <Wrapper flex={layoutHeight ? undefined : 1} height={layoutHeight}>
@@ -31,6 +46,17 @@ export const ProductFullScreenCard: React.FC<Props> = ({
           <StyledImage key={i} resizeMode="cover" source={getImage(image)} />
         ))}
       </ScrollView>
+      {addToFavorite && deleteFavorite && (
+        <StyledRoundButton paddingTop={50} paddingRight={20}>
+          <RoundButton
+            diameter={60}
+            iconSize={40}
+            iconName={isLiked ? 'heart' : 'heart-outline'}
+            iconColor={Colors.mainPrimary}
+            onPress={onPressHandler}
+          />
+        </StyledRoundButton>
+      )}
       <WrapperTop flex={1}>
         <Block padding={16} flex={1} alignItems="flex-start" paddingTop={50}>
           {item.IS_NEW && (
@@ -105,6 +131,12 @@ const WrapperBottom = styled(Block)`
   left: 0;
   right: 0;
   bottom: 0;
+`;
+
+const StyledRoundButton = styled(Block)`
+  position: absolute;
+  right: 0;
+  top: 0;
 `;
 
 const Wrapper = styled(Block)<{height?: number}>`

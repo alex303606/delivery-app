@@ -3,14 +3,17 @@ import {Block, Loader} from '@components';
 import {ProductsScreenProps} from '@interfaces';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {getProducts} from '@actions';
-import {IProduct} from 'src/store/reducers/favoritest';
+import {getProducts, addToFavorite, deleteFavorite} from '@actions';
+import {IFavoritesState, IProduct} from 'src/store/reducers/favoritest';
 import {LayoutChangeEvent} from 'react-native';
 import {useAppearance, useLoading} from '@hooks';
 import {ProductsList} from './ProductsList';
 import {SCREEN_HEIGHT} from '@config';
+import {RootState} from 'src/store/configureStore';
 
 type Props = {
+  addToFavorite: (id: string) => void;
+  deleteFavorite: (id: string) => void;
   getProducts: ({
     sectionId,
     pageNum,
@@ -18,18 +21,25 @@ type Props = {
     sectionId: string[];
     pageNum?: number;
   }) => Promise<IProduct[]>;
-} & ProductsScreenProps;
+} & ProductsScreenProps &
+  IFavoritesState;
 
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
     {
       getProducts,
+      addToFavorite,
+      deleteFavorite,
     },
     dispatch,
   );
 };
 
-const connector = connect(null, mapDispatchToProps);
+const mapState = (state: RootState) => ({
+  favorites: state.favorites.favorites,
+});
+
+const connector = connect(mapState, mapDispatchToProps);
 
 export const ProductsScreenComponent: React.FC<Props> = (props) => {
   const {
@@ -89,6 +99,9 @@ export const ProductsScreenComponent: React.FC<Props> = (props) => {
   return (
     <Block flex={1} onLayout={handleLayout}>
       <ProductsList
+        favorites={props.favorites}
+        addToFavorite={props.addToFavorite}
+        deleteFavorite={props.deleteFavorite}
         onRefresh={onRefresh}
         products={products}
         onEndReached={handleEndReached}

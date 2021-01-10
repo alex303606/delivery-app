@@ -15,11 +15,15 @@ export const getFavorites = () => {
       .then((response) => {
         if (response && response.data) {
           if (response.data.result && response.data.data) {
-            dispatch(getProducts({id: response.data.data})).then(
-              (data: IProduct[]) => {
-                dispatch(getFavoritesSuccess(data));
-              },
-            );
+            if (response.data.data.length) {
+              dispatch(getProducts({id: response.data.data})).then(
+                (data: IProduct[]) => {
+                  dispatch(getFavoritesSuccess(data));
+                },
+              );
+            } else {
+              dispatch(getFavoritesSuccess([]));
+            }
           }
         }
       })
@@ -36,6 +40,25 @@ export const deleteFavorite = (id: string) => {
     const store = getState();
     const params = {
       TYPE: 'delete_favorite',
+      USER_ID: store.profile.user_id,
+      PRODUCT_ID: id,
+    };
+    return axios
+      .post('', params)
+      .then((response) => {
+        if (response && response.data && response.data.result) {
+          dispatch(getFavorites());
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+export const addToFavorite = (id: string) => {
+  return (dispatch: any, getState: any) => {
+    const store = getState();
+    const params = {
+      TYPE: 'add_favorite',
       USER_ID: store.profile.user_id,
       PRODUCT_ID: id,
     };
