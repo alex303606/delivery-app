@@ -51,15 +51,12 @@ export const ProductsScreenComponent: React.FC<Props> = (props) => {
   const {loading, showLoader, hideLoader} = useLoading();
   const [products, setProducts] = useState<IProduct[]>([]);
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
-  const layoutHeight = useRef<number>(SCREEN_HEIGHT);
+  const [layoutHeight, setLayoutHeight] = useState<number>(SCREEN_HEIGHT);
   const pageNum = useRef<number>(2);
   const canFetchMore = useRef<boolean>(true);
-  const handleLayout = useCallback(
-    (e: LayoutChangeEvent) => {
-      layoutHeight.current = e.nativeEvent.layout.height;
-    },
-    [layoutHeight],
-  );
+  const handleLayout = useCallback((e: LayoutChangeEvent) => {
+    setLayoutHeight(e.nativeEvent.layout.height);
+  }, []);
 
   const onRefresh = useCallback(() => {
     showLoader();
@@ -105,7 +102,7 @@ export const ProductsScreenComponent: React.FC<Props> = (props) => {
         onRefresh={onRefresh}
         products={products}
         onEndReached={handleEndReached}
-        layoutHeight={layoutHeight.current}
+        layoutHeight={layoutHeight}
         loading={loading}
       />
     </Block>
