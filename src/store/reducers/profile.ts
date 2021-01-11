@@ -34,7 +34,7 @@ const initialState: IProfileState = {
   push_new_arrival: true,
   push_sale: true,
   sms: true,
-  newUser: true,
+  newUser: false,
   documents: [],
 };
 
