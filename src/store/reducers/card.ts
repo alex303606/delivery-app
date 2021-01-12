@@ -1,4 +1,4 @@
-import {ADD_TO_CARD} from '../actions/actionTypes';
+import {ADD_TO_CARD, DELETE_FROM_CARD} from '../actions/actionTypes';
 
 export interface IProduct {
   ID: string;
@@ -24,6 +24,11 @@ export const cardReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case ADD_TO_CARD:
       return {...state, productsInCard: [...state.productsInCard, action.item]};
+    case DELETE_FROM_CARD:
+      const productsInCard = [...state.productsInCard].filter(
+        (x) => x.ID !== action.id,
+      );
+      return {...state, productsInCard};
     default:
       return state;
   }

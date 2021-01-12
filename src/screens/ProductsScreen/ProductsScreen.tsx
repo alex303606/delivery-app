@@ -95,7 +95,11 @@ const ProductsScreenComponent: React.FC<Props> = (props) => {
   useEffect(onRefresh, [item.ID]);
 
   if (initialLoading) {
-    return <Loader background={backgroundColor} color={textColor} />;
+    return (
+      <Block onLayout={handleLayout} flex={1}>
+        <Loader background={backgroundColor} color={textColor} />
+      </Block>
+    );
   }
 
   return (

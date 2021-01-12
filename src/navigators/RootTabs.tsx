@@ -14,7 +14,7 @@ import {useAppearance} from '@hooks';
 import styled from 'styled-components';
 import {RootState} from 'src/store/configureStore';
 import {connect} from 'react-redux';
-import {IFavoritesState} from 'src/store/reducers/favoritest';
+import {ICardState} from 'src/store/reducers/card';
 
 type LabelProps = {
   focused: boolean;
@@ -22,7 +22,7 @@ type LabelProps = {
 };
 
 const mapState = (state: RootState) => ({
-  favorites: state.favorites.favorites,
+  productsInCard: state.card.productsInCard,
 });
 
 const connector = connect(mapState, null);
@@ -37,7 +37,7 @@ const Label: React.FC<LabelProps> = ({focused, title}) => {
   return <R11 color={Colors.grey}>{title}</R11>;
 };
 
-const RootTabsComponent: React.FC<IFavoritesState> = (props) => {
+const RootTabsComponent: React.FC<ICardState> = (props) => {
   const {t} = useTranslation();
   const {themeIsLight} = useAppearance();
 
@@ -131,10 +131,10 @@ const RootTabsComponent: React.FC<IFavoritesState> = (props) => {
                   focused ? IconNames.basketActive : IconNames.basketInactive
                 }
               />
-              {!!props.favorites.length && (
+              {!!props.productsInCard.length && (
                 <Count backgroundColor={color}>
                   <Typography.B11 numberOfLines={1} color={Colors.white}>
-                    {props.favorites.length}
+                    {props.productsInCard.length}
                   </Typography.B11>
                 </Count>
               )}

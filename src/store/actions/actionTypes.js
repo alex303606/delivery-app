@@ -6,3 +6,4 @@ export const SET_USER_IS_NEW = 'SET_USER_IS_NEW';
 export const GET_APP_DATA_SUCCESS = 'GET_APP_DATA_SUCCESS';
 export const GET_FAVORITES = 'GET_FAVORITES';
 export const ADD_TO_CARD = 'ADD_TO_CARD';
+export const DELETE_FROM_CARD = 'DELETE_FROM_CARD';

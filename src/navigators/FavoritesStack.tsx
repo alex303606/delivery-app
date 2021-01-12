@@ -13,6 +13,7 @@ const Stack = createStackNavigator<FavoritesStackParamList>();
 export const FavoritesStack: React.FC<BottomTabScreenProps<any>> = () => {
   const {t} = useTranslation();
   const {themeIsLight} = useAppearance();
+
   return (
     <Stack.Navigator>
       <Stack.Screen

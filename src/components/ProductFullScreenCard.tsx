@@ -38,7 +38,7 @@ export const ProductFullScreenCard: React.FC<Props> = ({
   }, [addToFavorite, deleteFavorite, isLiked, item.ID]);
 
   return (
-    <Wrapper flex={layoutHeight ? undefined : 1} height={layoutHeight}>
+    <Wrapper height={layoutHeight}>
       <ScrollView
         horizontal={true}
         disableIntervalMomentum={true}
