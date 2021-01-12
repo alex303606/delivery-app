@@ -3,6 +3,7 @@ import {FlatList} from 'react-native';
 import {IProduct} from 'src/store/reducers/favoritest';
 import {ProductFullScreenCard, ListEmptyComponent} from '@components';
 import {useTranslation} from 'react-i18next';
+import {ICardState} from 'src/store/reducers/card';
 
 type Props = {
   addToFavorite: (id: string) => void;
@@ -13,7 +14,8 @@ type Props = {
   onRefresh: () => void;
   layoutHeight: number;
   favorites: IProduct[];
-};
+  addToCard: (item: IProduct) => void;
+} & ICardState;
 
 const keyExtractor = (item: IProduct) => item.ID;
 
@@ -26,13 +28,18 @@ export const ProductsList: React.FC<Props> = ({
   addToFavorite,
   deleteFavorite,
   favorites,
+  addToCard,
+  productsInCard,
 }) => {
   const {t} = useTranslation();
   const renderItem = useCallback(
     ({item}: {item: IProduct}) => {
       const isLiked = !!favorites.find((x) => x.ID === item.ID);
+      const isAddedToCard = !!productsInCard.find((x) => x.ID === item.ID);
       return (
         <ProductFullScreenCard
+          isAddedToCard={isAddedToCard}
+          addToCard={addToCard}
           isLiked={isLiked}
           addToFavorite={addToFavorite}
           deleteFavorite={deleteFavorite}
@@ -41,7 +48,14 @@ export const ProductsList: React.FC<Props> = ({
         />
       );
     },
-    [favorites, addToFavorite, deleteFavorite, layoutHeight],
+    [
+      favorites,
+      productsInCard,
+      addToCard,
+      addToFavorite,
+      deleteFavorite,
+      layoutHeight,
+    ],
   );
 
   const getItemLayout = (_: any, index: number) => ({

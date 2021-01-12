@@ -39,7 +39,7 @@ const mapState = (state: RootState) => ({
 
 const connector = connect(mapState, mapDispatchToProps);
 
-export const ProfileScreenComponent: React.FC<Props> = (props) => {
+const ProfileScreenComponent: React.FC<Props> = (props) => {
   const {textColor} = useAppearance();
   const {t} = useTranslation();
   const navigation = useNavigation();

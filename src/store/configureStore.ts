@@ -6,6 +6,7 @@ import {createStore} from 'redux';
 import {persistStore, persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 import {favoritesReducer} from './reducers/favoritest';
+import {cardReducer} from './reducers/card';
 
 const middlewares = [thunkMiddleware];
 
@@ -19,6 +20,7 @@ const appReducer = combineReducers({
   profile: userReducer,
   catalog: catalogReducer,
   favorites: favoritesReducer,
+  card: cardReducer,
 });
 
 const persistConfig = {

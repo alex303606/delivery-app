@@ -3,17 +3,19 @@ import {Block, Loader} from '@components';
 import {ProductsScreenProps} from '@interfaces';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {getProducts, addToFavorite, deleteFavorite} from '@actions';
+import {getProducts, addToFavorite, deleteFavorite, addToCard} from '@actions';
 import {IFavoritesState, IProduct} from 'src/store/reducers/favoritest';
 import {LayoutChangeEvent} from 'react-native';
 import {useAppearance, useLoading} from '@hooks';
 import {ProductsList} from './ProductsList';
 import {SCREEN_HEIGHT} from '@config';
 import {RootState} from 'src/store/configureStore';
+import {ICardState} from 'src/store/reducers/card';
 
 type Props = {
   addToFavorite: (id: string) => void;
   deleteFavorite: (id: string) => void;
+  addToCard: (item: IProduct) => void;
   getProducts: ({
     sectionId,
     pageNum,
@@ -22,6 +24,7 @@ type Props = {
     pageNum?: number;
   }) => Promise<IProduct[]>;
 } & ProductsScreenProps &
+  ICardState &
   IFavoritesState;
 
 const mapDispatchToProps = (dispatch: any) => {
@@ -30,6 +33,7 @@ const mapDispatchToProps = (dispatch: any) => {
       getProducts,
       addToFavorite,
       deleteFavorite,
+      addToCard,
     },
     dispatch,
   );
@@ -37,11 +41,12 @@ const mapDispatchToProps = (dispatch: any) => {
 
 const mapState = (state: RootState) => ({
   favorites: state.favorites.favorites,
+  productsInCard: state.card.productsInCard,
 });
 
 const connector = connect(mapState, mapDispatchToProps);
 
-export const ProductsScreenComponent: React.FC<Props> = (props) => {
+const ProductsScreenComponent: React.FC<Props> = (props) => {
   const {
     route: {
       params: {item},
@@ -96,6 +101,8 @@ export const ProductsScreenComponent: React.FC<Props> = (props) => {
   return (
     <Block flex={1} onLayout={handleLayout}>
       <ProductsList
+        productsInCard={props.productsInCard}
+        addToCard={props.addToCard}
         favorites={props.favorites}
         addToFavorite={props.addToFavorite}
         deleteFavorite={props.deleteFavorite}

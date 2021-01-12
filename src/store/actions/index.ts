@@ -3,3 +3,4 @@ export * from './interfaces';
 export * from './catalog';
 export * from './profile';
 export * from './favorites';
+export * from './card';

@@ -6,8 +6,19 @@ import {useTranslation} from 'react-i18next';
 import {EScreens} from '@interfaces';
 import {FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {RootState} from 'src/store/configureStore';
+import {connect} from 'react-redux';
+import {ICardState} from 'src/store/reducers/card';
 
-export const CardScreen = () => {
+type Props = {} & ICardState;
+
+const mapState = (state: RootState) => ({
+  productsInCard: state.card.productsInCard,
+});
+
+const connector = connect(mapState, null);
+
+const CardScreenComponent: React.FC<Props> = () => {
   const {textColor} = useAppearance();
   const {t} = useTranslation();
   const navigation = useNavigation();
@@ -44,3 +55,5 @@ export const CardScreen = () => {
     </Block>
   );
 };
+
+export const CardScreen = connector(CardScreenComponent);

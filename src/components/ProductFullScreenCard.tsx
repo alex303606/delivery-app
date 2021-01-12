@@ -13,6 +13,8 @@ type Props = {
   addToFavorite?: (id: string) => void;
   deleteFavorite?: (id: string) => void;
   isLiked?: boolean;
+  isAddedToCard?: boolean;
+  addToCard: (item: IProduct) => void;
 };
 
 export const ProductFullScreenCard: React.FC<Props> = ({
@@ -21,6 +23,8 @@ export const ProductFullScreenCard: React.FC<Props> = ({
   addToFavorite,
   deleteFavorite,
   isLiked,
+  addToCard,
+  isAddedToCard,
 }) => {
   const {t} = useTranslation();
   const onPressHandler = useCallback(() => {
@@ -92,10 +96,11 @@ export const ProductFullScreenCard: React.FC<Props> = ({
           </Row>
         )}
         <Button
+          disabled={isAddedToCard}
           marginHorizontal={16}
           marginTop={30}
-          title={t('addToCard')}
-          onPress={() => {}}
+          title={isAddedToCard ? 'В корзине' : t('addToCard')}
+          onPress={() => addToCard(item)}
         />
       </WrapperBottom>
     </Wrapper>
