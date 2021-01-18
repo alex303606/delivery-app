@@ -70,7 +70,7 @@ export const RoundButtons: React.FC<Props> = ({
           <RoundButton
             iconColor={Colors.mainPrimary}
             iconName={'remove-circle-outline'}
-            onPress={onMinusPressHandler}
+            onPress={count > 0 ? onMinusPressHandler : undefined}
             backgroundColor={Colors.white}
             diameter={ROUND_BUTTON_DIAMETER}
             iconSize={ROUND_BUTTON_DIAMETER}

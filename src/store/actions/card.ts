@@ -3,7 +3,9 @@ import {
   ADD_TO_CARD,
   DELETE_FROM_CARD,
   DECREMENT_FROM_CARD,
+  CLEAR_CARD,
 } from './actionTypes';
+import axios from 'axios';
 
 export const addToCard = (item: IProduct) => {
   return (dispatch: any) => {
@@ -20,5 +22,34 @@ export const deleteFromCard = (id: string) => {
 export const decrementProduct = (item: IProduct) => {
   return (dispatch: any) => {
     return dispatch({type: DECREMENT_FROM_CARD, item});
+  };
+};
+
+export const clearCard = () => {
+  return (dispatch: any) => {
+    return dispatch({type: CLEAR_CARD});
+  };
+};
+
+export const newOrder = (comment: string) => {
+  return (dispatch: any, getState: any) => {
+    const store = getState();
+    const params = {
+      TYPE: 'new_order',
+      USER_ID: store.profile.user_id,
+      CITY: store.profile.city,
+      COMMENT: comment,
+      PRODUCT_IDS: store.card.productsInCard
+        .filter((x: IProduct) => x.count > 0)
+        .map((i: IProduct) => i.ID),
+    };
+    return axios
+      .post('', params)
+      .then((response) => {
+        if (response && response.data) {
+          return response.data;
+        }
+      })
+      .catch((error) => console.log(error));
   };
 };

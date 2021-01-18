@@ -41,5 +41,6 @@ export const ruTranslation = {
     favoritesIsEmpty: 'Список избранных товаров пуст!',
     cardIsEmpty: 'Ваша корзина пуста!',
     goToMenu: 'Перейти в каталог',
+    getOrder: 'Перейти к оформлению',
   },
 };

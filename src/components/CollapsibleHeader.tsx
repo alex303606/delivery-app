@@ -22,6 +22,8 @@ const Y_OFFSET = COLLAPSIBLE_HEADER_HEIGHT - HEADER_HEIGHT;
 
 interface Props extends StackHeaderProps {
   showBackButton?: boolean;
+  onPress?: () => void;
+  iconName?: string;
 }
 
 export interface CollapsibleHeaderOptions extends StackNavigationOptions {
@@ -42,8 +44,9 @@ const getTransform = (scale: number, width: number) => {
 
 export const CollapsibleHeader: React.FC<Props> = ({
   scene,
-  navigation,
+  onPress,
   showBackButton = true,
+  iconName,
 }) => {
   const titleWidth = useSharedValue(0);
   const {themeIsLight} = useAppearance();
@@ -129,8 +132,9 @@ export const CollapsibleHeader: React.FC<Props> = ({
         <Animated.View style={buttonStyle}>
           {showBackButton && (
             <RoundButton
+              iconName={iconName}
               iconColor={themeIsLight ? Colors.black : Colors.white}
-              onPress={() => navigation.goBack()}
+              onPress={onPress}
             />
           )}
         </Animated.View>

@@ -6,7 +6,7 @@ import {Block} from './helpers';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 type Props = {
-  onPress: () => void;
+  onPress?: () => void;
   iconColor?: string;
   iconName?: string;
   backgroundColor?: string;

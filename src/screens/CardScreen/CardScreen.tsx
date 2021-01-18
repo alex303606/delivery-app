@@ -1,5 +1,5 @@
 import React, {useCallback, useMemo} from 'react';
-import {Block, ListEmptyComponent} from '@components';
+import {Block, Button, ListEmptyComponent} from '@components';
 import {useScrollHandler, useSetScreenOptions} from '@hooks';
 import {COLLAPSIBLE_HEADER_HEIGHT} from '@config';
 import {useTranslation} from 'react-i18next';
@@ -73,6 +73,13 @@ const CardScreenComponent: React.FC<Props> = (props) => {
     [props.deleteFromCard],
   );
 
+  const count: number = props.productsInCard.reduce((acc, x) => {
+    if (x.count) {
+      acc = acc + x.count;
+    }
+    return acc;
+  }, 0);
+
   return (
     <Block flex={1}>
       <AnimatedFlatList
@@ -90,6 +97,15 @@ const CardScreenComponent: React.FC<Props> = (props) => {
         contentContainerStyle={contentContainerStyle}
         renderItem={renderItem}
       />
+      {props.productsInCard.length > 0 && (
+        <Block padding={16}>
+          <Button
+            disabled={count < 1}
+            title={t('getOrder')}
+            onPress={() => null}
+          />
+        </Block>
+      )}
     </Block>
   );
 };

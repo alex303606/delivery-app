@@ -1,7 +1,9 @@
 import {
   ADD_TO_CARD,
+  CLEAR_CARD,
   DECREMENT_FROM_CARD,
   DELETE_FROM_CARD,
+  SIGN_OUT,
 } from '../actions/actionTypes';
 
 export interface IProduct {
@@ -52,8 +54,8 @@ export const cardReducer = (state = initialState, action: any) => {
       const productIndex = state.productsInCard.findIndex(
         (x) => x.ID === action.item.ID,
       );
-      if (productIndex >= 0) {
-        const products = [...state.productsInCard];
+      const products = [...state.productsInCard];
+      if (productIndex >= 0 && products[productIndex].count > 0) {
         products[productIndex] = {
           ...products[productIndex],
           count: products[productIndex].count - 1,
@@ -61,6 +63,10 @@ export const cardReducer = (state = initialState, action: any) => {
         return {...state, productsInCard: products};
       }
       return {...state};
+    case SIGN_OUT:
+      return initialState;
+    case CLEAR_CARD:
+      return {...state, productsInCard: []};
     default:
       return state;
   }

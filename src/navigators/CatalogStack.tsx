@@ -25,13 +25,15 @@ export const CatalogStack: React.FC<BottomTabScreenProps<any>> = () => {
       <Stack.Screen
         name={EScreens.CATALOG_ITEM_SCREEN}
         component={CatalogItemScreen}
-        options={({route}) => {
+        options={({route, navigation}) => {
           const {
             params: {parentItem},
           } = route;
           return {
             title: parentItem.NAME,
-            header: (props) => <CollapsibleHeader {...props} />,
+            header: (props) => (
+              <CollapsibleHeader onPress={navigation.goBack} {...props} />
+            ),
             headerTransparent: true,
             headerStyle: {
               backgroundColor: themeIsLight ? Colors.white : Colors.black,

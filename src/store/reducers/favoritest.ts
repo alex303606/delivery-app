@@ -1,4 +1,4 @@
-import {GET_FAVORITES} from '../actions/actionTypes';
+import {GET_FAVORITES, SIGN_OUT} from '../actions/actionTypes';
 
 export interface IProduct {
   ID: string;
@@ -24,6 +24,8 @@ export const favoritesReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case GET_FAVORITES:
       return {...state, favorites: action.favorites};
+    case SIGN_OUT:
+      return initialState;
     default:
       return state;
   }

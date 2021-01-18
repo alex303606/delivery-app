@@ -7,10 +7,35 @@ import {CollapsibleHeader} from '@components';
 import {Colors} from '@config';
 import {useTranslation} from 'react-i18next';
 import {useAppearance} from '@hooks';
+import {bindActionCreators} from 'redux';
+import {clearCard} from '@actions';
+import {connect} from 'react-redux';
+import {RootState} from 'src/store/configureStore';
+import {ICardState} from 'src/store/reducers/card';
 
 const Stack = createStackNavigator<CardStackParamList>();
 
-export const CardStack: React.FC<BottomTabScreenProps<any>> = () => {
+type Props = {
+  clearCard: () => void;
+} & BottomTabScreenProps<any> &
+  ICardState;
+
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators(
+    {
+      clearCard,
+    },
+    dispatch,
+  );
+};
+
+const mapState = (state: RootState) => ({
+  productsInCard: state.card.productsInCard,
+});
+
+const connector = connect(mapState, mapDispatchToProps);
+
+const CardStackComponent: React.FC<Props> = (propsStack) => {
   const {t} = useTranslation();
   const {themeIsLight} = useAppearance();
 
@@ -22,7 +47,12 @@ export const CardStack: React.FC<BottomTabScreenProps<any>> = () => {
         options={{
           title: t('tabs.basket'),
           header: (props) => (
-            <CollapsibleHeader showBackButton={false} {...props} />
+            <CollapsibleHeader
+              iconName="trash-outline"
+              onPress={propsStack.clearCard}
+              showBackButton={propsStack.productsInCard.length > 0}
+              {...props}
+            />
           ),
           headerTransparent: true,
           headerStyle: {
@@ -33,3 +63,5 @@ export const CardStack: React.FC<BottomTabScreenProps<any>> = () => {
     </Stack.Navigator>
   );
 };
+
+export const CardStack = connector(CardStackComponent);
