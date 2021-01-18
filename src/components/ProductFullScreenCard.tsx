@@ -55,8 +55,8 @@ export const ProductFullScreenCard: React.FC<Props> = ({
           <RoundButton
             diameter={60}
             iconSize={40}
-            iconName={isLiked ? 'heart' : 'heart-outline'}
-            iconColor={Colors.mainPrimary}
+            iconName={isLiked ? 'heart' : 'heart'}
+            iconColor={isLiked ? Colors.mainPrimary : Colors.grey}
             onPress={onPressHandler}
           />
         </StyledRoundButton>
