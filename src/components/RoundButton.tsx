@@ -13,6 +13,7 @@ type Props = {
   diameter?: number;
   iconSize?: number;
   elevation?: number;
+  paddingLeft?: number;
 };
 
 export const RoundButton: React.FC<Props> = ({
@@ -23,6 +24,7 @@ export const RoundButton: React.FC<Props> = ({
   iconSize = 26,
   backgroundColor = Colors.transparent,
   elevation,
+  paddingLeft = 0,
 }) => {
   return (
     <Wrapper
@@ -30,7 +32,12 @@ export const RoundButton: React.FC<Props> = ({
       backgroundColor={backgroundColor}
       diameter={diameter}>
       <BackButton diameter={diameter} onPress={onPress}>
-        <Icon size={iconSize} color={iconColor} name={iconName} />
+        <Icon
+          style={{paddingLeft}}
+          size={iconSize}
+          color={iconColor}
+          name={iconName}
+        />
       </BackButton>
     </Wrapper>
   );

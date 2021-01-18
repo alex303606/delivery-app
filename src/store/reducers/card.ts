@@ -1,4 +1,8 @@
-import {ADD_TO_CARD, DELETE_FROM_CARD} from '../actions/actionTypes';
+import {
+  ADD_TO_CARD,
+  DECREMENT_FROM_CARD,
+  DELETE_FROM_CARD,
+} from '../actions/actionTypes';
 
 export interface IProduct {
   ID: string;
@@ -10,6 +14,7 @@ export interface IProduct {
   PRICE: string;
   SECTION_ID: string;
   TEXT: string;
+  count: number;
 }
 
 export interface ICardState {
@@ -23,12 +28,39 @@ const initialState: ICardState = {
 export const cardReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case ADD_TO_CARD:
-      return {...state, productsInCard: [...state.productsInCard, action.item]};
+      const {item} = action;
+      const index = state.productsInCard.findIndex((x) => x.ID === item.ID);
+      if (index >= 0) {
+        const products = [...state.productsInCard];
+        products[index] = {
+          ...products[index],
+          count: products[index].count + 1,
+        };
+        return {...state, productsInCard: products};
+      }
+      item.count = 1;
+      return {
+        ...state,
+        productsInCard: [...state.productsInCard, item],
+      };
     case DELETE_FROM_CARD:
       const productsInCard = [...state.productsInCard].filter(
         (x) => x.ID !== action.id,
       );
       return {...state, productsInCard};
+    case DECREMENT_FROM_CARD:
+      const productIndex = state.productsInCard.findIndex(
+        (x) => x.ID === action.item.ID,
+      );
+      if (productIndex >= 0) {
+        const products = [...state.productsInCard];
+        products[productIndex] = {
+          ...products[productIndex],
+          count: products[productIndex].count - 1,
+        };
+        return {...state, productsInCard: products};
+      }
+      return {...state};
     default:
       return state;
   }

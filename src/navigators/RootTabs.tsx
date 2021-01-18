@@ -40,6 +40,12 @@ const Label: React.FC<LabelProps> = ({focused, title}) => {
 const RootTabsComponent: React.FC<ICardState> = (props) => {
   const {t} = useTranslation();
   const {themeIsLight} = useAppearance();
+  const count: number = props.productsInCard.reduce((acc, x) => {
+    if (x.count) {
+      acc = acc + x.count;
+    }
+    return acc;
+  }, 0);
 
   return (
     <Tab.Navigator
@@ -131,10 +137,10 @@ const RootTabsComponent: React.FC<ICardState> = (props) => {
                   focused ? IconNames.basketActive : IconNames.basketInactive
                 }
               />
-              {!!props.productsInCard.length && (
+              {count > 0 && (
                 <Count backgroundColor={color}>
                   <Typography.B11 numberOfLines={1} color={Colors.white}>
-                    {props.productsInCard.length}
+                    {count}
                   </Typography.B11>
                 </Count>
               )}

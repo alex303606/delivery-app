@@ -3,7 +3,15 @@ import {IProduct} from 'src/store/reducers/favoritest';
 import {Image, ScrollView} from 'react-native';
 import {Colors, WINDOW_WIDTH} from '@config';
 import {getImage} from '@utils';
-import {Block, Button, RoundButton, Row, Typography} from '@components';
+import {
+  Block,
+  Button,
+  RoundButton,
+  Row,
+  Typography,
+  Icon,
+  IconNames,
+} from '@components';
 import styled from 'styled-components';
 import {useTranslation} from 'react-i18next';
 
@@ -15,6 +23,7 @@ type Props = {
   isLiked?: boolean;
   isAddedToCard?: boolean;
   addToCard: (item: IProduct) => void;
+  count: number;
 };
 
 export const ProductFullScreenCard: React.FC<Props> = ({
@@ -25,6 +34,7 @@ export const ProductFullScreenCard: React.FC<Props> = ({
   isLiked,
   addToCard,
   isAddedToCard,
+  count = 0,
 }) => {
   const {t} = useTranslation();
   const onPressHandler = useCallback(() => {
@@ -61,6 +71,16 @@ export const ProductFullScreenCard: React.FC<Props> = ({
           />
         </StyledRoundButton>
       )}
+      {isAddedToCard && count > 0 && (
+        <CountWrapper marginTop={120} marginRight={20}>
+          <Icon size={36} color={Colors.white} name={IconNames.basketActive} />
+          <Count backgroundColor={Colors.mainPrimary}>
+            <Typography.B11 numberOfLines={1} color={Colors.white}>
+              {count}
+            </Typography.B11>
+          </Count>
+        </CountWrapper>
+      )}
       <WrapperTop flex={1}>
         <Block padding={16} flex={1} alignItems="flex-start" paddingTop={50}>
           {item.IS_NEW && (
@@ -96,10 +116,9 @@ export const ProductFullScreenCard: React.FC<Props> = ({
           </Row>
         )}
         <Button
-          disabled={isAddedToCard}
           marginHorizontal={16}
           marginTop={30}
-          title={isAddedToCard ? 'В корзине' : t('addToCard')}
+          title={t('addToCard')}
           onPress={() => addToCard(item)}
         />
       </WrapperBottom>
@@ -142,6 +161,32 @@ const StyledRoundButton = styled(Block)`
   position: absolute;
   right: 0;
   top: 0;
+`;
+
+const CountWrapper = styled(Block)`
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: ${Colors.mainPrimary};
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Count = styled(Block)`
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  overflow: hidden;
+  border-width: 1px;
+  border-color: ${Colors.white};
 `;
 
 const Wrapper = styled(Block)<{height?: number}>`

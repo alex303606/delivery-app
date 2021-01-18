@@ -8,17 +8,18 @@ import {FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {RootState} from 'src/store/configureStore';
 import {connect} from 'react-redux';
-import {ICardState} from 'src/store/reducers/card';
-import {IProduct} from 'src/store/reducers/favoritest';
+import {ICardState, IProduct} from 'src/store/reducers/card';
 import {ProductCard} from './ProductCard';
 import Animated from 'react-native-reanimated';
 import {bindActionCreators} from 'redux';
-import {deleteFromCard} from '@actions';
+import {addToCard, decrementProduct, deleteFromCard} from '@actions';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 type Props = {
   deleteFromCard: (id: string) => void;
+  addToCard: (item: IProduct) => void;
+  decrementProduct: (item: IProduct) => void;
 } & ICardState;
 const keyExtractor = (item: IProduct) => item.ID;
 const mapState = (state: RootState) => ({
@@ -29,6 +30,8 @@ const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
     {
       deleteFromCard,
+      addToCard,
+      decrementProduct,
     },
     dispatch,
   );
@@ -58,7 +61,14 @@ const CardScreenComponent: React.FC<Props> = (props) => {
 
   const renderItem = useCallback(
     ({item}: {item: IProduct}) => {
-      return <ProductCard onDelete={props.deleteFromCard} item={item} />;
+      return (
+        <ProductCard
+          decrement={props.decrementProduct}
+          increment={props.addToCard}
+          onDelete={props.deleteFromCard}
+          item={item}
+        />
+      );
     },
     [props.deleteFromCard],
   );

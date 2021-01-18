@@ -35,10 +35,11 @@ export const ProductsList: React.FC<Props> = ({
   const renderItem = useCallback(
     ({item}: {item: IProduct}) => {
       const isLiked = !!favorites.find((x) => x.ID === item.ID);
-      const isAddedToCard = !!productsInCard.find((x) => x.ID === item.ID);
+      const product = productsInCard.find((x) => x.ID === item.ID);
       return (
         <ProductFullScreenCard
-          isAddedToCard={isAddedToCard}
+          count={product?.count || 0}
+          isAddedToCard={!!product}
           addToCard={addToCard}
           isLiked={isLiked}
           addToFavorite={addToFavorite}

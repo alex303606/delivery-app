@@ -34,12 +34,13 @@ export const FavoriteScreenComponent: React.FC<Props> = (props) => {
       params: {item},
     },
   } = props;
-  const isAddedToCard = !!props.productsInCard.find((x) => x.ID === item.ID);
+  const product = props.productsInCard.find((x) => x.ID === item.ID);
 
   return (
     <Block flex={1}>
       <ProductFullScreenCard
-        isAddedToCard={isAddedToCard}
+        count={product?.count || 0}
+        isAddedToCard={!!product}
         addToCard={props.addToCard}
         item={item}
       />

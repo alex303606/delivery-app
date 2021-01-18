@@ -6,13 +6,21 @@ import {IProduct} from 'src/store/reducers/card';
 import styled from 'styled-components';
 import {Image} from 'react-native';
 import {useTranslation} from 'react-i18next';
+import {RoundButtons} from './RoundButtons';
 
 type Props = {
   item: IProduct;
   onDelete: (id: string) => void;
+  increment: (item: IProduct) => void;
+  decrement: (item: IProduct) => void;
 };
 
-export const ProductCard: React.FC<Props> = ({item, onDelete}) => {
+export const ProductCard: React.FC<Props> = ({
+  item,
+  onDelete,
+  increment,
+  decrement,
+}) => {
   const {t} = useTranslation();
 
   return (
@@ -44,20 +52,36 @@ export const ProductCard: React.FC<Props> = ({item, onDelete}) => {
             diameter={30}
           />
         </Row>
-        {item.IS_NEW && (
-          <Row>
-            <Bubble backgroundColor={Colors.mainPrimary}>
-              <Typography.B11 color={Colors.white}>{t('new')}</Typography.B11>
-            </Bubble>
+        <Row>
+          <Block>
+            {item.IS_NEW && (
+              <Row>
+                <Bubble backgroundColor={Colors.mainPrimary}>
+                  <Typography.B11 color={Colors.white}>
+                    {t('new')}
+                  </Typography.B11>
+                </Bubble>
+              </Row>
+            )}
+            {item.IS_SALE && (
+              <Row>
+                <Bubble backgroundColor="#F2994A">
+                  <Typography.B11 color={Colors.white}>
+                    {t('sale')}
+                  </Typography.B11>
+                </Bubble>
+              </Row>
+            )}
+          </Block>
+          <Row paddingLeft={10} flex={1}>
+            <RoundButtons
+              count={item.count}
+              onMinusPressHandler={() => decrement(item)}
+              onPlusPressHandler={() => increment(item)}
+              isAddedState={item.count > 0}
+            />
           </Row>
-        )}
-        {item.IS_SALE && (
-          <Row>
-            <Bubble backgroundColor="#F2994A">
-              <Typography.B11 color={Colors.white}>{t('sale')}</Typography.B11>
-            </Bubble>
-          </Row>
-        )}
+        </Row>
       </Block>
     </Row>
   );
