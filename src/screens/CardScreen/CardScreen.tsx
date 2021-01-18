@@ -102,7 +102,7 @@ const CardScreenComponent: React.FC<Props> = (props) => {
           <Button
             disabled={count < 1}
             title={t('getOrder')}
-            onPress={() => null}
+            onPress={() => navigation.navigate(EScreens.NEW_ORDER_SCREEN)}
           />
         </Block>
       )}

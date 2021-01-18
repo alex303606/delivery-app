@@ -42,5 +42,6 @@ export const ruTranslation = {
     cardIsEmpty: 'Ваша корзина пуста!',
     goToMenu: 'Перейти в каталог',
     getOrder: 'Перейти к оформлению',
+    newOrder: 'Новый заказ',
   },
 };

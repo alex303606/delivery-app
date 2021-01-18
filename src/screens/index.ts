@@ -11,3 +11,4 @@ export * from './PersonalDataScreen';
 export * from './AppDataScreen';
 export * from './FavoriteScreen';
 export * from './ProductsScreen';
+export * from './NewOrderScreen';

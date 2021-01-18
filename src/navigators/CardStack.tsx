@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {EScreens, CardStackParamList} from '@interfaces';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {CardScreen} from '@screens';
+import {CardScreen, NewOrdersScreen} from '@screens';
 import {CollapsibleHeader} from '@components';
 import {Colors} from '@config';
 import {useTranslation} from 'react-i18next';
@@ -57,6 +57,18 @@ const CardStackComponent: React.FC<Props> = (propsStack) => {
           headerTransparent: true,
           headerStyle: {
             backgroundColor: themeIsLight ? Colors.white : Colors.black,
+          },
+        }}
+      />
+      <Stack.Screen
+        name={EScreens.NEW_ORDER_SCREEN}
+        component={NewOrdersScreen}
+        options={{
+          title: t('newOrder'),
+          headerTitleAlign: 'center',
+          headerStyle: {
+            elevation: 0,
+            borderBottomWidth: 0,
           },
         }}
       />

@@ -21,4 +21,5 @@ export enum EScreens {
   FIRST_DATA_SCREEN = 'FirstDataScreen',
   APP_DATA_SCREEN = 'AppDataScreen',
   PRODUCTS_SCREEN = 'ProductsScreen',
+  NEW_ORDER_SCREEN = 'NewOrdersScreen',
 }

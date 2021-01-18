@@ -25,6 +25,7 @@ export type CatalogStackParamList = {
 
 export type CardStackParamList = {
   [EScreens.CARD_SCREEN]: undefined;
+  [EScreens.NEW_ORDER_SCREEN]: undefined;
 };
 
 export type ProfileStackParamList = {
