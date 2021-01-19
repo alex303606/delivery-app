@@ -18,3 +18,4 @@ export * from './SwitchComponent';
 export * from './ProductFullScreenCard';
 export * from './ListEmptyComponent';
 export * from './PersonalDataForm';
+export * from './FavoriteProductCard';

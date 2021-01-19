@@ -5,6 +5,7 @@ import {E164Number} from 'libphonenumber-js';
 import {StackScreenProps} from '@react-navigation/stack';
 import {ICatalogItem} from 'src/store/reducers/catalog';
 import {IProduct} from 'src/store/reducers/favoritest';
+import {IOrderItem} from 'src/store/reducers/orders';
 
 export interface INavigationService {
   navigationRef: RefObject<NavigationContainerRef>;
@@ -32,6 +33,7 @@ export type CardStackParamList = {
 export type ProfileStackParamList = {
   [EScreens.PROFILE_SCREEN]: undefined;
   [EScreens.ORDERS_SCREEN]: undefined;
+  [EScreens.ORDER_SCREEN]: {order: IOrderItem};
   [EScreens.SETTINGS_SCREEN]: undefined;
   [EScreens.PERSONAL_DATA_SCREEN]: {newUser: boolean};
   [EScreens.APP_DATA_SCREEN]: {index: number};
@@ -60,6 +62,11 @@ export type ProductsScreenProps = StackScreenProps<
 export type FavoriteScreenProps = StackScreenProps<
   FavoritesStackParamList,
   EScreens.FAVORITE_SCREEN
+>;
+
+export type OrderScreenProps = StackScreenProps<
+  ProfileStackParamList,
+  EScreens.ORDER_SCREEN
 >;
 
 export type PersonalDataScreenProps = StackScreenProps<

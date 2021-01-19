@@ -1,5 +1,10 @@
 import React, {useCallback, useMemo} from 'react';
-import {Block, FocusAwareStatusBar, ListEmptyComponent} from '@components';
+import {
+  Block,
+  FavoriteProductCard,
+  FocusAwareStatusBar,
+  ListEmptyComponent,
+} from '@components';
 import {
   useAppearance,
   useLoading,
@@ -11,7 +16,6 @@ import {RootState} from 'src/store/configureStore';
 import {connect} from 'react-redux';
 import {FlatList, RefreshControl} from 'react-native';
 import {IProduct} from 'src/store/reducers/favoritest';
-import {ProductCard} from './ProductCard';
 import {bindActionCreators} from 'redux';
 import {deleteFavorite, getFavorites} from '@actions';
 import {useNavigation} from '@react-navigation/native';
@@ -64,7 +68,7 @@ const FavoritesScreenComponent: React.FC<Props> = (props) => {
   const renderItem = useCallback(
     ({item}: {item: IProduct}) => {
       return (
-        <ProductCard
+        <FavoriteProductCard
           onDelete={props.deleteFavorite}
           onPress={onPressHandle}
           item={item}

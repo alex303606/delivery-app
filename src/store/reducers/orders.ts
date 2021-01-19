@@ -1,5 +1,12 @@
 import {GET_ORDERS, SIGN_OUT} from '../actions/actionTypes';
 
+export enum IStatus {
+  N = 'N',
+  S = 'S',
+  Y = 'Y',
+  C = 'C',
+}
+
 export interface IOrderItem {
   CITY: string;
   COMMENT: string;
@@ -14,7 +21,7 @@ export interface IOrderItem {
       ID: number;
     },
   ];
-  STATUS: string;
+  STATUS: IStatus;
   USER_ID: string;
   USER_LAST_NAME: string;
   USER_NAME: string;

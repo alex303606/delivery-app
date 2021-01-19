@@ -6,11 +6,12 @@ import {connect} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {RootState} from 'src/store/configureStore';
 import {useNavigation} from '@react-navigation/native';
-import {newOrder, clearCard} from '@actions';
+import {newOrder, clearCard, getOrders} from '@actions';
 import {EScreens} from '@interfaces';
 type Props = {
   newOrder: (comment?: string) => Promise<any>;
   clearCard: () => void;
+  getOrders: () => Promise<void>;
 } & RootState;
 
 const mapDispatchToProps = (dispatch: any) => {
@@ -18,6 +19,7 @@ const mapDispatchToProps = (dispatch: any) => {
     {
       newOrder,
       clearCard,
+      getOrders,
     },
     dispatch,
   );
@@ -49,11 +51,14 @@ const NewOrdersScreenComponent: React.FC<Props> = (props) => {
   const newOrderHandler = useCallback(() => {
     showLoader();
     props.newOrder().then((res) => {
-      hideLoader();
       if (res.result) {
         props.clearCard();
+        props.getOrders().then(() => {
+          hideLoader();
+        });
         return navigation.navigate(EScreens.ORDER_COMPLETE_SCREEN);
       }
+      hideLoader();
       setErrorMessage(res.message);
     });
   }, [hideLoader, navigation, props, showLoader]);

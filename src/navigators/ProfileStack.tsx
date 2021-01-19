@@ -1,5 +1,5 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {EScreens, ProfileStackParamList} from '@interfaces';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {
@@ -8,11 +8,15 @@ import {
   SettingsScreen,
   PersonalDataScreen,
   AppDataScreen,
+  OrderScreen,
 } from '@screens';
+import {useTranslation} from 'react-i18next';
 
 const Stack = createStackNavigator<ProfileStackParamList>();
 
 export const ProfileStack: React.FC<BottomTabScreenProps<any>> = () => {
+  const {t} = useTranslation();
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -31,6 +35,24 @@ export const ProfileStack: React.FC<BottomTabScreenProps<any>> = () => {
             elevation: 0,
             borderBottomWidth: 0,
           },
+        }}
+      />
+      <Stack.Screen
+        name={EScreens.ORDER_SCREEN}
+        component={OrderScreen}
+        options={({route}) => {
+          const {
+            params: {order},
+          } = route;
+          return {
+            title: t('orderNum', {num: order.ID}),
+            ...TransitionPresets.ModalSlideFromBottomIOS,
+            headerTitleAlign: 'center',
+            headerStyle: {
+              elevation: 0,
+              borderBottomWidth: 0,
+            },
+          };
         }}
       />
       <Stack.Screen

@@ -9,17 +9,21 @@ import {useTranslation} from 'react-i18next';
 
 type Props = {
   item: IProduct;
-  onPress: (item: IProduct) => void;
-  onDelete: (id: string) => void;
+  onPress?: (item: IProduct) => void;
+  onDelete?: (id: string) => void;
 };
 
-export const ProductCard: React.FC<Props> = ({item, onPress, onDelete}) => {
+export const FavoriteProductCard: React.FC<Props> = ({
+  item,
+  onPress,
+  onDelete,
+}) => {
   const {t} = useTranslation();
   return (
     <ProductsCardContainer>
       <Block marginBottom={3} borderRadius={8} overflow={true}>
         <StyledImage resizeMode="cover" source={getImage(item.PICTURES[0])}>
-          <StyledPressable onPress={() => onPress(item)}>
+          <StyledPressable onPress={() => (onPress ? onPress(item) : null)}>
             <Row flex={1} padding={10} justifyContent="space-between">
               <Block alignItems="flex-start">
                 {item.IS_NEW && (
@@ -39,7 +43,7 @@ export const ProductCard: React.FC<Props> = ({item, onPress, onDelete}) => {
               </Block>
               <RoundButton
                 backgroundColor={Colors.white}
-                onPress={() => onDelete(item.ID)}
+                onPress={() => (onDelete ? onDelete(item.ID) : null)}
                 iconName="close-outline"
                 diameter={30}
               />

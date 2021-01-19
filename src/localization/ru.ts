@@ -39,6 +39,7 @@ export const ruTranslation = {
     sale: 'Супер цена',
     soon: 'Скоро мы добавим сюда товары!',
     favoritesIsEmpty: 'Список избранных товаров пуст!',
+    ordersIsEmpty: 'Список заказов пуст!',
     cardIsEmpty: 'Ваша корзина пуста!',
     goToMenu: 'Перейти в каталог',
     getOrder: 'Перейти к оформлению',
@@ -47,5 +48,13 @@ export const ruTranslation = {
     sendOrder: 'Отправить заявку',
     orderComplete: 'Наш менеджер свяжется с вами для уточнения деталей заказа',
     orderCompleteTitle: 'Заказ принят!',
+    orderNum: 'Заказ №{{num}}',
+    quantity: 'Количество: ',
+    orderProcess: {
+      N: 'Новый',
+      S: 'Отправлен',
+      Y: 'Выполнен',
+      C: 'Отменен',
+    },
   },
 };
