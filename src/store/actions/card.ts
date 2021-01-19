@@ -3,7 +3,7 @@ import {
   ADD_TO_CARD,
   DELETE_FROM_CARD,
   DECREMENT_FROM_CARD,
-  CLEAR_CARD,
+  CLEAR_CARD, GET_ORDERS,
 } from './actionTypes';
 import axios from 'axios';
 
@@ -48,6 +48,26 @@ export const newOrder = (comment?: string) => {
       .then((response) => {
         if (response && response.data) {
           return response.data;
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+export const getOrders = () => {
+  return (dispatch: any, getState: any) => {
+    const store = getState();
+    const params = {
+      TYPE: 'get_orders',
+      USER_IDS: [store.profile.user_id],
+      STATUS: ['N', 'S', 'Y', 'C'],
+      PAGE_SIZE: 0,
+    };
+    return axios
+      .post('', params)
+      .then((response) => {
+        if (response && response.data && response.data.result) {
+          return dispatch({type: GET_ORDERS, orders: response.data.data});
         }
       })
       .catch((error) => console.log(error));

@@ -7,6 +7,7 @@ import {persistStore, persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 import {favoritesReducer} from './reducers/favoritest';
 import {cardReducer} from './reducers/card';
+import {ordersReducer} from './reducers/orders';
 
 const middlewares = [thunkMiddleware];
 
@@ -14,6 +15,7 @@ if (__DEV__) {
   const createDebugger = require('redux-flipper').default;
   middlewares.push(createDebugger());
 }
+// @ts-ignore
 const enhancers = applyMiddleware.apply({}, middlewares);
 
 const appReducer = combineReducers({
@@ -21,6 +23,7 @@ const appReducer = combineReducers({
   catalog: catalogReducer,
   favorites: favoritesReducer,
   card: cardReducer,
+  orders: ordersReducer,
 });
 
 const persistConfig = {
