@@ -31,17 +31,17 @@ export const clearCard = () => {
   };
 };
 
-export const newOrder = (comment: string) => {
+export const newOrder = (comment?: string) => {
   return (dispatch: any, getState: any) => {
     const store = getState();
     const params = {
       TYPE: 'new_order',
       USER_ID: store.profile.user_id,
       CITY: store.profile.city,
-      COMMENT: comment,
-      PRODUCT_IDS: store.card.productsInCard
+      COMMENT: comment || '',
+      PRODUCTS: store.card.productsInCard
         .filter((x: IProduct) => x.count > 0)
-        .map((i: IProduct) => i.ID),
+        .map((i: IProduct) => ({[i.ID]: i.count})),
     };
     return axios
       .post('', params)

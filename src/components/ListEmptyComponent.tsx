@@ -8,11 +8,13 @@ const empty = require('@assets/images/empty.png');
 
 type Props = {
   title: string;
+  bigTitle?: string;
   buttonTitle?: string;
   onPress?: () => void;
 };
 
 export const ListEmptyComponent: React.FC<Props> = ({
+  bigTitle,
   title,
   buttonTitle,
   onPress,
@@ -23,7 +25,18 @@ export const ListEmptyComponent: React.FC<Props> = ({
     <Block flex={1} paddingVertical={16} paddingHorizontal={8}>
       <Block flex={1} justifyContent="center" alignItems="center">
         <StyledImage resizeMode="contain" source={empty} />
-        <Typography.B16 paddingHorizontal={16} color={textColor}>
+        {!!bigTitle && (
+          <Typography.B34
+            textAlign="center"
+            paddingHorizontal={16}
+            color={textColor}>
+            {bigTitle}
+          </Typography.B34>
+        )}
+        <Typography.B16
+          textAlign="center"
+          paddingHorizontal={16}
+          color={textColor}>
           {title}
         </Typography.B16>
       </Block>

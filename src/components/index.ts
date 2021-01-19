@@ -17,3 +17,4 @@ export * from './ScrollContainer';
 export * from './SwitchComponent';
 export * from './ProductFullScreenCard';
 export * from './ListEmptyComponent';
+export * from './PersonalDataForm';

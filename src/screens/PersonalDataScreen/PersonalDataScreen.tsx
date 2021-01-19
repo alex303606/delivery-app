@@ -1,5 +1,11 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Block, Button, ScrollContainer, Typography} from '@components';
+import {
+  Block,
+  Button,
+  ScrollContainer,
+  Typography,
+  PersonalDataForm,
+} from '@components';
 import {useAppearance, useLoading} from '@hooks';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -14,7 +20,6 @@ import {
 } from '@actions';
 import {useNavigation} from '@react-navigation/native';
 import {RefreshControl} from 'react-native';
-import {PersonalDataForm} from './PersonalDataForm';
 import {EScreens, PersonalDataScreenProps} from '@interfaces';
 
 type Props = {
@@ -64,7 +69,7 @@ const PersonalDataScreenComponent: React.FC<Props> = (props) => {
   const [lastName, setLastName] = useState<string>(lastname || '');
   const [town, setTown] = useState<string>(city || '');
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const error = town.length < 3 || name.length < 3 || lastName.length < 3;
+  const error = town.length < 2 || name.length < 2 || lastName.length < 2;
 
   useEffect(() => {
     setName(firstname || '');
@@ -115,6 +120,7 @@ const PersonalDataScreenComponent: React.FC<Props> = (props) => {
     showLoader,
     sms,
     town,
+    newUser,
   ]);
 
   const reload = useCallback(() => {

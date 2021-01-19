@@ -43,5 +43,9 @@ export const ruTranslation = {
     goToMenu: 'Перейти в каталог',
     getOrder: 'Перейти к оформлению',
     newOrder: 'Новый заказ',
+    emptyDataError: 'Заполните свои данные в профиле!',
+    sendOrder: 'Отправить заявку',
+    orderComplete: 'Наш менеджер свяжется с вами для уточнения деталей заказа',
+    orderCompleteTitle: 'Заказ принят!',
   },
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {EScreens, CardStackParamList} from '@interfaces';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {CardScreen, NewOrdersScreen} from '@screens';
+import {CardScreen, NewOrdersScreen, OrderCompleteScreen} from '@screens';
 import {CollapsibleHeader} from '@components';
 import {Colors} from '@config';
 import {useTranslation} from 'react-i18next';
@@ -70,6 +70,13 @@ const CardStackComponent: React.FC<Props> = (propsStack) => {
             elevation: 0,
             borderBottomWidth: 0,
           },
+        }}
+      />
+      <Stack.Screen
+        name={EScreens.ORDER_COMPLETE_SCREEN}
+        component={OrderCompleteScreen}
+        options={{
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

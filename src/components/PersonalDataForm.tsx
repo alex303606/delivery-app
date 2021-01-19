@@ -13,6 +13,7 @@ type Props = {
   setTown: (s: string) => void;
   phone: string;
   errorMessage: string;
+  disabledAllFields?: boolean;
 };
 
 export const PersonalDataForm: React.FC<Props> = ({
@@ -24,12 +25,14 @@ export const PersonalDataForm: React.FC<Props> = ({
   setTown,
   phone,
   errorMessage,
+  disabledAllFields = false,
 }) => {
   const {t} = useTranslation();
 
   return (
     <Block marginHorizontal={16} flex={1}>
       <InputField
+        disabled={disabledAllFields}
         autoCapitalize="words"
         autoCompleteType="name"
         error={name.length < 2}
@@ -39,6 +42,7 @@ export const PersonalDataForm: React.FC<Props> = ({
         label={t('firstname')}
       />
       <InputField
+        disabled={disabledAllFields}
         autoCapitalize="words"
         autoCompleteType="name"
         error={lastName.length < 3}
@@ -48,6 +52,7 @@ export const PersonalDataForm: React.FC<Props> = ({
         label={t('lastname')}
       />
       <InputField
+        disabled={disabledAllFields}
         error={town.length < 3}
         changeValue={setTown}
         value={town}
