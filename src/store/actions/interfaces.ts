@@ -26,22 +26,10 @@ export interface IGetUserResponse {
   };
 }
 
-export interface ISendCodeResponse {
-  result: boolean;
-  message: string;
-  data: {
-    user_id: string;
-  };
-}
-
 export type ISendPhoneNumber = (
   phone: E164Number,
-) => Promise<ISendPhoneNumberResponse>;
-
-export type ISendCode = (
-  phone: E164Number,
   code: string,
-) => Promise<ISendCodeResponse>;
+) => Promise<ISendPhoneNumberResponse>;
 
 export type IGetUser = () => Promise<IGetUserResponse>;
 

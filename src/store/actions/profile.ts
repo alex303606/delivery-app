@@ -16,7 +16,7 @@ export const getUser = () => {
       .post('', params)
       .then((response) => {
         if (response && response.data) {
-          if (response.data.data.black_list) {
+          if (response.data.data?.black_list) {
             dispatch(logOut());
           }
           if (response.data.result) {

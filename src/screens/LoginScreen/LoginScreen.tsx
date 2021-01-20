@@ -10,9 +10,12 @@ import {phoneIsValid, parsePhoneToString} from '@utils';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {ISendPhoneNumber, sendPhone} from '@actions';
-import {useNavigation} from '@react-navigation/native';
-import {EScreens} from '@interfaces';
 import {useAppearance, useLoading} from '@hooks';
+import {
+  CodeFieldComponent,
+  ICodeFieldComponent,
+} from './components/CodeFieldComponent';
+const CELL_COUNT = 4;
 
 type Props = {
   sendPhone: ISendPhoneNumber;
@@ -31,18 +34,20 @@ const connector = connect(null, mapDispatchToProps);
 
 const LoginScreenComponent: React.FC<Props> = (props) => {
   const {t} = useTranslation();
-  const navigation = useNavigation();
+  const {textColor} = useAppearance();
   const {loading, hideLoader, showLoader} = useLoading();
   const modalRef = useRef<IHandles>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [country, setCountry] = useState<ICountry>(COUNTRIES[0]);
+  const [code, setCode] = useState('');
+  const codeRef = useRef<ICodeFieldComponent>(null);
 
   useEffect(() => {
     if (errorMessage) {
       setErrorMessage('');
     }
-  }, [phone]);
+  }, [phone, code]);
 
   const setPhoneHandler = useCallback((value) => {
     return setPhone(value);
@@ -63,32 +68,29 @@ const LoginScreenComponent: React.FC<Props> = (props) => {
     [modalRef],
   );
 
-  useEffect(() => {
-    return function cleanup() {
-      hideLoader();
-    };
-  });
-
   const sendPhoneHandler = useCallback(() => {
-    const number = parsePhoneToString(phone, country);
-    if (!number) {
-      return;
+    if (!phone || !phoneIsValid(phone, country)) {
+      codeRef.current?.clear();
+      return setErrorMessage(t('phoneIsInvalid'));
     }
-    showLoader();
-    props.sendPhone(number).then((res) => {
-      if (res && res.result) {
-        navigation.navigate(EScreens.SMS_CODE_SCREEN, {
-          currentTimeInMillis: Date.now(),
-          phone: parsePhoneToString(phone, country),
-        });
+    if (code.length !== CELL_COUNT) {
+      return setErrorMessage(t('codeIsInvalid'));
+    }
+    if (code.length === CELL_COUNT) {
+      const number = parsePhoneToString(phone, country);
+      if (!number) {
+        return;
       }
-      if (!res.result || res.data.black_list) {
-        setErrorMessage(res.message);
-      }
-      hideLoader();
-    });
-  }, [phone, country, showLoader, props, hideLoader, navigation]);
-  const {textColor} = useAppearance();
+      showLoader();
+      props.sendPhone(number, code).then((res) => {
+        hideLoader();
+        if (!res.result || res.data.black_list) {
+          codeRef.current?.clear();
+          setErrorMessage(res.message);
+        }
+      });
+    }
+  }, [phone, country, code, t, showLoader, props, hideLoader]);
 
   return (
     <Block paddingHorizontal={16} paddingTop={54 + STATUSBAR_HEIGHT} flex={1}>
@@ -106,11 +108,11 @@ const LoginScreenComponent: React.FC<Props> = (props) => {
         value={phone}
         onPressFlag={onPressFlagHandler}
       />
+      <CodeFieldComponent value={code} setValue={setCode} ref={codeRef} />
       <Button
         loading={loading}
-        disabled={!phoneIsValid(phone, country)}
         marginTop={20}
-        title={t('getCode')}
+        title={t('enter')}
         onPress={sendPhoneHandler}
       />
       <Typography.R16

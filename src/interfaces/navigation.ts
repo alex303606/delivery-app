@@ -1,7 +1,6 @@
 import {MutableRefObject, RefObject} from 'react';
 import {NavigationContainerRef} from '@react-navigation/native';
 import {EScreens} from '@interfaces';
-import {E164Number} from 'libphonenumber-js';
 import {StackScreenProps} from '@react-navigation/stack';
 import {ICatalogItem} from 'src/store/reducers/catalog';
 import {IProduct} from 'src/store/reducers/favoritest';
@@ -15,7 +14,6 @@ export interface INavigationService {
 
 export type AuthStackParamList = {
   [EScreens.LOGIN_SCREEN]: undefined;
-  [EScreens.SMS_CODE_SCREEN]: {phone: E164Number; currentTimeInMillis: number};
 };
 
 export type CatalogStackParamList = {
@@ -43,11 +41,6 @@ export type FavoritesStackParamList = {
   [EScreens.FAVORITES_SCREEN]: undefined;
   [EScreens.FAVORITE_SCREEN]: {item: IProduct};
 };
-
-export type AuthorizationScreenProps = StackScreenProps<
-  AuthStackParamList,
-  EScreens.SMS_CODE_SCREEN
->;
 
 export type CatalogScreenProps = StackScreenProps<
   CatalogStackParamList,

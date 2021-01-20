@@ -14,7 +14,6 @@ export enum EScreens {
   FAVORITES_SCREEN = 'FavoritesScreen',
   FAVORITE_SCREEN = 'FavoriteScreen',
   LOGIN_SCREEN = 'LoginScreen',
-  SMS_CODE_SCREEN = 'SmsCodeScreen',
   ORDERS_SCREEN = 'OrdersScreen',
   SETTINGS_SCREEN = 'SettingsScreen',
   PERSONAL_DATA_SCREEN = 'PersonalDataScreen',

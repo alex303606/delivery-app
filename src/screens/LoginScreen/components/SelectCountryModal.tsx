@@ -12,7 +12,7 @@ interface SelectCountryModalProps {
 
 const keyExtractor = (item: ICountry) => item.ru;
 
-export const SelectCountryModal = React.forwardRef<SelectCountryModalProps>(
+export const SelectCountryModal = React.forwardRef<{}, SelectCountryModalProps>(
   ({setCountry}, ref) => {
     const {t} = useTranslation();
     const contentRef = useRef<ScrollView>(null);

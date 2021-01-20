@@ -10,6 +10,7 @@ export const ruTranslation = {
       noConnection: 'Нет соединения с интернетом',
     },
     login: 'Вход',
+    enter: 'Войти',
     enterPhone: 'Введите номер телефона',
     getCode: 'Получить код по смс',
     scrollToTop: 'В начало списка',
@@ -56,5 +57,7 @@ export const ruTranslation = {
       Y: 'Выполнен',
       C: 'Отменен',
     },
+    phoneIsInvalid: 'Не валидный номер телефона',
+    codeIsInvalid: 'Введите код',
   },
 };

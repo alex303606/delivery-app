@@ -71,7 +71,7 @@ export const RootStack: React.FC<Props> = (props) => {
     }
   }, [hideLoader, props, showLoader]);
   if (loading) {
-    return <Loader background={Colors.black} color={Colors.white} />;
+    return <Loader background={Colors.transparent} color={Colors.white} />;
   }
   return (
     <Stack.Navigator
