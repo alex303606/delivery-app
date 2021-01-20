@@ -15,7 +15,7 @@ import {COLLAPSIBLE_HEADER_HEIGHT, Colors} from '@config';
 import {RootState} from 'src/store/configureStore';
 import {connect} from 'react-redux';
 import {FlatList, RefreshControl} from 'react-native';
-import {IProduct} from 'src/store/reducers/favoritest';
+import {IFavoritesState, IProduct} from 'src/store/reducers/favoritest';
 import {bindActionCreators} from 'redux';
 import {deleteFavorite, getFavorites} from '@actions';
 import {useNavigation} from '@react-navigation/native';
@@ -26,7 +26,7 @@ import {useTranslation} from 'react-i18next';
 type Props = {
   deleteFavorite: (id: string) => void;
   getFavorites: () => Promise<any>;
-} & RootState;
+} & IFavoritesState;
 
 const mapState = (state: RootState) => ({
   favorites: state.favorites.favorites,

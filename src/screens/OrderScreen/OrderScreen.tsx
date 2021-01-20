@@ -89,7 +89,7 @@ const OrderScreenComponent: React.FC<Props> = (props) => {
         </Row>
         <Row alignItems="center">
           <Typography.R14 color={Colors.grey}>{t('quantity')}</Typography.R14>
-          <Typography.B16>{count}</Typography.B16>
+          <Typography.B16 color={textColor}>{count}</Typography.B16>
         </Row>
         <Row justifyContent="space-between">
           <Typography.R14 color={Colors.grey}>{order.CITY}</Typography.R14>

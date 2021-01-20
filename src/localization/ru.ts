@@ -59,5 +59,7 @@ export const ruTranslation = {
     },
     phoneIsInvalid: 'Не валидный номер телефона',
     codeIsInvalid: 'Введите код',
+    newOrderFilter: 'В процессе',
+    sendedOrderFilter: 'Завершенные',
   },
 };
