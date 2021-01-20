@@ -54,7 +54,7 @@ const connector = connect(mapState, mapDispatchToProps);
 
 export const RootStack: React.FC<Props> = (props) => {
   const {loading, showLoader, hideLoader} = useLoading();
-  const {themeIsLight} = useAppearance();
+  const {themeIsLight, backgroundColor} = useAppearance();
   useEffect(() => {
     if (props.userIsLoggedIn) {
       showLoader();
@@ -71,7 +71,7 @@ export const RootStack: React.FC<Props> = (props) => {
     }
   }, [hideLoader, props, showLoader]);
   if (loading) {
-    return <Loader background={Colors.transparent} color={Colors.white} />;
+    return <Loader background={backgroundColor} color={Colors.white} />;
   }
   return (
     <Stack.Navigator

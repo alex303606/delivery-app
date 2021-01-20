@@ -21,6 +21,7 @@ import {ConnectionHandler, Loader} from '@components';
 import {PersistGate} from 'redux-persist/integration/react';
 import {Provider} from 'react-redux';
 import configureStore from './store/configureStore';
+import {useAppearance} from '@hooks';
 
 enableScreens();
 
@@ -37,12 +38,15 @@ const getMainComponent = (deps: PresentationDependencies) => {
   const MainComponent: React.FC = () => {
     const systemColorScheme = useColorScheme();
     const {navigationService} = deps;
+    const {backgroundColor} = useAppearance();
 
     return (
       <DependenciesContext.Provider
         value={UIDependenciesServiceLocator.init(deps)}>
         <Provider store={store}>
-          <PersistGate loading={<Loader />} persistor={persistor}>
+          <PersistGate
+            loading={<Loader background={backgroundColor} />}
+            persistor={persistor}>
             <SafeAreaProvider>
               <AppearanceProvider>
                 <NavigationContainer
