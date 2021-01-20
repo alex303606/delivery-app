@@ -164,6 +164,14 @@ android {
         }
     }
 
+    flavorDimensions "default"
+    productFlavors {
+        brandGallery {
+            applicationId "com.brandgallery"
+            resValue "string", "app_name","Brand Gallery"
+        }
+    }
+
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
