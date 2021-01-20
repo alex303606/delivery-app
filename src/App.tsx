@@ -45,7 +45,7 @@ const getMainComponent = (deps: PresentationDependencies) => {
         value={UIDependenciesServiceLocator.init(deps)}>
         <Provider store={store}>
           <PersistGate
-            loading={<Loader background={backgroundColor} />}
+            loading={<Loader background={backgroundColor} color={Colors.white}/>}
             persistor={persistor}>
             <SafeAreaProvider>
               <AppearanceProvider>

@@ -3,7 +3,8 @@ import {
   ADD_TO_CARD,
   DELETE_FROM_CARD,
   DECREMENT_FROM_CARD,
-  CLEAR_CARD, GET_ORDERS,
+  CLEAR_CARD,
+  GET_ORDERS,
 } from './actionTypes';
 import axios from 'axios';
 
@@ -34,15 +35,20 @@ export const clearCard = () => {
 export const newOrder = (comment?: string) => {
   return (dispatch: any, getState: any) => {
     const store = getState();
+    const products = store.card.productsInCard
+      .filter((x: IProduct) => x.count > 0)
+      .reduce((acc: any, p: IProduct) => {
+        acc[p.ID] = p.count;
+        return acc;
+      }, {});
     const params = {
       TYPE: 'new_order',
       USER_ID: store.profile.user_id,
       CITY: store.profile.city,
       COMMENT: comment || '',
-      PRODUCTS: store.card.productsInCard
-        .filter((x: IProduct) => x.count > 0)
-        .map((i: IProduct) => ({[i.ID]: i.count})),
+      PRODUCTS: products,
     };
+
     return axios
       .post('', params)
       .then((response) => {

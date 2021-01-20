@@ -1,31 +1,51 @@
-import React, {useCallback, useMemo} from 'react';
-import {Block, FavoriteProductCard, Typography} from '@components';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import {Block, FavoriteProductCard, Loader, Typography} from '@components';
 import {OrderScreenProps} from '@interfaces';
 import {useTranslation} from 'react-i18next';
-import {useAppearance} from '@hooks';
+import {useAppearance, useLoading} from '@hooks';
 import {FlatList} from 'react-native';
 import {IProduct} from 'src/store/reducers/favoritest';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {getProducts} from '@actions';
+import {Colors} from '@config';
 
-type Props = {} & OrderScreenProps;
+type Props = {
+  getProducts: ({id: []}) => Promise<IProduct[]>;
+} & OrderScreenProps;
 const keyExtractor = (item: IProduct) => item.ID;
 
 const mapDispatchToProps = (dispatch: any) => {
-  return bindActionCreators({}, dispatch);
+  return bindActionCreators(
+    {
+      getProducts,
+    },
+    dispatch,
+  );
 };
 
-const connector = connect(mapDispatchToProps);
+const connector = connect(null, mapDispatchToProps);
 
 const OrderScreenComponent: React.FC<Props> = (props) => {
   const {t} = useTranslation();
-  const {textColor} = useAppearance();
-
+  const {textColor, backgroundColor} = useAppearance();
+  const {loading, hideLoader, showLoader} = useLoading();
   const {
     route: {
       params: {order},
     },
   } = props;
+
+  const [products, setProducts] = useState<IProduct[]>([]);
+
+  useEffect(() => {
+    showLoader();
+    const id = order.PRODUCTS.map((x) => x.ID);
+    props.getProducts({id}).then((p) => {
+      setProducts(p);
+      hideLoader();
+    });
+  }, [order, props]);
 
   const contentContainerStyle = useMemo(() => {
     return {
@@ -38,6 +58,10 @@ const OrderScreenComponent: React.FC<Props> = (props) => {
     return <FavoriteProductCard item={item} />;
   }, []);
 
+  if (loading) {
+    return <Loader background={backgroundColor} color={Colors.white} />;
+  }
+
   return (
     <Block flex={1} padding={16}>
       <Typography.B16 color={textColor}>
@@ -46,7 +70,7 @@ const OrderScreenComponent: React.FC<Props> = (props) => {
       <FlatList
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
-        data={[]}
+        data={products}
         renderItem={renderItem}
         numColumns={2}
         columnWrapperStyle={{
@@ -59,4 +83,5 @@ const OrderScreenComponent: React.FC<Props> = (props) => {
   );
 };
 
+// @ts-ignore
 export const OrderScreen = connector(OrderScreenComponent);
