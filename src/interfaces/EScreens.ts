@@ -23,4 +23,5 @@ export enum EScreens {
   NEW_ORDER_SCREEN = 'NewOrdersScreen',
   ORDER_COMPLETE_SCREEN = 'OrderCompleteScreen',
   ORDER_SCREEN = 'OrderScreen',
+  PRODUCT_SCREEN = 'ProductScreen',
 }

@@ -35,6 +35,7 @@ export type ProfileStackParamList = {
   [EScreens.SETTINGS_SCREEN]: undefined;
   [EScreens.PERSONAL_DATA_SCREEN]: {newUser: boolean};
   [EScreens.APP_DATA_SCREEN]: {index: number};
+  [EScreens.PRODUCT_SCREEN]: {item: IProduct};
 };
 
 export type FavoritesStackParamList = {

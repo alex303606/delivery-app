@@ -51,6 +51,8 @@ const FavoritesScreenComponent: React.FC<Props> = (props) => {
   const {loading, showLoader, hideLoader} = useLoading();
   const {themeIsLight} = useAppearance();
   const {t} = useTranslation();
+  const {scrollY, onScroll} = useScrollHandler();
+
   const reload = useCallback(() => {
     showLoader();
     props.getFavorites().then(() => {
@@ -78,7 +80,6 @@ const FavoritesScreenComponent: React.FC<Props> = (props) => {
     [onPressHandle, props],
   );
 
-  const {scrollY, onScroll} = useScrollHandler();
   useSetScreenOptions(
     {
       animatedValue: scrollY,

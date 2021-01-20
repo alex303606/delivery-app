@@ -41,12 +41,14 @@ export const FavoriteProductCard: React.FC<Props> = ({
                   </Bubble>
                 )}
               </Block>
-              <RoundButton
-                backgroundColor={Colors.white}
-                onPress={() => (onDelete ? onDelete(item.ID) : null)}
-                iconName="close-outline"
-                diameter={30}
-              />
+              {onDelete && (
+                <RoundButton
+                  backgroundColor={Colors.white}
+                  onPress={() => (onDelete ? onDelete(item.ID) : null)}
+                  iconName="close-outline"
+                  diameter={30}
+                />
+              )}
             </Row>
             {!!item.PRICE && (
               <Row justifyContent="flex-start" marginBottom={40}>
