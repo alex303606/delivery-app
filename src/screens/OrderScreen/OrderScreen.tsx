@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {Block, FavoriteProductCard, Loader, Row, Typography} from '@components';
-import {EScreens, OrderScreenProps} from '@interfaces';
+import {OrderScreenProps} from '@interfaces';
 import {useTranslation} from 'react-i18next';
 import {useAppearance, useLoading} from '@hooks';
 import {FlatList} from 'react-native';
@@ -9,7 +9,6 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {getProducts} from '@actions';
 import {Colors} from '@config';
-import {useNavigation} from '@react-navigation/native';
 
 type Props = {
   getProducts: ({id: []}) => Promise<IProduct[]>;
@@ -29,7 +28,6 @@ const connector = connect(null, mapDispatchToProps);
 
 const OrderScreenComponent: React.FC<Props> = (props) => {
   const {t} = useTranslation();
-  const navigation = useNavigation();
   const {textColor, backgroundColor} = useAppearance();
   const {loading, hideLoader, showLoader} = useLoading();
   const {
@@ -61,15 +59,8 @@ const OrderScreenComponent: React.FC<Props> = (props) => {
     };
   }, []);
 
-  const onPressHandle = useCallback(
-    (item: IProduct) => {
-      navigation.navigate(EScreens.PRODUCT_SCREEN, {item});
-    },
-    [navigation],
-  );
-
   const renderItem = useCallback(({item}: {item: IProduct}) => {
-    return <FavoriteProductCard onPress={onPressHandle} item={item} />;
+    return <FavoriteProductCard disabled={true} item={item} />;
   }, []);
 
   if (loading) {

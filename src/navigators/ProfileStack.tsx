@@ -9,7 +9,6 @@ import {
   PersonalDataScreen,
   AppDataScreen,
   OrderScreen,
-  FavoriteScreen,
 } from '@screens';
 import {useTranslation} from 'react-i18next';
 
@@ -88,24 +87,6 @@ export const ProfileStack: React.FC<BottomTabScreenProps<any>> = () => {
             elevation: 0,
             borderBottomWidth: 0,
           },
-        }}
-      />
-      <Stack.Screen
-        name={EScreens.PRODUCT_SCREEN}
-        component={FavoriteScreen}
-        options={({route}) => {
-          const {
-            params: {item},
-          } = route;
-          return {
-            title: item.NAME,
-            ...TransitionPresets.ModalSlideFromBottomIOS,
-            headerTitleAlign: 'center',
-            headerStyle: {
-              elevation: 0,
-              borderBottomWidth: 0,
-            },
-          };
         }}
       />
     </Stack.Navigator>

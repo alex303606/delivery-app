@@ -11,19 +11,23 @@ type Props = {
   item: IProduct;
   onPress?: (item: IProduct) => void;
   onDelete?: (id: string) => void;
+  disabled?: boolean;
 };
 
 export const FavoriteProductCard: React.FC<Props> = ({
   item,
   onPress,
   onDelete,
+  disabled,
 }) => {
   const {t} = useTranslation();
   return (
     <ProductsCardContainer>
       <Block marginBottom={3} borderRadius={8} overflow={true}>
         <StyledImage resizeMode="cover" source={getImage(item.PICTURES[0])}>
-          <StyledPressable onPress={() => (onPress ? onPress(item) : null)}>
+          <StyledPressable
+            disabled={disabled}
+            onPress={() => (onPress ? onPress(item) : null)}>
             <Row flex={1} padding={10} justifyContent="space-between">
               <Block alignItems="flex-start">
                 {item.IS_NEW && (
