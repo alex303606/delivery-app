@@ -33,12 +33,13 @@ const getUserSuccess = (data: IGetUserResponse) => {
   return {type: GET_USER_SUCCESS, data};
 };
 
-export const updateUserDate = () => {
-  return (dispatch: any, getState: any) => {
+export const updateUserDate = (token: string) => {
+  return async (dispatch: any, getState: any) => {
     const store = getState();
     const params = {
       TYPE: 'update_user_date',
       USER_ID: store.profile.user_id,
+      PUSH_TOKEN: token,
     };
     return axios
       .post('', params)

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "615217733363",
+    "firebase_url": "https://brandgallery-e5b8a-default-rtdb.firebaseio.com",
+    "project_id": "brandgallery-e5b8a",
+    "storage_bucket": "brandgallery-e5b8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615217733363:android:697ab43ebc4ad77eafa186",
+        "android_client_info": {
+          "package_name": "com.deliveryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "615217733363-n3g7nf8bl122iu16o5aa1jcvurhnb070.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClBjG8oub36rpg9ijmemmPsjLOmS5-6sc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "615217733363-n3g7nf8bl122iu16o5aa1jcvurhnb070.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "615217733363-mp0nukbbtlgahs1cbnecs17aikenrv9r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "kg.brandgallery.admin.BGAdmin"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
