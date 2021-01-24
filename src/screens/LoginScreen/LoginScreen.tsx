@@ -83,10 +83,10 @@ const LoginScreenComponent: React.FC<Props> = (props) => {
       }
       showLoader();
       props.sendPhone(number, code).then((res) => {
-        hideLoader();
         if (!res.result || res.data.black_list) {
           codeRef.current?.clear();
           setErrorMessage(res.message);
+          hideLoader();
         }
       });
     }

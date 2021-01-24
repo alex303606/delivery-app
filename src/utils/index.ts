@@ -10,3 +10,5 @@ export * from './IUIDependenciesServiceLocator';
 export * from './phoneValidator';
 export * from './getImage';
 export * from './RemoteNotificationsClient';
+export * from './NotificationHandlersService';
+export * from './LocalNotificationsClient';

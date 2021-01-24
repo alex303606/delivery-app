@@ -16,11 +16,10 @@ import {
   getOrders,
 } from '@actions';
 import {RootState} from 'src/store/configureStore';
-import {useAppearance, useLoading} from '@hooks';
+import {useAppearance, useDependencies, useLoading} from '@hooks';
 import {Loader} from '@components';
 import {Colors} from '@config';
 import {PersonalDataScreen} from '@screens';
-import {FirebaseNotificationsClient} from '@utils';
 const Stack = createStackNavigator<RootStackParamList>();
 
 type Props = {
@@ -56,10 +55,14 @@ const connector = connect(mapState, mapDispatchToProps);
 export const RootStack: React.FC<Props> = (props) => {
   const {loading, showLoader, hideLoader} = useLoading();
   const {themeIsLight, backgroundColor} = useAppearance();
-
+  const deps = useDependencies();
+  const remoteNotificationClient = deps.get('remoteNotificationClient');
   useEffect(() => {
     if (props.userIsLoggedIn) {
       showLoader();
+      remoteNotificationClient.getToken().then((token) => {
+        props.updateUserDate(token);
+      });
       Promise.all([
         props.getSections(),
         props.getUser(),
@@ -75,36 +78,30 @@ export const RootStack: React.FC<Props> = (props) => {
     return <Loader background={backgroundColor} color={Colors.white} />;
   }
   return (
-    <>
-      <FirebaseNotificationsClient
-        updateUserDate={props.updateUserDate}
-        userIsLoggedIn={props.userIsLoggedIn}
+    <Stack.Navigator
+      mode="modal"
+      headerMode="none"
+      initialRouteName={
+        props.newUser ? EScreens.FIRST_DATA_SCREEN : EScreens.ROOT_TABS
+      }>
+      <Stack.Screen
+        name={EScreens.ROOT_TABS}
+        component={props.userIsLoggedIn ? RootTabs : AuthStack}
       />
-      <Stack.Navigator
-        mode="modal"
-        headerMode="none"
-        initialRouteName={
-          props.newUser ? EScreens.FIRST_DATA_SCREEN : EScreens.ROOT_TABS
-        }>
-        <Stack.Screen
-          name={EScreens.ROOT_TABS}
-          component={props.userIsLoggedIn ? RootTabs : AuthStack}
-        />
-        <Stack.Screen
-          name={EScreens.FIRST_DATA_SCREEN}
-          component={PersonalDataScreen}
-          initialParams={{newUser: true}}
-          options={{
-            title: '',
-            headerStyle: {
-              backgroundColor: themeIsLight ? Colors.background : Colors.black,
-              elevation: 0,
-              borderBottomWidth: 0,
-            },
-          }}
-        />
-      </Stack.Navigator>
-    </>
+      <Stack.Screen
+        name={EScreens.FIRST_DATA_SCREEN}
+        component={PersonalDataScreen}
+        initialParams={{newUser: true}}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: themeIsLight ? Colors.background : Colors.black,
+            elevation: 0,
+            borderBottomWidth: 0,
+          },
+        }}
+      />
+    </Stack.Navigator>
   );
 };
 

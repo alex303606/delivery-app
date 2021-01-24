@@ -1,5 +1,12 @@
 import {I18nextClient} from '../localization/I18nextClient';
-import {NetInfo, NavigationService, Permissions} from '@utils';
+import {
+  NetInfo,
+  NavigationService,
+  Permissions,
+  FirebaseNotificationsClient,
+  LocalNotificationsClient,
+  NotificationHandlersService,
+} from '@utils';
 
 export const getInfrastructureContainer = async () => {
   const localization = new I18nextClient();
@@ -7,9 +14,21 @@ export const getInfrastructureContainer = async () => {
   const permissions = new Permissions();
   const navigationService = new NavigationService();
   await localization.init();
+  const notificationHandlersService = new NotificationHandlersService(
+    navigationService,
+  );
+  const localNotificationClient = new LocalNotificationsClient(
+    notificationHandlersService,
+  );
+  await localNotificationClient.init();
+
+  const remoteNotificationClient = new FirebaseNotificationsClient(
+    localNotificationClient,
+  );
 
   const onDestroy = () => {
-    return null;
+    remoteNotificationClient.destroy();
+    localNotificationClient.destroy();
   };
 
   return {
@@ -17,6 +36,8 @@ export const getInfrastructureContainer = async () => {
       netInfo,
       navigationService,
       permissions,
+      localNotificationClient,
+      remoteNotificationClient,
     },
     onDestroy,
   };
