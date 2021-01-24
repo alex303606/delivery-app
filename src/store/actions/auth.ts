@@ -2,6 +2,7 @@ import axios from 'axios';
 import {E164Number} from 'libphonenumber-js';
 import {ISendPhoneNumber} from './interfaces';
 import {SIGN_IN_SUCCESS, SIGN_OUT, SET_USER_IS_NEW} from './actionTypes';
+import messaging from '@react-native-firebase/messaging';
 
 export const sendPhone = (
   phone: E164Number,
@@ -18,6 +19,12 @@ export const sendPhone = (
       .then((response) => {
         if (response && response.data) {
           if (response.data.result) {
+            messaging()
+              .subscribeToTopic('sale')
+              .then(() => console.log('Subscribed to topic sale!'));
+            messaging()
+              .subscribeToTopic('new_arrival')
+              .then(() => console.log('Subscribed to topic new_arrival!'));
             dispatch(setIsNewUserOrNot(response.data.data?.new));
             dispatch(loginUserSuccess(response.data.data.user_id));
           }

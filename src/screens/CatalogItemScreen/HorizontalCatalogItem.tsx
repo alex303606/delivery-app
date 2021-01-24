@@ -3,7 +3,7 @@ import {Block, Typography} from '@components';
 import {Colors} from '@config';
 import {ICatalogItem} from 'src/store/reducers/catalog';
 import styled from 'styled-components';
-import {Image, Pressable} from 'react-native';
+import {Image, ImageBackground, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {getImage} from '@utils';
 import {EScreens} from '@interfaces';
@@ -29,12 +29,24 @@ export const HorizontalCatalogItem: React.FC<Props> = ({item}) => {
       elevation={4}
       borderRadius={10}
       overflow={true}>
-      <StyledPressable onPress={pressHandler}>
-        <StyledImage resizeMode="contain" source={getImage(item.PICTURE)} />
-        <Block flex={1} alignItems="flex-end" justifyContent="flex-end">
-          <Typography.B14 color={Colors.black}>{item.NAME}</Typography.B14>
-        </Block>
-      </StyledPressable>
+      {item.BIG_PICTURE ? (
+        <StyledImageBackground
+          resizeMode="cover"
+          source={getImage(item.PICTURE)}>
+          <StyledPressableBig onPress={pressHandler}>
+            <TextContainer>
+              <Typography.B14 color={Colors.black}>{item.NAME}</Typography.B14>
+            </TextContainer>
+          </StyledPressableBig>
+        </StyledImageBackground>
+      ) : (
+        <StyledPressable onPress={pressHandler}>
+          <StyledImage resizeMode="contain" source={getImage(item.PICTURE)} />
+          <Block flex={1} alignItems="flex-end" justifyContent="flex-end">
+            <Typography.B14 color={Colors.black}>{item.NAME}</Typography.B14>
+          </Block>
+        </StyledPressable>
+      )}
       {countNew > 0 && (
         <CntNew
           justifyContent="center"
@@ -59,8 +71,25 @@ const StyledPressable = styled(Pressable).attrs(() => ({
   flex-direction: row;
 `;
 
+const StyledPressableBig = styled(Pressable).attrs(() => ({
+  android_ripple: {
+    borderless: false,
+    color: Colors.ripple,
+  },
+}))<{big?: boolean}>`
+  height: 180px;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding-bottom: 20px;
+`;
+
 const StyledImage = styled(Image)`
   flex: 1;
+`;
+
+const StyledImageBackground = styled(ImageBackground)`
+  width: 100%;
+  height: 180px;
 `;
 
 const CntNew = styled(Block)`
@@ -69,4 +98,12 @@ const CntNew = styled(Block)`
   position: absolute;
   top: 5px;
   right: 5px;
+`;
+
+const TextContainer = styled(Block)`
+  background-color: rgba(255, 255, 255, 0.5);
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0 20px;
 `;

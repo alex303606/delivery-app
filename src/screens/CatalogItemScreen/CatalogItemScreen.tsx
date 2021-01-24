@@ -23,8 +23,9 @@ const transformCatalogArray = (
   catalog: ICatalogItem[],
   parentItem: ICatalogItem,
 ) => {
-  return catalog.reduce((acc, item, index) => {
-    if (item.PARENT_ID === parentItem.ID) {
+  return catalog
+    .filter((x) => x.PARENT_ID === parentItem.ID)
+    .reduce((acc, item, index) => {
       if (++index % 3 === 0) {
         // @ts-ignore
         acc.push(item);
@@ -38,10 +39,9 @@ const transformCatalogArray = (
           acc[i].push(item);
         }
       }
-    }
 
-    return acc;
-  }, [] as any);
+      return acc;
+    }, [] as any);
 };
 
 const keyExtractor = (item: any) => (item.length ? item[0].ID : item.ID);
