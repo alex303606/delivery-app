@@ -15,6 +15,7 @@ import {IEditUser, IGetUser, editUser, getUser} from '@actions';
 import {EScreens, PersonalDataScreenProps} from '@interfaces';
 import {Colors} from '@config';
 import {useNavigation} from '@react-navigation/native';
+import messaging from '@react-native-firebase/messaging';
 
 type Props = {
   getUser: IGetUser;
@@ -67,6 +68,25 @@ const SettingsScreenComponent: React.FC<Props> = (props) => {
 
   const save = useCallback(() => {
     showLoader();
+    if (pushSale) {
+      messaging()
+        .subscribeToTopic('sale')
+        .then(() => console.log('Subscribed to topic push_sale!'));
+    } else {
+      messaging()
+        .unsubscribeFromTopic('sale')
+        .then(() => console.log('Unsubscribed fom the topic push_sale!'));
+    }
+    if (pushNewArrival) {
+      messaging()
+        .subscribeToTopic('new_arrival')
+        .then(() => console.log('Subscribed to topic new_arrival!'));
+    } else {
+      messaging()
+        .unsubscribeFromTopic('new_arrival')
+        .then(() => console.log('Unsubscribed fom the topic new_arrival!'));
+    }
+
     props
       .editUser({
         lastname,
