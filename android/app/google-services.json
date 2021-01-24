@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:615217733363:android:697ab43ebc4ad77eafa186",
+        "mobilesdk_app_id": "1:615217733363:android:92870d8b6539b2f4afa186",
         "android_client_info": {
-          "package_name": "com.deliveryapp"
+          "package_name": "com.brandgallery"
         }
       },
       "oauth_client": [
