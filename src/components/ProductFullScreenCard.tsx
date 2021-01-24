@@ -57,7 +57,7 @@ export const ProductFullScreenCard: React.FC<Props> = ({
         contentContainerStyle={{flexGrow: 1}}
         showsVerticalScrollIndicator={false}>
         {item.PICTURES.map((image: string, i: number) => (
-          <StyledImage key={i} resizeMode="cover" source={getImage(image)} />
+          <StyledImage key={i} resizeMode="contain" source={getImage(image)} />
         ))}
       </ScrollView>
       {addToFavorite && deleteFavorite && (
@@ -105,14 +105,11 @@ export const ProductFullScreenCard: React.FC<Props> = ({
         )}
         {!!item.TEXT && (
           <Row justifyContent="flex-start" marginBottom={30}>
-            <Text
-              padding={5}
-              alignItems="center"
-              backgroundColor={Colors.white}>
-              <Typography.B14 numberOfLines={3} color={Colors.mainPrimary}>
+            <Row padding={5} alignItems="center" backgroundColor={Colors.black}>
+              <Typography.B14 numberOfLines={3} color={Colors.white}>
                 {item.TEXT}
               </Typography.B14>
-            </Text>
+            </Row>
           </Row>
         )}
         <Button
@@ -126,13 +123,10 @@ export const ProductFullScreenCard: React.FC<Props> = ({
   );
 };
 
-const Text = styled(Row)`
-  width: 66%;
-`;
-
 const StyledImage = styled(Image)`
   width: ${WINDOW_WIDTH}px;
   flex: 1;
+  background-color: ${Colors.black};
 `;
 
 const Bubble = styled(Block)`

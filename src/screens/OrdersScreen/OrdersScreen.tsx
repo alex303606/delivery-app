@@ -40,7 +40,14 @@ const OrdersScreenComponent: React.FC<Props> = (props) => {
   const [orders, setOrders] = useState<IOrderItem[]>([]);
 
   useEffect(() => {
-    setOrders(props.orders.filter((x: IOrderItem) => x.STATUS === filter));
+    setOrders(
+      props.orders.filter((x: IOrderItem) => {
+        if (filter === 'N') {
+          return x.STATUS === 'N';
+        }
+        return x.STATUS !== 'N';
+      }),
+    );
   }, [filter, props.orders]);
 
   const reload = useCallback(() => {
