@@ -71,11 +71,11 @@ const SettingsScreenComponent: React.FC<Props> = (props) => {
     if (pushSale) {
       messaging()
         .subscribeToTopic('sale')
-        .then(() => console.log('Subscribed to topic push_sale!'));
+        .then(() => console.log('Subscribed to topic sale!'));
     } else {
       messaging()
         .unsubscribeFromTopic('sale')
-        .then(() => console.log('Unsubscribed fom the topic push_sale!'));
+        .then(() => console.log('Unsubscribed fom the topic sale!'));
     }
     if (pushNewArrival) {
       messaging()
