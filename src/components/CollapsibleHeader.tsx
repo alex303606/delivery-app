@@ -1,25 +1,35 @@
 import React, {useCallback} from 'react';
-import {LayoutChangeEvent, StyleSheet, TransformsStyle} from 'react-native';
+import {
+  ImageBackground,
+  LayoutChangeEvent,
+  StyleSheet,
+  TransformsStyle,
+} from 'react-native';
 import {withAnchorPoint} from 'react-native-anchor-point';
 import {
   StackHeaderProps,
   StackNavigationOptions,
 } from '@react-navigation/stack';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import Animated, {
   interpolate,
   useAnimatedStyle,
   Extrapolate,
   useSharedValue,
 } from 'react-native-reanimated';
-import {COLLAPSIBLE_HEADER_HEIGHT, Colors, HEADER_HEIGHT} from '@config';
+import {
+  COLLAPSIBLE_HEADER_HEIGHT,
+  Colors,
+  HEADER_HEIGHT,
+  STATUSBAR_HEIGHT,
+} from '@config';
 import styled from 'styled-components';
 import {RoundButton, Row, Typography} from '@components';
-import {useAppearance} from '@hooks';
 
-const AnimatedSafeAreaView = Animated.createAnimatedComponent(SafeAreaView);
+const banner = require('@assets/images/banner.png');
 const Y_OFFSET = COLLAPSIBLE_HEADER_HEIGHT - HEADER_HEIGHT;
-
+const AnimatedImageBackground = Animated.createAnimatedComponent(
+  ImageBackground,
+);
 interface Props extends StackHeaderProps {
   showBackButton?: boolean;
   onPress?: () => void;
@@ -49,7 +59,6 @@ export const CollapsibleHeader: React.FC<Props> = ({
   iconName,
 }) => {
   const titleWidth = useSharedValue(0);
-  const {themeIsLight} = useAppearance();
   const handleTitleLayout = useCallback(
     (e: LayoutChangeEvent) => {
       titleWidth.value = e.nativeEvent.layout.width;
@@ -117,7 +126,7 @@ export const CollapsibleHeader: React.FC<Props> = ({
           translateY: interpolate(
             animatedValue?.value ?? 0,
             [0, Y_OFFSET],
-            [0, 85],
+            [STATUSBAR_HEIGHT, 85 + STATUSBAR_HEIGHT],
             Extrapolate.CLAMP,
           ),
         },
@@ -127,20 +136,22 @@ export const CollapsibleHeader: React.FC<Props> = ({
   );
 
   return (
-    <Container style={StyleSheet.compose(options.headerStyle, containerStyle)}>
+    <Container
+      source={banner}
+      style={StyleSheet.compose(options.headerStyle, containerStyle)}>
       <ContentContainer style={contentStyle}>
         <Animated.View style={buttonStyle}>
           {showBackButton && (
             <RoundButton
               iconName={iconName}
-              iconColor={themeIsLight ? Colors.black : Colors.white}
+              iconColor={Colors.white}
               onPress={onPress}
             />
           )}
         </Animated.View>
         <Row paddingHorizontal={16} justifyContent="flex-end">
           <Animated.View onLayout={handleTitleLayout} style={titleStyle}>
-            <Typography.B34 color={themeIsLight ? Colors.black : Colors.white}>
+            <Typography.B34 numberOfLines={1} color={Colors.white}>
               {options.title}
             </Typography.B34>
           </Animated.View>
@@ -150,7 +161,7 @@ export const CollapsibleHeader: React.FC<Props> = ({
   );
 };
 
-const Container = styled(AnimatedSafeAreaView)`
+const Container = styled(AnimatedImageBackground)`
   height: ${COLLAPSIBLE_HEADER_HEIGHT}px;
   flex-direction: row;
   width: 100%;

@@ -112,7 +112,8 @@ const CatalogItemScreenComponent: React.FC<Props> = (props) => {
     <Block flex={1}>
       <FocusAwareStatusBar
         animated={true}
-        backgroundColor={themeIsLight ? Colors.white : Colors.black}
+        backgroundColor={Colors.transparent}
+        barStyle="light-content"
       />
       <Block flex={1}>
         <AnimatedFlatList

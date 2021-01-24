@@ -5,12 +5,7 @@ import {
   FocusAwareStatusBar,
   ListEmptyComponent,
 } from '@components';
-import {
-  useAppearance,
-  useLoading,
-  useScrollHandler,
-  useSetScreenOptions,
-} from '@hooks';
+import {useLoading, useScrollHandler, useSetScreenOptions} from '@hooks';
 import {COLLAPSIBLE_HEADER_HEIGHT, Colors} from '@config';
 import {RootState} from 'src/store/configureStore';
 import {connect} from 'react-redux';
@@ -49,7 +44,6 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 const FavoritesScreenComponent: React.FC<Props> = (props) => {
   const navigation = useNavigation();
   const {loading, showLoader, hideLoader} = useLoading();
-  const {themeIsLight} = useAppearance();
   const {t} = useTranslation();
   const {scrollY, onScroll} = useScrollHandler();
 
@@ -99,7 +93,8 @@ const FavoritesScreenComponent: React.FC<Props> = (props) => {
     <Block flex={1}>
       <FocusAwareStatusBar
         animated={true}
-        backgroundColor={themeIsLight ? Colors.white : Colors.black}
+        backgroundColor={Colors.transparent}
+        barStyle="light-content"
       />
       <AnimatedFlatList
         ListEmptyComponent={

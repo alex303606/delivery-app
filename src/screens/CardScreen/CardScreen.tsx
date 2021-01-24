@@ -1,7 +1,12 @@
 import React, {useCallback, useMemo} from 'react';
-import {Block, Button, ListEmptyComponent} from '@components';
+import {
+  Block,
+  Button,
+  FocusAwareStatusBar,
+  ListEmptyComponent,
+} from '@components';
 import {useScrollHandler, useSetScreenOptions} from '@hooks';
-import {COLLAPSIBLE_HEADER_HEIGHT} from '@config';
+import {COLLAPSIBLE_HEADER_HEIGHT, Colors} from '@config';
 import {useTranslation} from 'react-i18next';
 import {EScreens} from '@interfaces';
 import {FlatList} from 'react-native';
@@ -82,6 +87,11 @@ const CardScreenComponent: React.FC<Props> = (props) => {
 
   return (
     <Block flex={1}>
+      <FocusAwareStatusBar
+        animated={true}
+        backgroundColor={Colors.transparent}
+        barStyle="light-content"
+      />
       <AnimatedFlatList
         ListEmptyComponent={
           <ListEmptyComponent
