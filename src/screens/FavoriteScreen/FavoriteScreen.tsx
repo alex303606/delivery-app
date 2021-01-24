@@ -39,6 +39,7 @@ export const FavoriteScreenComponent: React.FC<Props> = (props) => {
   return (
     <Block flex={1}>
       <ProductFullScreenCard
+        zoom={true}
         count={product?.count || 0}
         isAddedToCard={!!product}
         addToCard={props.addToCard}

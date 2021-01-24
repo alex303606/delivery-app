@@ -1,8 +1,13 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {EScreens, CatalogStackParamList} from '@interfaces';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {CatalogScreen, CatalogItemScreen, ProductsScreen} from '@screens';
+import {
+  CatalogScreen,
+  CatalogItemScreen,
+  ProductsScreen,
+  FavoriteScreen,
+} from '@screens';
 import {CollapsibleHeader, MainCollapsibleHeader} from '@components';
 import {useAppearance} from '@hooks';
 import {Colors} from '@config';
@@ -50,6 +55,24 @@ export const CatalogStack: React.FC<BottomTabScreenProps<any>> = () => {
           } = route;
           return {
             title: item.NAME || '',
+            headerTitleAlign: 'center',
+            headerStyle: {
+              elevation: 0,
+              borderBottomWidth: 0,
+            },
+          };
+        }}
+      />
+      <Stack.Screen
+        name={EScreens.PRODUCT_SCREEN}
+        component={FavoriteScreen}
+        options={({route}) => {
+          const {
+            params: {item},
+          } = route;
+          return {
+            title: item.NAME,
+            ...TransitionPresets.ModalSlideFromBottomIOS,
             headerTitleAlign: 'center',
             headerStyle: {
               elevation: 0,

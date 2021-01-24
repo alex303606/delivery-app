@@ -20,6 +20,7 @@ export type CatalogStackParamList = {
   [EScreens.CATALOG_SCREEN]: undefined;
   [EScreens.CATALOG_ITEM_SCREEN]: {parentItem: ICatalogItem};
   [EScreens.PRODUCTS_SCREEN]: {item: ICatalogItem};
+  [EScreens.PRODUCT_SCREEN]: {item: IProduct};
 };
 
 export type CardStackParamList = {

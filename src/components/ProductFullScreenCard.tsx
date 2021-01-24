@@ -14,6 +14,9 @@ import {
 } from '@components';
 import styled from 'styled-components';
 import {useTranslation} from 'react-i18next';
+import ImageViewer from 'react-native-image-zoom-viewer';
+import {EScreens} from '@interfaces';
+import {useNavigation} from '@react-navigation/native';
 
 type Props = {
   item: IProduct;
@@ -24,6 +27,7 @@ type Props = {
   isAddedToCard?: boolean;
   addToCard: (item: IProduct) => void;
   count: number;
+  zoom?: boolean;
 };
 
 export const ProductFullScreenCard: React.FC<Props> = ({
@@ -35,8 +39,10 @@ export const ProductFullScreenCard: React.FC<Props> = ({
   addToCard,
   isAddedToCard,
   count = 0,
+  zoom,
 }) => {
   const {t} = useTranslation();
+  const navigation = useNavigation();
   const onPressHandler = useCallback(() => {
     if (!addToFavorite || !deleteFavorite) {
       return;
@@ -47,6 +53,27 @@ export const ProductFullScreenCard: React.FC<Props> = ({
     return addToFavorite(item.ID);
   }, [addToFavorite, deleteFavorite, isLiked, item.ID]);
 
+  const renderSlider = useCallback(() => {
+    return item.PICTURES.map((image: string, i: number) => (
+      <StyledImage key={i} resizeMode="contain" source={getImage(image)} />
+    ));
+  }, [item.PICTURES]);
+
+  const images = item.PICTURES.map((image: string) => {
+    return {
+      url: image,
+    };
+  });
+
+  const style = {
+    width: WINDOW_WIDTH,
+    flex: 1,
+  };
+
+  const onPressHandleZoom = useCallback(() => {
+    navigation.navigate(EScreens.PRODUCT_SCREEN, {item});
+  }, [item, navigation]);
+
   return (
     <Wrapper height={layoutHeight}>
       <ScrollView
@@ -56,9 +83,15 @@ export const ProductFullScreenCard: React.FC<Props> = ({
         snapToInterval={WINDOW_WIDTH}
         contentContainerStyle={{flexGrow: 1}}
         showsVerticalScrollIndicator={false}>
-        {item.PICTURES.map((image: string, i: number) => (
-          <StyledImage key={i} resizeMode="contain" source={getImage(image)} />
-        ))}
+        {zoom ? (
+          <ImageViewer
+            saveToLocalByLongPress={false}
+            style={style}
+            imageUrls={images}
+          />
+        ) : (
+          renderSlider()
+        )}
       </ScrollView>
       {addToFavorite && deleteFavorite && (
         <StyledRoundButton paddingTop={50} paddingRight={20}>
@@ -103,15 +136,35 @@ export const ProductFullScreenCard: React.FC<Props> = ({
             </Row>
           </Row>
         )}
-        {!!item.TEXT && (
-          <Row justifyContent="flex-start" marginBottom={30}>
-            <Row padding={5} alignItems="center" backgroundColor={Colors.black}>
+        <Row
+          justifyContent="space-between"
+          alignItems="center"
+          marginBottom={30}>
+          {!!item.TEXT && (
+            <Text
+              marginRight={20}
+              padding={5}
+              alignItems="center"
+              backgroundColor={Colors.black}>
               <Typography.B14 numberOfLines={3} color={Colors.white}>
                 {item.TEXT}
               </Typography.B14>
+            </Text>
+          )}
+          {!zoom && (
+            <Row flex={1} paddingRight={30} justifyContent="flex-end">
+              <RoundButton
+                elevation={4}
+                backgroundColor={Colors.mainPrimary}
+                diameter={40}
+                iconSize={24}
+                iconName="search-outline"
+                iconColor={Colors.white}
+                onPress={onPressHandleZoom}
+              />
             </Row>
-          </Row>
-        )}
+          )}
+        </Row>
         <Button
           marginHorizontal={16}
           marginTop={30}
@@ -155,6 +208,10 @@ const StyledRoundButton = styled(Block)`
   position: absolute;
   right: 0;
   top: 0;
+`;
+
+const Text = styled(Row)`
+  max-width: 66%;
 `;
 
 const CountWrapper = styled(Block)`
