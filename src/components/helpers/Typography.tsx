@@ -74,6 +74,11 @@ const B16 = styled(bold)`
   line-height: 24px;
 `;
 
+const R18 = styled(regular)`
+  font-size: 18px;
+  line-height: 21px;
+`;
+
 const B18 = styled(bold)`
   font-size: 18px;
   line-height: 21px;
@@ -119,6 +124,7 @@ export const Typography = {
   S14,
   R16,
   B16,
+  R18,
   B18,
   R20,
   B20,

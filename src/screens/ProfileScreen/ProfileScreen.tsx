@@ -11,7 +11,7 @@ import {
   ScrollContainer,
 } from '@components';
 import {useAppearance} from '@hooks';
-import {Colors, STATUSBAR_HEIGHT} from '@config';
+import {Colors, STATUSBAR_HEIGHT, WINDOW_WIDTH} from '@config';
 import {bindActionCreators} from 'redux';
 import {logOut} from '@actions';
 import {connect} from 'react-redux';
@@ -19,7 +19,9 @@ import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import {EScreens} from '@interfaces';
 import {RootState} from 'src/store/configureStore';
-import {parsePhoneNumberFormatInternational} from '@utils';
+import {getImage, parsePhoneNumberFormatInternational} from '@utils';
+import styled from 'styled-components';
+import {Image} from 'react-native';
 type Props = {
   logOut: () => void;
 } & RootState;
@@ -43,57 +45,97 @@ const ProfileScreenComponent: React.FC<Props> = (props) => {
   const {textColor} = useAppearance();
   const {t} = useTranslation();
   const navigation = useNavigation();
-  const {firstname, lastname, phone, documents} = props.profile;
+  const {firstname, lastname, phone, id, documents} = props.profile;
 
   return (
-    <Block flex={1} paddingTop={STATUSBAR_HEIGHT + 40} padding={16}>
-      <Typography.B34 color={textColor}>{t('tabs.profile')}</Typography.B34>
+    <Block flex={1} padding={16}>
       <Block flex={1} marginTop={24}>
-        <Row alignItems="center" paddingHorizontal={16} marginBottom={50}>
-          <Icon
-            size={32}
-            color={Colors.grey}
-            name={IconNames.profileInactive}
+        <Row alignItems="center" paddingHorizontal={0} marginBottom={10}>
+          <StyledImage
+            source={getImage(
+              'https://brandgallery.kido.kg/upload/iblock/5ed/5ed58e9555948282f96570dbaa9caf29.png',
+            )}
           />
-          <Block marginLeft={36} flex={1} justifyContent="center">
-            <Typography.B18 color={textColor}>
-              {firstname || t('firstname')} {lastname || t('lastname')}
-            </Typography.B18>
-            <Typography.R14 color={Colors.grey}>
-              {parsePhoneNumberFormatInternational(phone)}
-            </Typography.R14>
+
+          <Block marginLeft={10} flex={1} justifyContent="center">
+            <Typography.R18 color={textColor}>
+              Игнатенко Михаил Федорович
+              {/*{firstname || t('firstname')} {lastname || t('lastname')}*/}
+            </Typography.R18>
+            <Typography.R14 color={Colors.grey}>{`ID ${id}`}</Typography.R14>
           </Block>
           <RoundButton
-            iconSize={32}
+            iconSize={30}
             onPress={() => navigation.navigate(EScreens.PERSONAL_DATA_SCREEN)}
             iconName="settings-outline"
+            iconColor={Colors.darkGreen}
             diameter={50}
+            position={'absolute'}
+            top={-10}
+            right={0}
           />
         </Row>
+        <Block backgroundColor={Colors.black} paddingBottom={1} />
         <ScrollContainer>
           <RowButton
             onPress={() => navigation.navigate(EScreens.ORDERS_SCREEN)}
-            title={t('orders')}
-            description={t('completedOrders', {count: 15})}
+            title={'Задания'}
           />
+          <Block backgroundColor={Colors.black} paddingBottom={1} />
           <RowButton
             onPress={() => navigation.navigate(EScreens.SETTINGS_SCREEN)}
-            title={t('settings')}
-            description={t('notificationsText')}
+            title={'Офис онлайн'}
           />
-          {documents.map(
-            (document: {name: string; text: string}, index: number) => {
-              return (
-                <RowButton
-                  key={document.name}
-                  onPress={() =>
-                    navigation.navigate(EScreens.APP_DATA_SCREEN, {index})
-                  }
-                  title={document.name}
-                />
-              );
-            },
-          )}
+          <Block backgroundColor={Colors.black} paddingBottom={1} />
+          <RowButton
+            onPress={() => navigation.navigate(EScreens.ORDERS_SCREEN)}
+            title={'Споры'}
+          />
+          <Block backgroundColor={Colors.black} paddingBottom={1} />
+          <RowButton
+            onPress={() => navigation.navigate(EScreens.SETTINGS_SCREEN)}
+            title={'Мои отзывы'}
+          />
+          <Block backgroundColor={Colors.black} paddingBottom={1} />
+          <RowButton
+            onPress={() => navigation.navigate(EScreens.ORDERS_SCREEN)}
+            title={'Уведомления'}
+          />
+          <Block backgroundColor={Colors.black} paddingBottom={1} />
+          <RowButton
+            onPress={() => navigation.navigate(EScreens.APP_DATA_SCREEN)}
+            icon={false}
+            title={'Лицензионное соглашение'}
+          />
+          <Block backgroundColor={Colors.black} paddingBottom={1} />
+          <RowButton
+            onPress={() => navigation.navigate(EScreens.APP_DATA_SCREEN)}
+            icon={false}
+            title={'Политика конфиденциальности'}
+          />
+          <Block backgroundColor={Colors.black} paddingBottom={1} />
+          <RowButton
+            onPress={() => navigation.navigate(EScreens.APP_DATA_SCREEN)}
+            icon={false}
+            title={'Служба поддержки'}
+          />
+          <Block backgroundColor={Colors.black} paddingBottom={1} />
+
+          {/*{documents.map(*/}
+          {/*  (document: {name: string; text: string}, index: number) => {*/}
+          {/*    return (*/}
+          {/*      <Block key={index}>*/}
+          {/*        <RowButton*/}
+          {/*          onPress={() =>*/}
+          {/*            navigation.navigate(EScreens.APP_DATA_SCREEN, {index})*/}
+          {/*          }*/}
+          {/*          title={document.name}*/}
+          {/*        />*/}
+          {/*        <Block backgroundColor={Colors.black} paddingBottom={1} />*/}
+          {/*      </Block>*/}
+          {/*    );*/}
+          {/*  },*/}
+          {/*)}*/}
         </ScrollContainer>
       </Block>
       <Button
@@ -104,5 +146,11 @@ const ProfileScreenComponent: React.FC<Props> = (props) => {
     </Block>
   );
 };
+
+const StyledImage = styled(Image)`
+  height: 80px;
+  width: 80px;
+  border-radius: 40px;
+`;
 
 export const ProfileScreen = connector(ProfileScreenComponent);
