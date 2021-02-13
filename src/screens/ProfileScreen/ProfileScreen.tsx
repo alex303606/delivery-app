@@ -20,9 +20,11 @@ import {useNavigation} from '@react-navigation/native';
 import {EScreens} from '@interfaces';
 import {RootState} from 'src/store/configureStore';
 import {parsePhoneNumberFormatInternational} from '@utils';
+import {IOrdersState} from 'src/store/reducers/orders';
 type Props = {
   logOut: () => void;
-} & RootState;
+} & RootState &
+  IOrdersState;
 
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
@@ -35,6 +37,7 @@ const mapDispatchToProps = (dispatch: any) => {
 
 const mapState = (state: RootState) => ({
   profile: state.profile,
+  orders: state.orders.orders,
 });
 
 const connector = connect(mapState, mapDispatchToProps);
@@ -74,7 +77,9 @@ const ProfileScreenComponent: React.FC<Props> = (props) => {
           <RowButton
             onPress={() => navigation.navigate(EScreens.ORDERS_SCREEN)}
             title={t('orders')}
-            description={t('completedOrders', {count: 15})}
+            description={t('completedOrders', {
+              count: props.orders.length || 0,
+            })}
           />
           <RowButton
             onPress={() => navigation.navigate(EScreens.SETTINGS_SCREEN)}
