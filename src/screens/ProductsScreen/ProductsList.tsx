@@ -1,9 +1,11 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {FlatList} from 'react-native';
 import {IProduct} from 'src/store/reducers/favoritest';
-import {ProductFullScreenCard, ListEmptyComponent} from '@components';
+import {ListEmptyComponent, FavoriteProductCard} from '@components';
 import {useTranslation} from 'react-i18next';
 import {ICardState} from 'src/store/reducers/card';
+import {EScreens} from '@interfaces';
+import {useNavigation} from '@react-navigation/native';
 
 type Props = {
   addToFavorite: (id: string) => void;
@@ -32,19 +34,21 @@ export const ProductsList: React.FC<Props> = ({
   productsInCard,
 }) => {
   const {t} = useTranslation();
+  const navigation = useNavigation();
+
+  const onPressHandle = useCallback(
+    (item: IProduct) => {
+      navigation.navigate(EScreens.PRODUCT_SCREEN, {item});
+    },
+    [navigation],
+  );
+
   const renderItem = useCallback(
     ({item}: {item: IProduct}) => {
-      const isLiked = !!favorites.find((x) => x.ID === item.ID);
-      const product = productsInCard.find((x) => x.ID === item.ID);
       return (
-        <ProductFullScreenCard
-          count={product?.count || 0}
-          isAddedToCard={!!product}
+        <FavoriteProductCard
+          onPress={onPressHandle}
           addToCard={addToCard}
-          isLiked={isLiked}
-          addToFavorite={addToFavorite}
-          deleteFavorite={deleteFavorite}
-          layoutHeight={layoutHeight}
           item={item}
         />
       );
@@ -59,25 +63,26 @@ export const ProductsList: React.FC<Props> = ({
     ],
   );
 
-  const getItemLayout = (_: any, index: number) => ({
-    index,
-    length: layoutHeight,
-    offset: index * layoutHeight,
-  });
+  const contentContainerStyle = useMemo(() => {
+    return {
+      flexGrow: 1,
+      paddingHorizontal: 8,
+    };
+  }, []);
 
   return (
     <FlatList
       ListEmptyComponent={<ListEmptyComponent title={t('soon')} />}
-      initialNumToRender={1}
-      getItemLayout={getItemLayout}
       keyExtractor={keyExtractor}
       refreshing={loading}
       onRefresh={onRefresh}
+      numColumns={2}
+      columnWrapperStyle={{
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}
       onEndReached={onEndReached}
-      disableIntervalMomentum={true}
-      decelerationRate="normal"
-      snapToInterval={layoutHeight}
-      contentContainerStyle={{flexGrow: 1}}
+      contentContainerStyle={contentContainerStyle}
       showsVerticalScrollIndicator={false}
       data={products}
       renderItem={renderItem}

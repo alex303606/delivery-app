@@ -27,7 +27,7 @@ const getSectionsSuccess = (catalog: ICatalogItem[]) => {
 export const getProducts = ({
   sectionId = [],
   id = [],
-  pageSize = 10,
+  pageSize = 20,
   pageNum = 1,
 }: {
   sectionId?: string[];

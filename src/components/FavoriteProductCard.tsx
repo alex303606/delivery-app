@@ -1,5 +1,5 @@
 import React from 'react';
-import {Typography, Block, Row, RoundButton} from '@components';
+import {Typography, Block, Row, RoundButton, Button} from '@components';
 import {IProduct} from 'src/store/reducers/favoritest';
 import styled from 'styled-components';
 import {View, Pressable, ImageBackground} from 'react-native';
@@ -12,6 +12,7 @@ type Props = {
   onPress?: (item: IProduct) => void;
   onDelete?: (id: string) => void;
   disabled?: boolean;
+  addToCard: (item: IProduct) => void;
 };
 
 export const FavoriteProductCard: React.FC<Props> = ({
@@ -19,6 +20,7 @@ export const FavoriteProductCard: React.FC<Props> = ({
   onPress,
   onDelete,
   disabled,
+  addToCard,
 }) => {
   const {t} = useTranslation();
   return (
@@ -55,7 +57,7 @@ export const FavoriteProductCard: React.FC<Props> = ({
               )}
             </Row>
             {!!item.PRICE && (
-              <Row justifyContent="flex-start" marginBottom={40}>
+              <Row justifyContent="flex-start" marginBottom={20}>
                 <Row
                   padding={5}
                   alignItems="center"
@@ -64,12 +66,18 @@ export const FavoriteProductCard: React.FC<Props> = ({
                 </Row>
               </Row>
             )}
+            {!disabled && (
+              <Button
+                color={'#DADADA'}
+                textColor={Colors.black}
+                margin={8}
+                title={t('addToCard')}
+                onPress={() => addToCard(item)}
+              />
+            )}
           </StyledPressable>
         </StyledImage>
       </Block>
-      <Typography.R12 color={Colors.grey} numberOfLines={1}>
-        {item.NAME}
-      </Typography.R12>
     </ProductsCardContainer>
   );
 };
@@ -96,11 +104,11 @@ const StyledPressable = styled(Pressable).attrs(() => ({
     color: Colors.ripple,
   },
 }))<{disabled?: boolean}>`
-  height: 247px;
+  flex: 1;
   opacity: ${({disabled}) => (disabled ? 0.7 : 1)};
 `;
 
 const StyledImage = styled(ImageBackground)`
   width: 100%;
-  height: 236px;
+  height: 250px;
 `;
