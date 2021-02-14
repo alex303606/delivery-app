@@ -68,6 +68,7 @@ export const FavoriteProductCard: React.FC<Props> = ({
             )}
             {!disabled && (
               <Button
+                small={true}
                 color={'#DADADA'}
                 textColor={Colors.black}
                 margin={8}

@@ -5,10 +5,8 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {getProducts, addToFavorite, deleteFavorite, addToCard} from '@actions';
 import {IFavoritesState, IProduct} from 'src/store/reducers/favoritest';
-import {LayoutChangeEvent} from 'react-native';
 import {useAppearance, useLoading} from '@hooks';
 import {ProductsList} from './ProductsList';
-import {SCREEN_HEIGHT} from '@config';
 import {RootState} from 'src/store/configureStore';
 import {ICardState} from 'src/store/reducers/card';
 
@@ -56,12 +54,8 @@ const ProductsScreenComponent: React.FC<Props> = (props) => {
   const {loading, showLoader, hideLoader} = useLoading();
   const [products, setProducts] = useState<IProduct[]>([]);
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
-  const [layoutHeight, setLayoutHeight] = useState<number>(SCREEN_HEIGHT);
   const pageNum = useRef<number>(2);
   const canFetchMore = useRef<boolean>(true);
-  const handleLayout = useCallback((e: LayoutChangeEvent) => {
-    setLayoutHeight(e.nativeEvent.layout.height);
-  }, []);
 
   const onRefresh = useCallback(() => {
     showLoader();
@@ -96,14 +90,14 @@ const ProductsScreenComponent: React.FC<Props> = (props) => {
 
   if (initialLoading) {
     return (
-      <Block onLayout={handleLayout} flex={1}>
+      <Block flex={1}>
         <Loader background={backgroundColor} color={textColor} />
       </Block>
     );
   }
 
   return (
-    <Block flex={1} onLayout={handleLayout}>
+    <Block flex={1}>
       <ProductsList
         productsInCard={props.productsInCard}
         addToCard={props.addToCard}
@@ -113,7 +107,6 @@ const ProductsScreenComponent: React.FC<Props> = (props) => {
         onRefresh={onRefresh}
         products={products}
         onEndReached={handleEndReached}
-        layoutHeight={layoutHeight}
         loading={loading}
       />
     </Block>

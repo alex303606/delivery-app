@@ -10,6 +10,7 @@ type Props = {
   textColor?: string;
   disabled?: boolean;
   loading?: boolean;
+  small?: boolean;
   onPress: () => void;
 } & SpacingsProps;
 
@@ -20,6 +21,7 @@ export const Button: React.FC<Props> = ({
   onPress,
   disabled,
   loading,
+  small = false,
   ...props
 }) => {
   const onPressHandler = useCallback(() => {
@@ -29,11 +31,14 @@ export const Button: React.FC<Props> = ({
   return (
     <Block overflow borderRadius={25} {...props}>
       <StyledPressable
+        small={small}
         color={color}
         disabled={disabled}
         onPress={onPressHandler}>
         {loading ? (
           <ActivityIndicator size="large" color={'white'} />
+        ) : small ? (
+          <Typography.S11 color={textColor}>{title}</Typography.S11>
         ) : (
           <Typography.S14 color={textColor}>{title}</Typography.S14>
         )}
@@ -47,12 +52,12 @@ const StyledPressable = styled(Pressable).attrs(() => ({
     borderless: false,
     color: Colors.ripple,
   },
-}))<{disabled?: boolean; color: string}>`
+}))<{small: boolean; disabled?: boolean; color: string}>`
   flex-direction: row;
   padding: 5px;
   align-items: center;
   justify-content: center;
-  height: 48px;
+  height: ${({small}) => (small ? 33 : 48)}px;
   opacity: ${({disabled}) => (disabled ? 0.7 : 1)}
   background-color: ${({color}) => color};
 `;

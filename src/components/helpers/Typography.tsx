@@ -64,6 +64,11 @@ const S14 = styled(semiBold)`
   line-height: 20px;
 `;
 
+const S11 = styled(semiBold)`
+  font-size: 11px;
+  line-height: 20px;
+`;
+
 const R16 = styled(regular)`
   font-size: 16px;
   line-height: 24px;
@@ -117,6 +122,7 @@ export const Typography = {
   R14,
   B14,
   S14,
+  S11,
   R16,
   B16,
   B18,

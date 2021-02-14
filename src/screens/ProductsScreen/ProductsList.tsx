@@ -14,7 +14,6 @@ type Props = {
   loading: boolean;
   onEndReached: () => void;
   onRefresh: () => void;
-  layoutHeight: number;
   favorites: IProduct[];
   addToCard: (item: IProduct) => void;
 } & ICardState;
@@ -26,7 +25,6 @@ export const ProductsList: React.FC<Props> = ({
   loading,
   onRefresh,
   onEndReached,
-  layoutHeight,
   addToFavorite,
   deleteFavorite,
   favorites,
@@ -53,14 +51,7 @@ export const ProductsList: React.FC<Props> = ({
         />
       );
     },
-    [
-      favorites,
-      productsInCard,
-      addToCard,
-      addToFavorite,
-      deleteFavorite,
-      layoutHeight,
-    ],
+    [favorites, productsInCard, addToCard, addToFavorite, deleteFavorite],
   );
 
   const contentContainerStyle = useMemo(() => {
