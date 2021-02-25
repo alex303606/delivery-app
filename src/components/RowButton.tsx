@@ -30,13 +30,13 @@ export const RowButton: React.FC<Props> = ({
             <Typography.R14 color={Colors.grey}>{description}</Typography.R14>
           )}
         </Block>
-        {icon ? (
+        {icon && (
           <IonicIcon
             size={26}
             color={Colors.darkGreen}
             name={'chevron-forward-outline'}
           />
-        ) : null}
+        )}
       </StyledPressable>
     </Block>
   );

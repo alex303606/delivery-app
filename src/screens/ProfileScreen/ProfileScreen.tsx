@@ -48,78 +48,92 @@ const ProfileScreenComponent: React.FC<Props> = (props) => {
   const {firstname, lastname, phone, id, documents} = props.profile;
 
   return (
-    <Block flex={1} padding={16}>
+    <Block flex={1} paddingVertical={16}>
       <Block flex={1} marginTop={24}>
-        <Row alignItems="center" paddingHorizontal={0} marginBottom={10}>
+        <Row paddingHorizontal={16} marginBottom={10}>
           <StyledImage
             source={getImage(
               'https://brandgallery.kido.kg/upload/iblock/5ed/5ed58e9555948282f96570dbaa9caf29.png',
             )}
           />
 
-          <Block marginLeft={10} flex={1} justifyContent="center">
-            <Typography.R18 color={textColor}>
-              Игнатенко Михаил Федорович
-              {/*{firstname || t('firstname')} {lastname || t('lastname')}*/}
-            </Typography.R18>
+          <Block paddingTop={5} marginLeft={10} flex={1}>
+            <Row marginBottom={10} alignItems="center" justifyContent="space-between">
+              <Row flex={1} paddingRight={30}>
+                <Typography.R18 numberOfLines={1} color={textColor}>
+                  Игнатенко Михаил Федорович
+                  Игнатенко Михаил Федорович
+                  Игнатенко Михаил Федорович
+                  Игнатенко Михаил Федорович
+                  {/*{firstname || t('firstname')} {lastname || t('lastname')}*/}
+                </Typography.R18>
+              </Row>
+              <RoundButton
+                iconSize={30}
+                onPress={() =>
+                  navigation.navigate(EScreens.PERSONAL_DATA_SCREEN)
+                }
+                iconName="settings-outline"
+                iconColor={Colors.darkGreen}
+                diameter={30}
+              />
+            </Row>
             <Typography.R14 color={Colors.grey}>{`ID ${id}`}</Typography.R14>
           </Block>
-          <RoundButton
-            iconSize={30}
-            onPress={() => navigation.navigate(EScreens.PERSONAL_DATA_SCREEN)}
-            iconName="settings-outline"
-            iconColor={Colors.darkGreen}
-            diameter={50}
-            position={'absolute'}
-            top={-10}
-            right={0}
-          />
         </Row>
         <Block backgroundColor={Colors.black} paddingBottom={1} />
         <ScrollContainer>
-          <RowButton
-            onPress={() => navigation.navigate(EScreens.ORDERS_SCREEN)}
-            title={'Задания'}
-          />
-          <Block backgroundColor={Colors.black} paddingBottom={1} />
-          <RowButton
-            onPress={() => navigation.navigate(EScreens.SETTINGS_SCREEN)}
-            title={'Офис онлайн'}
-          />
-          <Block backgroundColor={Colors.black} paddingBottom={1} />
-          <RowButton
-            onPress={() => navigation.navigate(EScreens.ORDERS_SCREEN)}
-            title={'Споры'}
-          />
-          <Block backgroundColor={Colors.black} paddingBottom={1} />
-          <RowButton
-            onPress={() => navigation.navigate(EScreens.SETTINGS_SCREEN)}
-            title={'Мои отзывы'}
-          />
-          <Block backgroundColor={Colors.black} paddingBottom={1} />
-          <RowButton
-            onPress={() => navigation.navigate(EScreens.ORDERS_SCREEN)}
-            title={'Уведомления'}
-          />
-          <Block backgroundColor={Colors.black} paddingBottom={1} />
-          <RowButton
-            onPress={() => navigation.navigate(EScreens.APP_DATA_SCREEN)}
-            icon={false}
-            title={'Лицензионное соглашение'}
-          />
-          <Block backgroundColor={Colors.black} paddingBottom={1} />
-          <RowButton
-            onPress={() => navigation.navigate(EScreens.APP_DATA_SCREEN)}
-            icon={false}
-            title={'Политика конфиденциальности'}
-          />
-          <Block backgroundColor={Colors.black} paddingBottom={1} />
-          <RowButton
-            onPress={() => navigation.navigate(EScreens.APP_DATA_SCREEN)}
-            icon={false}
-            title={'Служба поддержки'}
-          />
-          <Block backgroundColor={Colors.black} paddingBottom={1} />
+          <StyledLineBlock>
+            <RowButton
+              onPress={() => navigation.navigate(EScreens.ORDERS_SCREEN)}
+              title={'Задания'}
+            />
+          </StyledLineBlock>
+          <StyledLineBlock>
+            <RowButton
+              onPress={() => navigation.navigate(EScreens.SETTINGS_SCREEN)}
+              title={'Офис онлайн'}
+            />
+          </StyledLineBlock>
+          <StyledLineBlock>
+            <RowButton
+              onPress={() => navigation.navigate(EScreens.ORDERS_SCREEN)}
+              title={'Споры'}
+            />
+          </StyledLineBlock>
+          <StyledLineBlock>
+            <RowButton
+              onPress={() => navigation.navigate(EScreens.SETTINGS_SCREEN)}
+              title={'Мои отзывы'}
+            />
+          </StyledLineBlock>
+          <StyledLineBlock>
+            <RowButton
+              onPress={() => navigation.navigate(EScreens.ORDERS_SCREEN)}
+              title={'Уведомления'}
+            />
+          </StyledLineBlock>
+          <StyledLineBlock>
+            <RowButton
+              onPress={() => navigation.navigate(EScreens.APP_DATA_SCREEN)}
+              icon={false}
+              title={'Лицензионное соглашение'}
+            />
+          </StyledLineBlock>
+          <StyledLineBlock>
+            <RowButton
+              onPress={() => navigation.navigate(EScreens.APP_DATA_SCREEN)}
+              icon={false}
+              title={'Политика конфиденциальности'}
+            />
+          </StyledLineBlock>
+          <StyledLineBlock>
+            <RowButton
+              onPress={() => navigation.navigate(EScreens.APP_DATA_SCREEN)}
+              icon={false}
+              title={'Служба поддержки'}
+            />
+          </StyledLineBlock>
 
           {/*{documents.map(*/}
           {/*  (document: {name: string; text: string}, index: number) => {*/}
@@ -138,11 +152,13 @@ const ProfileScreenComponent: React.FC<Props> = (props) => {
           {/*)}*/}
         </ScrollContainer>
       </Block>
-      <Button
-        marginTop={30}
-        title={t('logOut')}
-        onPress={() => props.logOut()}
-      />
+      <Block paddingHorizontal={16}>
+        <Button
+          marginTop={30}
+          title={t('logOut')}
+          onPress={() => props.logOut()}
+        />
+      </Block>
     </Block>
   );
 };
@@ -151,6 +167,11 @@ const StyledImage = styled(Image)`
   height: 80px;
   width: 80px;
   border-radius: 40px;
+`;
+
+const StyledLineBlock = styled(Block)`
+  border-bottom-width: 1px;
+  color: red;
 `;
 
 export const ProfileScreen = connector(ProfileScreenComponent);
