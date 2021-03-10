@@ -4,14 +4,16 @@ import {IconProps} from 'react-native-vector-icons/Icon';
 const config = require('./config.json');
 
 export const IconNames = {
-  favoritesInactive: 'favorites_inactive',
-  favoritesActive: 'favorites_active',
-  basketActive: 'basket_active',
-  basketInactive: 'basket_inactive',
-  catalogActive: 'catalog_active',
-  catalogInactive: 'catalog_inactive',
-  profileActive: 'profile_active',
-  profileInactive: 'profile_inactive',
+  favoritesInactive: 'favorit-inactive',
+  favoritesActive: 'favorit-active',
+  searchActive: 'search-active',
+  searchInactive: 'search-inactive',
+  addActive: 'add-active',
+  addInactive: 'add-inactive',
+  chatActive: 'chat-active',
+  chatInactive: 'chat-inactive',
+  profileActive: 'user-active',
+  profileInactive: 'user-inactive',
 };
 
 export const IconSet = createIconSetFromIcoMoon(config);

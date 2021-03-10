@@ -1,5 +1,5 @@
 import React from 'react';
-import {Block, Typography} from './helpers';
+import {Block, Row, Typography} from './helpers';
 import {Colors} from '@config';
 import styled from 'styled-components';
 import {TextInput, TextInputProps} from 'react-native';
@@ -23,38 +23,38 @@ export const InputField: React.FC<Props> = ({
   ...props
 }) => {
   return (
-    <Block marginBottom={15}>
-      <Typography.R14
-        marginBottom={5}
-        marginLeft={20}
-        numberOfLines={1}
-        color={Colors.grey}>
-        {label || ''}
-      </Typography.R14>
-      <Input
-        error={error}
-        {...props}
-        editable={!disabled}
-        value={value}
-        onChangeText={changeValue}
-        placeholder={placeholder}
-        placeholderTextColor={Colors.grey}
-        underlineColorAndroid="transparent"
-      />
-    </Block>
+    <Row
+      paddingHorizontal={16}
+      alignItems="flex-end"
+      justifyContent="space-between">
+      <Block flex={1}>
+        <Row marginBottom={5}>
+          <Typography.R14 numberOfLines={2} color={Colors.black}>
+            {label || ''}
+          </Typography.R14>
+        </Row>
+      </Block>
+      <Block>
+        <Input
+          error={error}
+          {...props}
+          editable={!disabled}
+          value={value}
+          onChangeText={changeValue}
+          placeholder={placeholder}
+          placeholderTextColor={Colors.grey}
+          underlineColorAndroid="transparent"
+        />
+      </Block>
+    </Row>
   );
 };
 
 const Input = styled(TextInput)<{error?: boolean; editable?: boolean}>`
   height: 50px;
-  border-radius: 10px;
-  border-width: 2px;
-  border-color: ${({error}) =>
-    error ? Colors.notificationError : Colors.transparent}
-  padding: 0 20px;
-  background-color: ${Colors.white};
   font-size: 14px;
+  width: 200px;
+  text-align: right;
   font-family: 'SBSansDisplay-SemiBold';
-  color: ${({editable}) => (editable ? Colors.black : Colors.grey)};
-  elevation: 8;
+  color: ${({editable}) => (editable ? Colors.black : Colors.black)};
 `;

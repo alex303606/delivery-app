@@ -66,6 +66,20 @@ export const PersonalDataForm: React.FC<Props> = ({
         placeholder={t('phoneNumber')}
         label={t('phoneNumber')}
       />
+      <InputField
+        disabled={true}
+        changeValue={() => null}
+        value={parsePhoneNumberFormatInternational(phone)}
+        placeholder={t('email')}
+        label={t('email')}
+      />
+      <InputField
+        disabled={true}
+        changeValue={() => null}
+        value={parsePhoneNumberFormatInternational(phone)}
+        placeholder={t('dateOfBirth')}
+        label={t('dateOfBirth')}
+      />
       <Typography.R16
         marginTop={20}
         textAlign="center"

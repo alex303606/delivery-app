@@ -60,10 +60,7 @@ const ProfileScreenComponent: React.FC<Props> = (props) => {
           <Block paddingTop={5} marginLeft={10} flex={1}>
             <Row marginBottom={10} alignItems="center" justifyContent="space-between">
               <Row flex={1} paddingRight={30}>
-                <Typography.R18 numberOfLines={1} color={textColor}>
-                  Игнатенко Михаил Федорович
-                  Игнатенко Михаил Федорович
-                  Игнатенко Михаил Федорович
+                <Typography.R18 numberOfLines={2} color={textColor}>
                   Игнатенко Михаил Федорович
                   {/*{firstname || t('firstname')} {lastname || t('lastname')}*/}
                 </Typography.R18>
@@ -171,7 +168,6 @@ const StyledImage = styled(Image)`
 
 const StyledLineBlock = styled(Block)`
   border-bottom-width: 1px;
-  color: red;
 `;
 
 export const ProfileScreen = connector(ProfileScreenComponent);

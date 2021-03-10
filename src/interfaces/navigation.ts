@@ -79,6 +79,7 @@ export type RootTabParamList = {
   [EScreens.FAVORITES_STACK]: undefined;
   [EScreens.PROFILE_STACK]: undefined;
   [EScreens.CART_STACK]: undefined;
+  [EScreens.ADD_STACK]: undefined;
 };
 
 export type RootStackParamList = {

@@ -1,9 +1,10 @@
 export const enTranslation = {
   translation: {
     tabs: {
-      catalog: 'Catalog',
-      favorites: 'Favorites',
-      basket: 'Basket',
+      search: 'Search',
+      favorites: 'Favorite',
+      add: 'Add',
+      chat: 'Chat',
       profile: 'Profile',
     },
     notifications: {

@@ -70,15 +70,13 @@ const RootTabsComponent: React.FC<ICardState> = (props) => {
         component={CatalogStack}
         options={{
           tabBarLabel: ({focused}) => (
-            <Label focused={focused} title={t('tabs.catalog')} />
+            <Label focused={focused} title={t('tabs.search')} />
           ),
           tabBarIcon: ({color, focused}) => (
             <Icon
               size={24}
               color={color}
-              name={
-                focused ? IconNames.catalogActive : IconNames.catalogInactive
-              }
+              name={focused ? IconNames.searchActive : IconNames.searchInactive}
             />
           ),
         }}
@@ -104,6 +102,56 @@ const RootTabsComponent: React.FC<ICardState> = (props) => {
         }}
       />
       <Tab.Screen
+        name={EScreens.CART_STACK}
+        component={CardStack}
+        options={{
+          tabBarLabel: ({focused}) => (
+            <Label focused={focused} title={t('tabs.add')} />
+          ),
+          tabBarIcon: ({color, focused}) => (
+            <Block>
+              <Icon
+                size={24}
+                color={color}
+                name={focused ? IconNames.addActive : IconNames.addInactive}
+              />
+              {count > 0 && (
+                <Count backgroundColor={color}>
+                  <Typography.B11 numberOfLines={1} color={Colors.white}>
+                    {count}
+                  </Typography.B11>
+                </Count>
+              )}
+            </Block>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={EScreens.ADD_STACK}
+        component={CardStack}
+        options={{
+          tabBarLabel: ({focused}) => (
+            <Label focused={focused} title={t('tabs.chat')} />
+          ),
+          tabBarIcon: ({color, focused}) => (
+            <Block>
+              <Icon
+                size={24}
+                color={color}
+                name={focused ? IconNames.chatActive : IconNames.chatInactive}
+              />
+              {count > 0 && (
+                <Count backgroundColor={color}>
+                  <Typography.B11 numberOfLines={1} color={Colors.white}>
+                    {count}
+                  </Typography.B11>
+                </Count>
+              )}
+            </Block>
+          ),
+        }}
+      />
+      <Tab.Screen
         name={EScreens.PROFILE_STACK}
         component={ProfileStack}
         options={{
@@ -118,33 +166,6 @@ const RootTabsComponent: React.FC<ICardState> = (props) => {
                 focused ? IconNames.profileActive : IconNames.profileInactive
               }
             />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name={EScreens.CART_STACK}
-        component={CardStack}
-        options={{
-          tabBarLabel: ({focused}) => (
-            <Label focused={focused} title={t('tabs.basket')} />
-          ),
-          tabBarIcon: ({color, focused}) => (
-            <Block>
-              <Icon
-                size={24}
-                color={color}
-                name={
-                  focused ? IconNames.basketActive : IconNames.basketInactive
-                }
-              />
-              {count > 0 && (
-                <Count backgroundColor={color}>
-                  <Typography.B11 numberOfLines={1} color={Colors.white}>
-                    {count}
-                  </Typography.B11>
-                </Count>
-              )}
-            </Block>
           ),
         }}
       />

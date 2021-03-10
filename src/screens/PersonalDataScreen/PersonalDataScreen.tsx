@@ -5,6 +5,8 @@ import {
   ScrollContainer,
   Typography,
   PersonalDataForm,
+  Row,
+  RoundButton,
 } from '@components';
 import {useAppearance, useLoading} from '@hooks';
 import {bindActionCreators} from 'redux';
@@ -19,8 +21,12 @@ import {
   IGetUser,
 } from '@actions';
 import {useNavigation} from '@react-navigation/native';
-import {RefreshControl} from 'react-native';
+import {Image, RefreshControl} from 'react-native';
 import {EScreens, PersonalDataScreenProps} from '@interfaces';
+import {getImage} from '@utils';
+import {Colors} from '@config';
+import styled from 'styled-components';
+import IonicIcon from 'react-native-vector-icons/Ionicons';
 
 type Props = {
   getUser: IGetUser;
@@ -55,6 +61,7 @@ const PersonalDataScreenComponent: React.FC<Props> = (props) => {
     push_new_arrival,
     push_sale,
     sms,
+    id,
   } = props.profile;
   const {
     route: {
@@ -131,21 +138,98 @@ const PersonalDataScreenComponent: React.FC<Props> = (props) => {
   }, [hideLoader, props, showLoader]);
 
   return (
-    <Block flex={1} paddingBottom={16} paddingTop={newUser ? 100 : 16}>
-      <Block paddingHorizontal={16}>
-        {newUser && (
-          <Typography.B34 marginBottom={20} color={textColor}>
-            {t('welcome')}
-          </Typography.B34>
-        )}
-        <Typography.B24 marginBottom={20} color={textColor}>
-          {t('personalData')}
-        </Typography.B24>
-      </Block>
-      <ScrollContainer
-        refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={reload} />
-        }>
+    <ScrollContainer
+      refreshControl={
+        <RefreshControl refreshing={loading} onRefresh={reload} />
+      }>
+      <Block flex={1} paddingBottom={16} paddingTop={newUser ? 100 : 16}>
+        <Block>
+          {newUser && (
+            <Typography.B34 marginBottom={20} color={textColor}>
+              {t('welcome')}
+            </Typography.B34>
+          )}
+          <Block marginBottom={10}>
+            <Block
+              paddingHorizontal={16}
+              alignItems="center"
+              justifyContent="space-between">
+              <StyledImage
+                source={getImage(
+                  'https://brandgallery.kido.kg/upload/iblock/5ed/5ed58e9555948282f96570dbaa9caf29.png',
+                )}
+              />
+            </Block>
+            <Block
+              paddingTop={20}
+              paddingHorizontal={16}
+              marginLeft={10}
+              flex={1}>
+              <Row
+                marginBottom={10}
+                alignItems="center"
+                justifyContent="space-between">
+                <Row flex={1} paddingRight={30}>
+                  <Typography.B18 numberOfLines={2} color={textColor}>
+                    Игнатенко Михаил Федорович
+                    {/*{firstname || t('firstname')} {lastname || t('lastname')}*/}
+                  </Typography.B18>
+                </Row>
+              </Row>
+            </Block>
+            <Block paddingHorizontal={16} paddingTop={10} marginLeft={10}>
+              <Block marginBottom={10} alignItems="center">
+                <Typography.R14
+                  color={Colors.grey}>{`ID ${id}`}</Typography.R14>
+              </Block>
+            </Block>
+            <StyledLineBlock>
+              <Row paddingHorizontal={16} marginBottom={10}>
+                <IonicIcon
+                  size={26}
+                  color={Colors.darkGreen}
+                  name={'chevron-forward-outline'}
+                />
+              </Row>
+            </StyledLineBlock>
+          </Block>
+          <Row>
+            <StyledLineBlock
+              paddingTop={15}
+              marginTop={10}
+              paddingBottom={20}
+              flex={1}>
+              <Row
+                paddingHorizontal={16}
+                alignItems="center"
+                justifyContent="space-between">
+                <Block flex={1} paddingRight={30}>
+                  <Block paddingBottom={5}>
+                    <Typography.R18 numberOfLines={2} color={textColor}>
+                      Заполнено 1 из 6
+                    </Typography.R18>
+                  </Block>
+                  <Block>
+                    <Typography.R12 color={Colors.grey}>
+                      Заполните данные и подтвердите их, это повысит доверие
+                      заказчиков
+                    </Typography.R12>
+                  </Block>
+                </Block>
+                <RoundButton
+                  iconSize={80}
+                  onPress={() =>
+                    navigation.navigate(EScreens.PERSONAL_DATA_SCREEN)
+                  }
+                  iconName="settings-outline"
+                  iconColor={Colors.darkGreen}
+                  diameter={80}
+                />
+              </Row>
+            </StyledLineBlock>
+          </Row>
+        </Block>
+
         <PersonalDataForm
           name={name}
           lastName={lastName}
@@ -164,10 +248,19 @@ const PersonalDataScreenComponent: React.FC<Props> = (props) => {
             onPress={save}
           />
         </Block>
-      </ScrollContainer>
-    </Block>
+      </Block>
+    </ScrollContainer>
   );
 };
 
+const StyledImage = styled(Image)`
+  height: 120px;
+  width: 120px;
+  border-radius: 60px;
+`;
+
+const StyledLineBlock = styled(Block)`
+  border-bottom-width: 1px;
+`;
 // @ts-ignore
 export const PersonalDataScreen = connector(PersonalDataScreenComponent);

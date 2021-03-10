@@ -1,9 +1,10 @@
 export const ruTranslation = {
   translation: {
     tabs: {
-      catalog: 'Каталог',
+      search: 'Поиск',
       favorites: 'Избранное',
-      basket: 'Корзина',
+      add: 'Разместить',
+      chat: 'Отклики',
       profile: 'Профиль',
     },
     notifications: {
@@ -30,6 +31,8 @@ export const ruTranslation = {
     lastname: 'Фамилия',
     city: 'Город',
     phoneNumber: 'Номер телефона (не редактируется)',
+    dateOfBirth: 'Дата Рождения',
+    email: 'Эл. почта',
     save: 'Сохранить',
     welcome: 'Добро пожаловать',
     push_new_arrival: 'Новые поступления',
