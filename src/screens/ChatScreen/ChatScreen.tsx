@@ -3,7 +3,7 @@ import {
   Block,
   Button,
   FocusAwareStatusBar,
-  ListEmptyComponent,
+  AuctionCard
 } from '@components';
 import {useScrollHandler, useSetScreenOptions} from '@hooks';
 import {COLLAPSIBLE_HEADER_HEIGHT, Colors} from '@config';
@@ -14,7 +14,6 @@ import {useNavigation} from '@react-navigation/native';
 import {RootState} from 'src/store/configureStore';
 import {connect} from 'react-redux';
 import {ICardState, IProduct} from 'src/store/reducers/card';
-import {ProductCard} from './ProductCard';
 import Animated from 'react-native-reanimated';
 import {bindActionCreators} from 'redux';
 import {addToCard, decrementProduct, deleteFromCard} from '@actions';
@@ -66,14 +65,8 @@ const ChatScreenComponent: React.FC<Props> = (props) => {
 
   const renderItem = useCallback(
     ({item}: {item: IProduct}) => {
-      return (
-        <ProductCard
-          decrement={props.decrementProduct}
-          increment={props.addToCard}
-          onDelete={props.deleteFromCard}
-          item={item}
-        />
-      );
+      return <AuctionCard item={item} />;
+
     },
     [props.deleteFromCard],
   );
