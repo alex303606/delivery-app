@@ -2,6 +2,8 @@ export * from './CatalogScreen';
 export * from './LoginScreen';
 export * from './ProfileScreen';
 export * from './CardScreen';
+export * from './ChatScreen';
+export * from './AddScreen';
 export * from './FavoritesScreen';
 export * from './CatalogItemScreen';
 export * from './OrdersScreen';

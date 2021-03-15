@@ -1,8 +1,8 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {EScreens, AddStackParamList} from '@interfaces';
+import {EScreens, ChatStackParamList} from '@interfaces';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {AddScreen, NewOrdersScreen, OrderCompleteScreen} from '@screens';
+import {ChatScreen, NewOrdersScreen, OrderCompleteScreen} from '@screens';
 import {CollapsibleHeader} from '@components';
 import {Colors} from '@config';
 import {useTranslation} from 'react-i18next';
@@ -13,7 +13,7 @@ import {connect} from 'react-redux';
 import {RootState} from 'src/store/configureStore';
 import {ICardState} from 'src/store/reducers/card';
 
-const Stack = createStackNavigator<AddStackParamList>();
+const Stack = createStackNavigator<ChatStackParamList>();
 
 type Props = {
   clearCard: () => void;
@@ -35,17 +35,17 @@ const mapState = (state: RootState) => ({
 
 const connector = connect(mapState, mapDispatchToProps);
 
-const AddStackComponent: React.FC<Props> = (propsStack) => {
+const ChatStackComponent: React.FC<Props> = (propsStack) => {
   const {t} = useTranslation();
   const {themeIsLight} = useAppearance();
 
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={EScreens.ADD_SCREEN}
-        component={AddScreen}
+        name={EScreens.CHAT_SCREEN}
+        component={ChatScreen}
         options={{
-          title: t('tabs.add'),
+          title: t('tabs.chat'),
           header: (props) => (
             <CollapsibleHeader
               iconName="trash-outline"
@@ -83,4 +83,4 @@ const AddStackComponent: React.FC<Props> = (propsStack) => {
   );
 };
 
-export const AddStack = connector(AddStackComponent);
+export const ChatStack = connector(ChatStackComponent);

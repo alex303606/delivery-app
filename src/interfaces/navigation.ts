@@ -29,6 +29,18 @@ export type CardStackParamList = {
   [EScreens.ORDER_COMPLETE_SCREEN]: undefined;
 };
 
+export type ChatStackParamList = {
+  [EScreens.CHAT_SCREEN]: undefined;
+  [EScreens.NEW_ORDER_SCREEN]: undefined;
+  [EScreens.ORDER_COMPLETE_SCREEN]: undefined;
+};
+
+export type AddStackParamList = {
+  [EScreens.ADD_SCREEN]: undefined;
+  [EScreens.NEW_ORDER_SCREEN]: undefined;
+  [EScreens.ORDER_COMPLETE_SCREEN]: undefined;
+};
+
 export type ProfileStackParamList = {
   [EScreens.PROFILE_SCREEN]: undefined;
   [EScreens.ORDERS_SCREEN]: undefined;
@@ -79,6 +91,7 @@ export type RootTabParamList = {
   [EScreens.FAVORITES_STACK]: undefined;
   [EScreens.PROFILE_STACK]: undefined;
   [EScreens.CART_STACK]: undefined;
+  [EScreens.CHAT_STACK]: undefined;
   [EScreens.ADD_STACK]: undefined;
 };
 

@@ -6,8 +6,9 @@ import {Colors, TAB_BAR_HEIGHT} from '@config';
 import {
   CatalogStack,
   ProfileStack,
-  CardStack,
+  ChatStack,
   FavoritesStack,
+  AddStack,
 } from '@navigators';
 import {useTranslation} from 'react-i18next';
 import {useAppearance} from '@hooks';
@@ -102,8 +103,8 @@ const RootTabsComponent: React.FC<ICardState> = (props) => {
         }}
       />
       <Tab.Screen
-        name={EScreens.CART_STACK}
-        component={CardStack}
+        name={EScreens.ADD_STACK}
+        component={AddStack}
         options={{
           tabBarLabel: ({focused}) => (
             <Label focused={focused} title={t('tabs.add')} />
@@ -127,8 +128,8 @@ const RootTabsComponent: React.FC<ICardState> = (props) => {
         }}
       />
       <Tab.Screen
-        name={EScreens.ADD_STACK}
-        component={CardStack}
+        name={EScreens.CHAT_STACK}
+        component={ChatStack}
         options={{
           tabBarLabel: ({focused}) => (
             <Label focused={focused} title={t('tabs.chat')} />
